@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pnpm-debug.log
+
+# Build outputs
+build/
+.svelte-kit/
+vite.config.ts.timestamp-*
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Project spec (source of truth is AGENTS.md)
+project.md
+
+# Test
+coverage/
+test-results/
+playwright-report/
+
+# Logs
+*.log
+site/

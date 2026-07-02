@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Clutch",
+  "version": "0.3.2",
+  "identifier": "com.clutch.app",
+  "build": {
+    "frontendDist": "../build",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Clutch",
+        "width": 960,
+        "height": 680,
+        "minWidth": 420,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false,
+        "visible": false,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' ipc://localhost https://api.deepseek.com https://opencode.ai https://skills.sh https://raw.githubusercontent.com; font-src 'self' data:;"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "android": {
+      "debugApplicationIdSuffix": ".debug"
+    },
+    "copyright": "© 2026 · https://johansen.foo",
+    "shortDescription": "Grab the conversation"
+  },
+  "plugins": {
+    "sql": {},
+    "updater": {
+      "endpoints": [],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEZGRkZGRkZGRkZGRkZGRkYK"
+    }
+  }
+}

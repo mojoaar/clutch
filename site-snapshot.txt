@@ -1,0 +1,285 @@
+uid=1_0 RootWebArea "Clutch — Grab the conversation" url="http://localhost:8080/"
+  uid=1_1 ignored
+    uid=1_2 generic
+      uid=1_3 banner
+        uid=1_4 ignored
+          uid=1_5 link "Clutch icon Clutch" url="http://localhost:8080/"
+            uid=1_6 image "Clutch icon" url="http://localhost:8080/assets/icon.svg"
+            uid=1_7 StaticText "Clutch"
+          uid=1_8 navigation
+            uid=1_9 link "Features" url="http://localhost:8080/#features"
+              uid=1_10 StaticText "Features"
+            uid=1_11 link "Providers" url="http://localhost:8080/#providers"
+              uid=1_12 StaticText "Providers"
+            uid=1_13 link "Skills" url="http://localhost:8080/#skills"
+              uid=1_14 StaticText "Skills"
+            uid=1_15 link "Docs" url="http://localhost:8080/docs/"
+              uid=1_16 StaticText "Docs"
+            uid=1_17 link "GitHub" url="https://github.com/mojoaar/clutch"
+              uid=1_18 StaticText "GitHub"
+            uid=1_19 button "Toggle theme" description="Toggle light/dark mode"
+      uid=1_20 main
+        uid=1_21 generic
+          uid=1_22 generic
+            uid=1_23 generic
+              uid=1_24 image "Clutch" url="http://localhost:8080/assets/icon.svg"
+            uid=1_25 heading "Grab the conversation" level="1"
+              uid=1_26 StaticText "Grab the conversation"
+            uid=1_27 paragraph
+              uid=1_28 StaticText "A beautiful, cross-platform desktop AI chat app. Bring your own keys. Keep your data local."
+            uid=1_29 link "Download for macOS" url="http://localhost:8080/downloads/Clutch_0.2.0_aarch64.dmg"
+              uid=1_30 StaticText "Download for macOS"
+            uid=1_31 link "View on GitHub" url="https://github.com/mojoaar/clutch"
+              uid=1_32 StaticText "View on GitHub"
+            uid=1_33 generic
+              uid=1_34 image "Clutch chat interface" url="http://localhost:8080/docs/screenshots/clutch_main.webp"
+        uid=1_35 generic
+          uid=1_36 ignored
+            uid=1_37 ignored
+              uid=1_38 generic
+                uid=1_39 StaticText "3"
+              uid=1_40 generic
+                uid=1_41 StaticText "PROVIDERS"
+            uid=1_42 ignored
+              uid=1_43 generic
+                uid=1_44 StaticText "6"
+              uid=1_45 generic
+                uid=1_46 StaticText "THEMES"
+            uid=1_47 ignored
+              uid=1_48 generic
+                uid=1_49 StaticText "190+"
+              uid=1_50 generic
+                uid=1_51 StaticText "LANGUAGES"
+            uid=1_52 ignored
+              uid=1_53 generic
+                uid=1_54 StaticText "100%"
+              uid=1_55 generic
+                uid=1_56 StaticText "LOCAL"
+        uid=1_57 generic
+          uid=1_58 ignored
+            uid=1_59 heading "Why Clutch?" level="2"
+              uid=1_60 StaticText "Why Clutch?"
+            uid=1_61 paragraph
+              uid=1_62 StaticText "Everything you need in a desktop AI chat app — without sending your data anywhere you don't choose."
+            uid=1_63 ignored
+              uid=1_64 ignored
+                uid=1_65 ignored
+                uid=1_66 heading "Multi-Provider" level="3"
+                  uid=1_67 StaticText "Multi-Provider"
+                uid=1_68 paragraph
+                  uid=1_69 StaticText "DeepSeek, OpenCode Go, and OpenCode Zen. Switch providers mid-conversation. Your keys, your choice."
+              uid=1_70 ignored
+                uid=1_71 ignored
+                uid=1_72 heading "File & Web Reading" level="3"
+                  uid=1_73 StaticText "File & Web Reading"
+                uid=1_74 paragraph
+                  uid=1_75 StaticText "Attach files, reference URLs, or read from your local filesystem. Everything reaches the LLM as context."
+              uid=1_76 ignored
+                uid=1_77 ignored
+                uid=1_78 heading "Markdown & Code" level="3"
+                  uid=1_79 StaticText "Markdown & Code"
+                uid=1_80 paragraph
+                  uid=1_81 StaticText "Rich markdown rendering with code syntax highlighting across 190+ languages. Tables, lists, blockquotes."
+              uid=1_82 ignored
+                uid=1_83 ignored
+                uid=1_84 heading "Dark & Light Themes" level="3"
+                  uid=1_85 StaticText "Dark & Light Themes"
+                uid=1_86 paragraph
+                  uid=1_87 StaticText "Clutch, Nord, Dracula, and Cyberpunk. System preference detection. One-click toggle."
+              uid=1_88 ignored
+                uid=1_89 ignored
+                uid=1_90 heading "Local by Default" level="3"
+                  uid=1_91 StaticText "Local by Default"
+                uid=1_92 paragraph
+                  uid=1_93 StaticText "Everything stored in SQLite on your machine. API keys, conversations, settings — never leave your device."
+              uid=1_94 ignored
+                uid=1_95 ignored
+                uid=1_96 heading "Cross-Platform" level="3"
+                  uid=1_97 StaticText "Cross-Platform"
+                uid=1_98 paragraph
+                  uid=1_99 StaticText "Built on Tauri v2. Runs natively on macOS, Windows, and Linux. Lightweight, no Electron."
+        uid=1_100 generic
+          uid=1_101 ignored
+            uid=1_102 heading "Your Models, Your Keys" level="2"
+              uid=1_103 StaticText "Your Models, Your Keys"
+            uid=1_104 paragraph
+              uid=1_105 StaticText "Connect to any supported provider with your own API key. Switch mid-conversation."
+            uid=1_106 ignored
+              uid=1_107 ignored
+                uid=1_108 heading "DeepSeek" level="3"
+                  uid=1_109 StaticText "DeepSeek"
+                uid=1_110 paragraph
+                  uid=1_111 StaticText "DeepSeek V4 Pro and Flash. 1M token context. Automatic disk caching for massive savings on repeated prompts."
+                uid=1_112 StaticText "1M CONTEXT"
+              uid=1_113 ignored
+                uid=1_114 heading "OpenCode Go" level="3"
+                  uid=1_115 StaticText "OpenCode Go"
+                uid=1_116 paragraph
+                  uid=1_117 StaticText "Subscription service with curated open coding models. Global hosting in US, EU, and Singapore."
+                uid=1_118 StaticText "$10/MO"
+              uid=1_119 ignored
+                uid=1_120 heading "OpenCode Zen" level="3"
+                  uid=1_121 StaticText "OpenCode Zen"
+                uid=1_122 paragraph
+                  uid=1_123 StaticText "Pay-as-you-go access to Claude, Gemini, GPT, DeepSeek, Grok, and free-tier models."
+                uid=1_124 StaticText "PAYG"
+        uid=1_125 generic
+          uid=1_126 ignored
+            uid=1_127 heading "Ship Faster with Skills" level="2"
+              uid=1_128 StaticText "Ship Faster with Skills"
+            uid=1_129 paragraph
+              uid=1_130 StaticText "Install specialized AI skills from skills.sh. Code review, debugging, docs, diagrams — plug and play."
+            uid=1_131 ignored
+              uid=1_132 ignored
+                uid=1_133 ignored
+                uid=1_134 ignored
+                  uid=1_135 heading "Agent Docs" level="3"
+                    uid=1_136 StaticText "Agent Docs"
+                  uid=1_137 paragraph
+                    uid=1_138 StaticText "Audit and maintain AGENTS.md files. Keep documentation in sync with code as your project evolves."
+              uid=1_139 ignored
+                uid=1_140 ignored
+                uid=1_141 ignored
+                  uid=1_142 heading "Code Review" level="3"
+                    uid=1_143 StaticText "Code Review"
+                  uid=1_144 paragraph
+                    uid=1_145 StaticText "Structured code review workflows. Catch bugs early, enforce standards, and share knowledge across your team."
+              uid=1_146 ignored
+                uid=1_147 ignored
+                uid=1_148 ignored
+                  uid=1_149 heading "Systematic Debugging" level="3"
+                    uid=1_150 StaticText "Systematic Debugging"
+                  uid=1_151 paragraph
+                    uid=1_152 StaticText "Multi-hypothesis parallel debugging. Evidence collection, root cause analysis, fix verification."
+            uid=1_153 generic
+              uid=1_154 link "Browse 100,000+ skills on skills.sh" url="https://skills.sh/"
+                uid=1_155 StaticText "Browse 100,000+ skills on skills.sh"
+        uid=1_156 generic
+          uid=1_157 ignored
+            uid=1_158 heading "Built to Last" level="2"
+              uid=1_159 StaticText "Built to Last"
+            uid=1_160 paragraph
+              uid=1_161 StaticText "Clutch is built on a modern, lightweight stack designed for performance and reliability."
+            uid=1_162 ignored
+              uid=1_163 ignored
+                uid=1_164 StaticText "Tauri v2"
+              uid=1_165 ignored
+                uid=1_166 StaticText "SvelteKit"
+              uid=1_167 ignored
+                uid=1_168 StaticText "Rust"
+              uid=1_169 ignored
+                uid=1_170 StaticText "SQLite"
+              uid=1_171 ignored
+                uid=1_172 StaticText "Tokio"
+              uid=1_173 ignored
+                uid=1_174 StaticText "Lucide"
+              uid=1_175 ignored
+                uid=1_176 StaticText "JetBrains Mono"
+        uid=1_177 generic
+          uid=1_178 ignored
+            uid=1_179 heading "Screenshots" level="2"
+              uid=1_180 StaticText "Screenshots"
+            uid=1_181 paragraph
+              uid=1_182 StaticText "See Clutch in action. Click any screenshot to view full size."
+            uid=1_183 ignored
+              uid=1_184 generic
+                uid=1_185 image "Welcome screen" url="http://localhost:8080/docs/screenshots/clutch_main_welcome.webp"
+                uid=1_186 ignored
+                  uid=1_187 StaticText "Welcome screen"
+              uid=1_188 generic
+                uid=1_189 image "Chat" url="http://localhost:8080/docs/screenshots/clutch_main.webp"
+                uid=1_190 ignored
+                  uid=1_191 StaticText "Streaming chat"
+              uid=1_192 generic
+                uid=1_193 image "Providers" url="http://localhost:8080/docs/screenshots/clutch_providers.webp"
+                uid=1_194 ignored
+                  uid=1_195 StaticText "Provider settings"
+        uid=1_196 generic
+          uid=1_197 ignored
+            uid=1_198 heading "Frequently Asked Questions" level="2"
+              uid=1_199 StaticText "Frequently Asked Questions"
+            uid=1_200 paragraph
+              uid=1_201 StaticText "Everything you need to know about Clutch."
+            uid=1_202 ignored
+              uid=1_203 ignored
+                uid=1_204 button "Is Clutch free?"
+                  uid=1_205 ignored
+                    uid=1_206 StaticText "Is Clutch free?"
+                uid=1_207 generic
+                  uid=1_208 paragraph
+                    uid=1_209 StaticText "Yes. Clutch is free and open source (AGPL-3.0). You bring your own API keys for the LLM providers. There are no usage fees, subscriptions, or paid tiers."
+              uid=1_210 ignored
+                uid=1_211 button "Does it work offline?"
+                  uid=1_212 ignored
+                    uid=1_213 StaticText "Does it work offline?"
+                uid=1_214 generic
+                  uid=1_215 paragraph
+                    uid=1_216 StaticText "The app itself works fully offline — settings, message history, and search are all local. Chat requires a connection to your chosen LLM provider. Messages queue locally when offline."
+              uid=1_217 ignored
+                uid=1_218 button "Where is my data stored?"
+                  uid=1_219 ignored
+                    uid=1_220 StaticText "Where is my data stored?"
+                uid=1_221 generic
+                  uid=1_222 paragraph
+                    uid=1_223 StaticText "Everything is stored in a SQLite database on your machine. API keys, conversations, settings, user profile — nothing leaves your device except the API calls you intentionally make to your LLM provider."
+              uid=1_224 ignored
+                uid=1_225 button "Can I add my own provider?"
+                  uid=1_226 ignored
+                    uid=1_227 StaticText "Can I add my own provider?"
+                uid=1_228 generic
+                  uid=1_229 paragraph
+                    uid=1_230 StaticText "Clutch supports any OpenAI-compatible API endpoint. You can configure custom providers in Settings. Built-in support covers DeepSeek, OpenCode Go, and OpenCode Zen."
+              uid=1_231 ignored
+                uid=1_232 button "When are Windows and Linux builds available?"
+                  uid=1_233 ignored
+                    uid=1_234 StaticText "When are Windows and Linux builds available?"
+                uid=1_235 generic
+                  uid=1_236 paragraph
+                    uid=1_237 StaticText "Windows and Linux builds are in development. The app is built on Tauri v2 which supports all three platforms natively. Expect builds in the coming weeks."
+        uid=1_238 generic
+          uid=1_239 ignored
+            uid=1_240 heading "Get Clutch" level="2"
+              uid=1_241 StaticText "Get Clutch"
+            uid=1_242 paragraph
+              uid=1_243 StaticText "Download, open, and start chatting in under a minute."
+            uid=1_244 ignored
+              uid=1_245 ignored
+                uid=1_246 StaticText "1"
+                uid=1_247 heading "Download" level="3"
+                  uid=1_248 StaticText "Download"
+                uid=1_249 paragraph
+                  uid=1_250 StaticText "Grab the latest DMG for macOS. Windows and Linux builds coming soon."
+              uid=1_251 ignored
+                uid=1_252 StaticText "2"
+                uid=1_253 heading "Open" level="3"
+                  uid=1_254 StaticText "Open"
+                uid=1_255 paragraph
+                  uid=1_256 StaticText "Open the DMG and drag Clutch to your Applications folder."
+              uid=1_257 ignored
+                uid=1_258 StaticText "3"
+                uid=1_259 heading "Chat" level="3"
+                  uid=1_260 StaticText "Chat"
+                uid=1_261 paragraph
+                  uid=1_262 StaticText "Add your API keys in Settings, pick a model, and start chatting."
+            uid=1_263 ignored
+              uid=1_264 ignored
+                uid=1_265 StaticText "macOS (Apple Silicon)"
+              uid=1_266 ignored
+                uid=1_267 StaticText "Windows — coming soon"
+              uid=1_268 ignored
+                uid=1_269 StaticText "Linux — coming soon"
+      uid=1_270 contentinfo
+        uid=1_271 ignored
+          uid=1_272 paragraph
+            uid=1_273 StaticText "Clutch by "
+            uid=1_274 link "Morten Johansen" url="https://johansen.foo/"
+              uid=1_275 StaticText "Morten Johansen"
+            uid=1_276 StaticText " · "
+            uid=1_277 link "GitHub" url="https://github.com/mojoaar/clutch"
+              uid=1_278 StaticText "GitHub"
+            uid=1_279 StaticText " · "
+            uid=1_280 link "Docs" url="http://localhost:8080/docs/"
+              uid=1_281 StaticText "Docs"
+            uid=1_282 StaticText " · "
+            uid=1_283 link "AGPL-3.0" url="https://github.com/mojoaar/clutch/blob/main/LICENSE"
+              uid=1_284 StaticText "AGPL-3.0"
