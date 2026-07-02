@@ -9,6 +9,7 @@ import type {
   Translations,
 } from "./i18n-types";
 import { loadedFormatters, loadedLocales } from "./i18n-util";
+import en from "./en/index";
 
 const { locale, LL, setLocale } = initI18nSvelte<
   Locales,
@@ -16,6 +17,9 @@ const { locale, LL, setLocale } = initI18nSvelte<
   TranslationFunctions,
   Formatters
 >(loadedLocales, loadedFormatters);
+
+loadedLocales.en = en as unknown as Translations;
+setLocale("en");
 
 export { locale, LL, setLocale };
 
