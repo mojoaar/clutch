@@ -1,5 +1,5 @@
 :root {
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: "JetBrains Mono", monospace;
   --radius: 8px;
   --radius-sm: 4px;
   --radius-lg: 12px;
@@ -32,7 +32,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
   background: var(--color-bg);
@@ -40,7 +41,9 @@ html, body {
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.5;
-  transition: background var(--transition), color var(--transition);
+  transition:
+    background var(--transition),
+    color var(--transition);
 }
 
 #app {
@@ -83,7 +86,9 @@ button {
   color: inherit;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
@@ -100,7 +105,9 @@ input, textarea, select {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     transition-duration: 0ms !important;
     animation-duration: 0.01ms !important;
   }

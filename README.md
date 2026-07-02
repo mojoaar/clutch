@@ -29,15 +29,15 @@ Cross-platform desktop AI chat application featuring multi-provider support, mar
 
 ## Tech Stack
 
-| Layer    | Technology                                                      |
-| -------- | --------------------------------------------------------------- |
-| Desktop  | [Tauri v2](https://v2.tauri.app/) (Rust)                        |
+| Layer    | Technology                                                                        |
+| -------- | --------------------------------------------------------------------------------- |
+| Desktop  | [Tauri v2](https://v2.tauri.app/) (Rust)                                          |
 | Frontend | [SvelteKit](https://svelte.dev/docs/kit) + [Svelte 5](https://svelte.dev/)        |
 | Database | [SQLite](https://www.sqlite.org/) via [SQLx](https://github.com/launchbadge/sqlx) |
 | Styling  | CSS custom properties, [JetBrains Mono](https://www.jetbrains.com/lp/mono/)       |
-| Icons    | [Lucide](https://lucide.dev/)                                   |
-| Bundler  | [Vite](https://vitejs.dev/)                                     |
-| Package  | [pnpm](https://pnpm.io/)                                        |
+| Icons    | [Lucide](https://lucide.dev/)                                                     |
+| Bundler  | [Vite](https://vitejs.dev/)                                                       |
+| Package  | [pnpm](https://pnpm.io/)                                                          |
 
 ---
 
@@ -45,46 +45,46 @@ Cross-platform desktop AI chat application featuring multi-provider support, mar
 
 ### Rust — Backend Crates
 
-| Crate                                                              | Role                           |
-| ------------------------------------------------------------------ | ------------------------------ |
-| [tauri](https://crates.io/crates/tauri) + plugins                  | Desktop framework              |
-| [reqwest](https://crates.io/crates/reqwest)                        | HTTP client (API streaming)    |
-| [sqlx](https://crates.io/crates/sqlx)                              | Async SQLite with connection pool |
-| [tokio](https://crates.io/crates/tokio)                            | Async runtime                  |
-| [serde](https://crates.io/crates/serde) / [serde_json](https://crates.io/crates/serde_json) | Serialization |
-| [chrono](https://crates.io/crates/chrono)                          | Date/time handling             |
-| [url](https://crates.io/crates/url)                                | URL parsing and IP validation  |
-| [scraper](https://crates.io/crates/scraper)                        | HTML parsing (OG tags, title)  |
-| [html2md](https://crates.io/crates/html2md)                        | HTML → Markdown conversion     |
-| [sha2](https://crates.io/crates/sha2)                              | Cache key hashing              |
-| [tracing](https://crates.io/crates/tracing) + [tracing-subscriber](https://crates.io/crates/tracing-subscriber) + [tracing-appender](https://crates.io/crates/tracing-appender) | Structured logging |
-| [tiktoken-rs](https://crates.io/crates/tiktoken-rs)                | Token counting                 |
-| [futures-util](https://crates.io/crates/futures-util)              | Stream processing              |
+| Crate                                                                                                                                                                           | Role                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| [tauri](https://crates.io/crates/tauri) + plugins                                                                                                                               | Desktop framework                 |
+| [reqwest](https://crates.io/crates/reqwest)                                                                                                                                     | HTTP client (API streaming)       |
+| [sqlx](https://crates.io/crates/sqlx)                                                                                                                                           | Async SQLite with connection pool |
+| [tokio](https://crates.io/crates/tokio)                                                                                                                                         | Async runtime                     |
+| [serde](https://crates.io/crates/serde) / [serde_json](https://crates.io/crates/serde_json)                                                                                     | Serialization                     |
+| [chrono](https://crates.io/crates/chrono)                                                                                                                                       | Date/time handling                |
+| [url](https://crates.io/crates/url)                                                                                                                                             | URL parsing and IP validation     |
+| [scraper](https://crates.io/crates/scraper)                                                                                                                                     | HTML parsing (OG tags, title)     |
+| [html2md](https://crates.io/crates/html2md)                                                                                                                                     | HTML → Markdown conversion        |
+| [sha2](https://crates.io/crates/sha2)                                                                                                                                           | Cache key hashing                 |
+| [tracing](https://crates.io/crates/tracing) + [tracing-subscriber](https://crates.io/crates/tracing-subscriber) + [tracing-appender](https://crates.io/crates/tracing-appender) | Structured logging                |
+| [tiktoken-rs](https://crates.io/crates/tiktoken-rs)                                                                                                                             | Token counting                    |
+| [futures-util](https://crates.io/crates/futures-util)                                                                                                                           | Stream processing                 |
 
 ### Frontend — NPM Packages
 
-| Package                                                                          | Role                               |
-| -------------------------------------------------------------------------------- | ---------------------------------- |
-| [@tauri-apps/api](https://www.npmjs.com/package/@tauri-apps/api) + plugins       | Tauri IPC bridge                   |
-| [@lucide/svelte](https://www.npmjs.com/package/@lucide/svelte)                   | UI icons                           |
-| [marked](https://www.npmjs.com/package/marked)                                   | Markdown rendering                 |
-| [highlight.js](https://www.npmjs.com/package/highlight.js)                       | Code syntax highlighting           |
-| [DOMPurify](https://www.npmjs.com/package/dompurify)                             | HTML sanitization                  |
-| [typesafe-i18n](https://www.npmjs.com/package/typesafe-i18n)                     | Internationalization               |
-| [uuid](https://www.npmjs.com/package/uuid)                                       | Message/session IDs                |
+| Package                                                                    | Role                     |
+| -------------------------------------------------------------------------- | ------------------------ |
+| [@tauri-apps/api](https://www.npmjs.com/package/@tauri-apps/api) + plugins | Tauri IPC bridge         |
+| [@lucide/svelte](https://www.npmjs.com/package/@lucide/svelte)             | UI icons                 |
+| [marked](https://www.npmjs.com/package/marked)                             | Markdown rendering       |
+| [highlight.js](https://www.npmjs.com/package/highlight.js)                 | Code syntax highlighting |
+| [DOMPurify](https://www.npmjs.com/package/dompurify)                       | HTML sanitization        |
+| [typesafe-i18n](https://www.npmjs.com/package/typesafe-i18n)               | Internationalization     |
+| [uuid](https://www.npmjs.com/package/uuid)                                 | Message/session IDs      |
 
 ### Development — NPM Packages
 
-| Package                                                                           | Role                    |
-| --------------------------------------------------------------------------------- | ----------------------- |
-| [SvelteKit](https://www.npmjs.com/package/@sveltejs/kit)                          | App framework           |
-| [adapter-static](https://www.npmjs.com/package/@sveltejs/adapter-static)          | Static site generation  |
-| [vite](https://www.npmjs.com/package/vite)                                        | Build tool              |
-| [svelte-check](https://www.npmjs.com/package/svelte-check) + [typescript](https://www.npmjs.com/package/typescript) | Type checking |
-| [vitest](https://www.npmjs.com/package/vitest) + [@testing-library/svelte](https://www.npmjs.com/package/@testing-library/svelte) | Unit + component tests |
-| [playwright](https://www.npmjs.com/package/playwright)                            | E2E testing             |
-| [prettier](https://www.npmjs.com/package/prettier) + [prettier-plugin-svelte](https://www.npmjs.com/package/prettier-plugin-svelte) | Code formatting |
-| [@tauri-apps/cli](https://www.npmjs.com/package/@tauri-apps/cli)                  | Build + packaging       |
+| Package                                                                                                                             | Role                   |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| [SvelteKit](https://www.npmjs.com/package/@sveltejs/kit)                                                                            | App framework          |
+| [adapter-static](https://www.npmjs.com/package/@sveltejs/adapter-static)                                                            | Static site generation |
+| [vite](https://www.npmjs.com/package/vite)                                                                                          | Build tool             |
+| [svelte-check](https://www.npmjs.com/package/svelte-check) + [typescript](https://www.npmjs.com/package/typescript)                 | Type checking          |
+| [vitest](https://www.npmjs.com/package/vitest) + [@testing-library/svelte](https://www.npmjs.com/package/@testing-library/svelte)   | Unit + component tests |
+| [playwright](https://www.npmjs.com/package/playwright)                                                                              | E2E testing            |
+| [prettier](https://www.npmjs.com/package/prettier) + [prettier-plugin-svelte](https://www.npmjs.com/package/prettier-plugin-svelte) | Code formatting        |
+| [@tauri-apps/cli](https://www.npmjs.com/package/@tauri-apps/cli)                                                                    | Build + packaging      |
 
 ---
 

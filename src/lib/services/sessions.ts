@@ -1,11 +1,12 @@
-import { PROVIDERS } from './providers';
-import { getSetting } from './settings';
-import * as db from '$lib/db';
-import { chatStore, type Session } from '$lib/stores/chat';
+import { PROVIDERS } from "./providers";
+import { getSetting } from "./settings";
+import * as db from "$lib/db";
+import { chatStore, type Session } from "$lib/stores/chat";
 
 export async function createNewSession(title: string): Promise<Session> {
   const id = crypto.randomUUID();
-  const defaultProviderId = (await getSetting('default_provider')) || 'deepseek';
+  const defaultProviderId =
+    (await getSetting("default_provider")) || "deepseek";
   const provider = PROVIDERS[defaultProviderId] || PROVIDERS.deepseek;
   const savedModel = await getSetting(`default_model_${provider.id}`);
   const model = savedModel || provider.defaultModel;

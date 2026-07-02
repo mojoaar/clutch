@@ -6,7 +6,7 @@ Build **Clutch**, a cross-platform desktop AI chat application for macOS, Linux,
 
 **Tagline**: "Grab the conversation"
 
-------
+---
 
 ## 🏗️ Tech Stack (Stable Versions Only)
 
@@ -66,7 +66,7 @@ playwright = "^1.61.0"
 - `model_cache`: provider (PK), models (JSON), last_updated, etag, version
 - `search_index`: Virtual FTS5 table mapping to messages.content and sessions.title
 
-------
+---
 
 ## 🗂️ Project Structure
 
@@ -174,7 +174,7 @@ clutch/
 └── README.md
 ```
 
-------
+---
 
 ## 🔧 Core Features to Implement
 
@@ -292,45 +292,45 @@ clutch/
 
 Clutch ships with 26 pre-installed skills from two sources. All are evaluated for value to Clutch end-users (developers, business users, casual chatters) — not for AI agent development.
 
-*Anthropic Skills* (`github.com/anthropics/skills`) — 16 bundled, 1 excluded:
+_Anthropic Skills_ (`github.com/anthropics/skills`) — 16 bundled, 1 excluded:
 
-| #  | Skill                 | Value | Use Case                                                   |
-|----|-----------------------|-------|------------------------------------------------------------|
-| 1  | docx                  | High  | Create, edit, and read Word documents                      |
-| 2  | pdf                   | High  | Read, extract, and manipulate PDFs                         |
-| 3  | pptx                  | High  | Create and edit PowerPoint presentations                   |
-| 4  | xlsx                  | High  | Create, edit, and analyze Excel spreadsheets               |
-| 5  | internal-comms        | High  | Write status updates, memos, newsletters                   |
-| 6  | doc-coauthoring       | High  | Co-author documents with AI assistance                     |
-| 7  | frontend-design       | Med   | UI/UX design guidance and frontend best practices          |
-| 8  | canvas-design         | Med   | Visual design creation and layout guidance                 |
-| 9  | brand-guidelines      | Med   | Brand identity and style guide creation                    |
-| 10 | mcp-builder           | Med   | Build MCP servers (developer audience)                     |
-| 11 | webapp-testing        | Med   | Test and audit web apps via Playwright (developer audience)|
-| 12 | web-artifacts-builder | Med   | Build reusable web components and artifacts                |
-| 13 | skill-creator         | Med   | Create custom skills for extended AI capabilities          |
-| 14 | claude-api            | Med   | Claude API integration (relevant if Claude added as provider)|
-| 15 | theme-factory         | Low   | Generate theme artifacts and visual styles                 |
-| 16 | algorithmic-art       | Low   | Create generative art with p5.js                           |
+| #   | Skill                 | Value | Use Case                                                      |
+| --- | --------------------- | ----- | ------------------------------------------------------------- |
+| 1   | docx                  | High  | Create, edit, and read Word documents                         |
+| 2   | pdf                   | High  | Read, extract, and manipulate PDFs                            |
+| 3   | pptx                  | High  | Create and edit PowerPoint presentations                      |
+| 4   | xlsx                  | High  | Create, edit, and analyze Excel spreadsheets                  |
+| 5   | internal-comms        | High  | Write status updates, memos, newsletters                      |
+| 6   | doc-coauthoring       | High  | Co-author documents with AI assistance                        |
+| 7   | frontend-design       | Med   | UI/UX design guidance and frontend best practices             |
+| 8   | canvas-design         | Med   | Visual design creation and layout guidance                    |
+| 9   | brand-guidelines      | Med   | Brand identity and style guide creation                       |
+| 10  | mcp-builder           | Med   | Build MCP servers (developer audience)                        |
+| 11  | webapp-testing        | Med   | Test and audit web apps via Playwright (developer audience)   |
+| 12  | web-artifacts-builder | Med   | Build reusable web components and artifacts                   |
+| 13  | skill-creator         | Med   | Create custom skills for extended AI capabilities             |
+| 14  | claude-api            | Med   | Claude API integration (relevant if Claude added as provider) |
+| 15  | theme-factory         | Low   | Generate theme artifacts and visual styles                    |
+| 16  | algorithmic-art       | Low   | Create generative art with p5.js                              |
 
 **Excluded**: `slack-gif-creator` — too Slack-specific; no value for a desktop chat app.
 
 `claude-api` is conditionally relevant: bundled only if Claude is added as a provider (BYO API key). If Claude is not on the roadmap, skip this skill.
 
-*Superpowers Skills* (`github.com/obra/superpowers`) — 10 bundled, 4 excluded:
+_Superpowers Skills_ (`github.com/obra/superpowers`) — 10 bundled, 4 excluded:
 
-| #  | Skill                        | Value | Use Case                                                  |
-|----|------------------------------|-------|-----------------------------------------------------------|
-| 1  | brainstorming                | High  | Guides AI to explore requirements before implementing     |
-| 2  | systematic-debugging         | High  | Structured debugging workflow for any "help me fix this"  |
-| 3  | test-driven-development      | High  | Test-first development guidance for code generation       |
-| 4  | verification-before-completion| High  | AI verifies work before claiming done — quality guard     |
-| 5  | writing-plans                | High  | Plan before coding for any multi-step task                |
-| 6  | finishing-a-development-branch| Med  | Git branch completion workflow (developer users)          |
-| 7  | receiving-code-review        | Med   | Code review response workflow (developer users)           |
-| 8  | requesting-code-review       | Med   | Pre-submit validation checklist (developer users)         |
-| 9  | using-git-worktrees          | Low   | Git worktree isolation pattern — niche                    |
-| 10 | writing-skills               | Low   | Meta skill for skill creators and contributors            |
+| #   | Skill                          | Value | Use Case                                                 |
+| --- | ------------------------------ | ----- | -------------------------------------------------------- |
+| 1   | brainstorming                  | High  | Guides AI to explore requirements before implementing    |
+| 2   | systematic-debugging           | High  | Structured debugging workflow for any "help me fix this" |
+| 3   | test-driven-development        | High  | Test-first development guidance for code generation      |
+| 4   | verification-before-completion | High  | AI verifies work before claiming done — quality guard    |
+| 5   | writing-plans                  | High  | Plan before coding for any multi-step task               |
+| 6   | finishing-a-development-branch | Med   | Git branch completion workflow (developer users)         |
+| 7   | receiving-code-review          | Med   | Code review response workflow (developer users)          |
+| 8   | requesting-code-review         | Med   | Pre-submit validation checklist (developer users)        |
+| 9   | using-git-worktrees            | Low   | Git worktree isolation pattern — niche                   |
+| 10  | writing-skills                 | Low   | Meta skill for skill creators and contributors           |
 
 **Excluded**: `dispatching-parallel-agents`, `executing-plans`, `subagent-driven-development`, `using-superpowers` — these are agent-internal orchestration patterns not meaningful in a conversational chat context.
 
@@ -339,6 +339,7 @@ Clutch ships with 26 pre-installed skills from two sources. All are evaluated fo
 Skills are bundled as SKILL.md files in `src-tauri/resources/skills/`. On first run, Clutch extracts them to `~/.clutch/skills/{id}/` and stores a version marker (commit SHA for Anthropic, release tag for Superpowers) in the settings table as `skill:{id}:sha`.
 
 Updates are **manual only** — a "Check for updates" button in the Skills page:
+
 1. Anthropic source: `GET /repos/anthropics/skills/commits/main` → compare SHA
 2. Superpowers source: `GET /repos/obra/superpowers/releases/latest` → compare tag
 3. Show diff: "3 skills have updates" with per-skill changelog
@@ -349,13 +350,13 @@ No auto-check on startup — avoids unnecessary GitHub API calls. 60 unauthentic
 
 **What to build**:
 
-| Layer     | What                                                               |
-|-----------|--------------------------------------------------------------------|
-| Resources | 16 + 10 SKILL.md files in `src-tauri/resources/skills/`              |
+| Layer     | What                                                                |
+| --------- | ------------------------------------------------------------------- |
+| Resources | 16 + 10 SKILL.md files in `src-tauri/resources/skills/`             |
 | Rust      | `check_skill_updates(source)` — GitHub API call to compare versions |
-| Rust      | Modify `install_skill` to store version SHA/tag                      |
-| Rust      | `update_skill(id)` — re-download + update version marker             |
-| Frontend  | Extend `skills.ts` with `checkForUpdates`, `updateSkill`               |
+| Rust      | Modify `install_skill` to store version SHA/tag                     |
+| Rust      | `update_skill(id)` — re-download + update version marker            |
+| Frontend  | Extend `skills.ts` with `checkForUpdates`, `updateSkill`            |
 | UI        | "Check for updates" button + diff list in Skills page/modal         |
 
 ### 6. Workspace & Local Directories
@@ -465,7 +466,7 @@ No auto-check on startup — avoids unnecessary GitHub API calls. 60 unauthentic
 
 **Font**: JetBrains Mono (web font)
 
-------
+---
 
 ## 🔐 Security & Permissions
 
@@ -496,7 +497,7 @@ No auto-check on startup — avoids unnecessary GitHub API calls. 60 unauthentic
 - Add license headers to source files
 - Notice in app UI
 
-------
+---
 
 ## 🚀 Release & Distribution
 
@@ -518,7 +519,7 @@ No auto-check on startup — avoids unnecessary GitHub API calls. 60 unauthentic
 - Tray icon: Simplified asteroid (16x16)
 - Generate all sizes via `pnpm tauri icon`
 
-------
+---
 
 ## 📦 Dependencies Checklist
 
@@ -584,7 +585,7 @@ tiktoken-rs = "0.5"
 }
 ```
 
-------
+---
 
 ## 🎯 Key Design Decisions
 
@@ -603,7 +604,7 @@ tiktoken-rs = "0.5"
 13. **Model cache refresh**: 24h TTL, background check every 12h
 14. **Popup window**: frameless, 420x600, always on top
 
-------
+---
 
 ## 🧪 Testing Strategy
 
@@ -649,7 +650,7 @@ tests/                   # Root-level E2E and integration
   integration/
 ```
 
-------
+---
 
 ## ❌ Error Handling
 
@@ -659,13 +660,13 @@ tests/                   # Root-level E2E and integration
 
 ```typescript
 type AppError =
-  | { kind: 'api'; provider: string; status: number; message: string }
-  | { kind: 'network'; detail: string }
-  | { kind: 'file_system'; operation: string; path: string; detail: string }
-  | { kind: 'parse'; source: string; detail: string }
-  | { kind: 'validation'; field: string; detail: string }
-  | { kind: 'timeout'; operation: string }
-  | { kind: 'stream_interrupted'; sessionId: string; partialContent: string }
+  | { kind: "api"; provider: string; status: number; message: string }
+  | { kind: "network"; detail: string }
+  | { kind: "file_system"; operation: string; path: string; detail: string }
+  | { kind: "parse"; source: string; detail: string }
+  | { kind: "validation"; field: string; detail: string }
+  | { kind: "timeout"; operation: string }
+  | { kind: "stream_interrupted"; sessionId: string; partialContent: string };
 ```
 
 ### Error Surface
@@ -687,7 +688,7 @@ type AppError =
 - Per-component boundaries for chat messages, settings panels
 - Fallback UI: "Something went wrong" with reload button
 
-------
+---
 
 ## 🔄 Loading & Empty States
 
@@ -717,7 +718,7 @@ type AppError =
 | Provider not configured | "Add your DeepSeek API key in Settings" with link      |
 | All sessions archived   | "No active conversations" with link to archives        |
 
-------
+---
 
 ## 🔐 Tauri v2 Capabilities Config
 
@@ -765,11 +766,12 @@ type AppError =
 ```
 
 **Scope restrictions in `tauri.conf.json`**:
+
 - `fs` scope: Only `$APPDATA/**`, `$HOME/.clutch/**`, and user-selected workspace directories
 - `shell` scope: Only workspace directories (for skill execution)
 - No `shell:allow-open` — use `dialog:allow-open` instead
 
-------
+---
 
 ## 🌐 Offline & Network Resilience
 
@@ -799,11 +801,12 @@ type AppError =
 | Export         | Full                   | Full (local)          |
 | Search         | Full                   | Full (local SQLite)   |
 
-------
+---
 
 ## ✏️ Message Management
 
 ### Edit Messages
+
 - Only user messages can be edited
 - Click edit icon (hover) → inline text area → Save/Cancel
 - "Edited" indicator badge on edited messages
@@ -811,21 +814,24 @@ type AppError =
 - Store `edited_at` timestamp in messages table
 
 ### Delete Messages
+
 - Soft-delete: `is_deleted` flag in messages table
 - Deleted messages show "This message was deleted" placeholder
 - Delete confirmation dialog (hold Shift to skip)
 - Bulk delete: Select multiple → Delete selected
 
 ### Pin Conversations
+
 - Pin icon in session sidebar (hover)
 - Pinned sessions appear at top, sorted by pin date
 - `is_pinned` field in sessions table
 
 ### Bulk Actions
+
 - Select mode: Click checkboxes on sessions
 - Actions on selection: Archive, Delete, Export
 
-------
+---
 
 ## 🔍 Search
 
@@ -849,7 +855,7 @@ type AppError =
 - Message content (full-text)
 - Filter by: Provider, Date range, Archived/Active
 
-------
+---
 
 ## ♿ Accessibility
 
@@ -876,7 +882,7 @@ type AppError =
 - **Reduced motion**: Respect `prefers-reduced-motion` — disable transitions/animations
 - **Text scaling**: Layout works at 200% zoom without horizontal scroll
 
-------
+---
 
 ## 📦 Auto-Update
 
@@ -909,7 +915,7 @@ App start → Check for updates (background)
 - **Windows**: `.msi` or `.nsis` updater
 - **Linux**: `.AppImage` updater
 
-------
+---
 
 ## 🪵 Logging & Debugging
 
@@ -944,7 +950,7 @@ tracing_subscriber::fmt()
   - Export logs as file
 - **Feature flags**: `--devtools` CLI flag to force-enable
 
-------
+---
 
 ## 🗄️ Database Pragmas
 
@@ -972,7 +978,7 @@ PRAGMA temp_store = MEMORY;          -- Temp tables in memory
 - Migration history tracked in `_migrations` table (managed by sqlx)
 - Never modify existing migrations — always add new ones
 
-------
+---
 
 ## 🛡️ CSP & Security Headers
 
@@ -1002,7 +1008,7 @@ PRAGMA temp_store = MEMORY;          -- Temp tables in memory
 - Keys never sent to frontend after initial save (only masked view `sk-...****`)
 - Keys stored in settings table (encryption optional via OS keychain integration in future)
 
-------
+---
 
 ## ⚡ Performance at Scale
 
@@ -1031,7 +1037,7 @@ PRAGMA temp_store = MEMORY;          -- Temp tables in memory
 - **Image/attachment limits**: Max 10MB per file, max 5 files per message
 - **Log cleanup**: Automatic log rotation (daily, 7-day retention)
 
-------
+---
 
 ## 🔁 Streaming Error Recovery
 
@@ -1059,7 +1065,7 @@ Stream token flow:
 - **User choice**: "Retry from interruption" (default) or "Retry from scratch"
 - **Edge case**: If provider doesn't support resume, retry from scratch automatically
 
-------
+---
 
 ## 📏 Context Window Management
 
@@ -1091,7 +1097,7 @@ When context exceeds 90% of model limit:
 - **Manual trim**: "Trim context" button to force cleanup
 - **Trim indicator**: "(3 messages trimmed)" displayed in chat at trim boundary
 
-------
+---
 
 ## 🌍 Internationalization (i18n)
 
@@ -1126,34 +1132,34 @@ src/lib/i18n/
 
 Each locale file exports a single object implementing the `Translation` type with these namespaces:
 
-| Namespace            | Use                        |
-| -------------------- | -------------------------- |
-| Root (top-level)     | Common actions, labels     |
-| `chat`                 | Chat UI strings            |
-| `errors`               | Error messages             |
-| `providers`            | Provider names, API labels |
-| `startup`              | Startup behavior labels    |
-| `shortcuts`            | Keyboard shortcut labels   |
-| `workspaces`           | Workspace management       |
-| `skills`               | Skills UI                  |
-| `theme`                | Theme/time format labels   |
-| `exportSettings`       | Export options             |
-| `settingsTabs`         | Settings navigation tabs   |
-| `settingsSections`     | Settings section headings  |
-| `profile`              | User profile labels        |
-| `permissions`          | Permission checkboxes      |
-| `shortcutActions`      | Shortcut action names      |
-| `welcome`              | Welcome screen text        |
-| `networkStatus`        | Network status labels      |
-| `modelCache`           | Model cache management     |
-| `dropZone`             | File drop zone hints       |
-| `contextBar`           | Context window bar         |
-| `exportFormats`        | Export format labels       |
-| `errorBoundary`        | Error boundary UI          |
-| `searchDialog`         | Search dialog text         |
-| `toast`                | Toast notification messages|
-| `aria`                 | ARIA labels and alt text   |
-| `about`                | About section labels       |
+| Namespace          | Use                         |
+| ------------------ | --------------------------- |
+| Root (top-level)   | Common actions, labels      |
+| `chat`             | Chat UI strings             |
+| `errors`           | Error messages              |
+| `providers`        | Provider names, API labels  |
+| `startup`          | Startup behavior labels     |
+| `shortcuts`        | Keyboard shortcut labels    |
+| `workspaces`       | Workspace management        |
+| `skills`           | Skills UI                   |
+| `theme`            | Theme/time format labels    |
+| `exportSettings`   | Export options              |
+| `settingsTabs`     | Settings navigation tabs    |
+| `settingsSections` | Settings section headings   |
+| `profile`          | User profile labels         |
+| `permissions`      | Permission checkboxes       |
+| `shortcutActions`  | Shortcut action names       |
+| `welcome`          | Welcome screen text         |
+| `networkStatus`    | Network status labels       |
+| `modelCache`       | Model cache management      |
+| `dropZone`         | File drop zone hints        |
+| `contextBar`       | Context window bar          |
+| `exportFormats`    | Export format labels        |
+| `errorBoundary`    | Error boundary UI           |
+| `searchDialog`     | Search dialog text          |
+| `toast`            | Toast notification messages |
+| `aria`             | ARIA labels and alt text    |
+| `about`            | About section labels        |
 
 ### Usage in Components
 
@@ -1177,7 +1183,7 @@ Each locale file exports a single object implementing the `Translation` type wit
 - Layout uses CSS logical properties (`margin-inline-start`, `padding-inline-end`)
 - No hardcoded text directions — all via CSS
 
-------
+---
 
 ## 📌 Versioning Strategy
 
@@ -1210,7 +1216,7 @@ docs: add testing strategy to AGENTS.md
 - **Generation**: Automated from conventional commits via `git-cliff` or similar
 - **Location**: `CHANGELOG.md` in repo root, also shown in-app on update
 
-------
+---
 
 ## 🔧 CI/CD
 
@@ -1246,7 +1252,7 @@ docs: add testing strategy to AGENTS.md
 # Reads tauri.conf.json → bumps → syncs → commits → tags
 ```
 
-------
+---
 
 ## 📋 Implementation Order
 
@@ -1297,68 +1303,69 @@ Phase 7 — Ongoing
   30. Versioning                    SemVer tagging, conventional commits, changelog automation
 ```
 
-------
+---
 
 ## ⚠️ Gotchas & Pitfalls
 
 ### Hard Blockers
 
-| #   | Gotcha                                                                                                                                                           | Mitigation                                                                 |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 1   | **Tauri v2 schema is different from v1**. `tauri.conf.json` uses `app`/`build`/`bundle`/`plugins` top-level keys. Most tutorials online are v1 and will mislead.         | Use the [Tauri v2 docs](https://v2.tauri.app/) exclusively. Ignore v1 examples. |
-| 2   | **Capabilities are mandatory**. Without `capabilities/default.json`, plugins silently do nothing — no errors, just dead UI.                                            | Always create and verify `capabilities/default.json` before any plugin code.  |
-| 3   | **SvelteKit + adapter-static**: Must set `fallback: 'index.html'` in adapter config AND `ssr: false` in `+layout.js`. Missing either → blank screen or 404 on reload.      | Validate both configs are present before first build.                          |
-| 4   | **FTS5 is optional in SQLite**. Some system-provided SQLite builds (especially older macOS) don't include FTS5. Search will be silently broken.                         | Use `libsqlite3-sys` with `bundled` feature in Cargo.toml to force a bundled build. |
+| #   | Gotcha                                                                                                                                                                | Mitigation                                                                          |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 1   | **Tauri v2 schema is different from v1**. `tauri.conf.json` uses `app`/`build`/`bundle`/`plugins` top-level keys. Most tutorials online are v1 and will mislead.      | Use the [Tauri v2 docs](https://v2.tauri.app/) exclusively. Ignore v1 examples.     |
+| 2   | **Capabilities are mandatory**. Without `capabilities/default.json`, plugins silently do nothing — no errors, just dead UI.                                           | Always create and verify `capabilities/default.json` before any plugin code.        |
+| 3   | **SvelteKit + adapter-static**: Must set `fallback: 'index.html'` in adapter config AND `ssr: false` in `+layout.js`. Missing either → blank screen or 404 on reload. | Validate both configs are present before first build.                               |
+| 4   | **FTS5 is optional in SQLite**. Some system-provided SQLite builds (especially older macOS) don't include FTS5. Search will be silently broken.                       | Use `libsqlite3-sys` with `bundled` feature in Cargo.toml to force a bundled build. |
 
 ### Dev/Platform
 
-| #   | Gotcha                                                                                                                                                           | Mitigation                                                                 |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 5   | **CSP must allow Tauri IPC in dev**. Add `connect-src 'self' ipc://localhost` to the CSP or all Tauri commands fail silently in dev.                                | Include `ipc://localhost` in `connect-src` of CSP during development.          |
+| #   | Gotcha                                                                                                                                                                                                                                        | Mitigation                                                                                                                           |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| 5   | **CSP must allow Tauri IPC in dev**. Add `connect-src 'self' ipc://localhost` to the CSP or all Tauri commands fail silently in dev.                                                                                                          | Include `ipc://localhost` in `connect-src` of CSP during development.                                                                |
 | 6   | **`reqwest` + TLS on macOS**: Use `native-tls-vendored` feature to avoid system OpenSSL dependency issues. Note: reqwest 0.13 defaults to `rustls` (no system deps needed). Only use `native-tls-vendored` if you explicitly need native TLS. | Set `reqwest = { features = ["rustls", "json", "stream"] }` or `reqwest = { features = ["native-tls-vendored", "json", "stream"] }`. |
-| 7   | **SQLite dev dependency**: `sqlx` needs `libsqlite3-dev` on Linux. On macOS it uses the system library. Missing on Linux → compile error.                            | Add `libsqlite3-dev` (or `libsqlite3-devel`) to Linux build instructions.      |
-| 8   | **Tray icons are PNG everywhere**. Tauri v2 uses `.png` for tray icons on all platforms. Old `.icns`/`.ico` formats are v1 only. Provide 32x32 transparent PNG.            | Generate tray icon as 32x32 PNG in `src-tauri/icons/`.                         |
-| 9   | **Linux requires `libwebkit2gtk-4.1-dev`** (not 4.0). The v2 SDK bumped the WebKit requirement. Ubuntu 20.04 users must upgrade.                                        | Document: Ubuntu 22.04+ required, or install from backports.                    |
-| 10  | **Window state requires a plugin**. Tauri v2 doesn't auto-save window position/size. You need `tauri-plugin-window-state` explicitly. Not included by default.          | Add `tauri-plugin-window-state` to Cargo.toml and `@tauri-apps/plugin-window-state` to package.json. |
+| 7   | **SQLite dev dependency**: `sqlx` needs `libsqlite3-dev` on Linux. On macOS it uses the system library. Missing on Linux → compile error.                                                                                                     | Add `libsqlite3-dev` (or `libsqlite3-devel`) to Linux build instructions.                                                            |
+| 8   | **Tray icons are PNG everywhere**. Tauri v2 uses `.png` for tray icons on all platforms. Old `.icns`/`.ico` formats are v1 only. Provide 32x32 transparent PNG.                                                                               | Generate tray icon as 32x32 PNG in `src-tauri/icons/`.                                                                               |
+| 9   | **Linux requires `libwebkit2gtk-4.1-dev`** (not 4.0). The v2 SDK bumped the WebKit requirement. Ubuntu 20.04 users must upgrade.                                                                                                              | Document: Ubuntu 22.04+ required, or install from backports.                                                                         |
+| 10  | **Window state requires a plugin**. Tauri v2 doesn't auto-save window position/size. You need `tauri-plugin-window-state` explicitly. Not included by default.                                                                                | Add `tauri-plugin-window-state` to Cargo.toml and `@tauri-apps/plugin-window-state` to package.json.                                 |
 
 ### Runtime / Build
 
-| #   | Gotcha                                                                                                                                                           | Mitigation                                                                     |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| 11  | **Streaming events can drop**. Tauri events aren't a reliable message bus under heavy load. For LLM streaming, batch tokens in Rust and debounce frontend renders.   | Use `tokio::sync::mpsc` channel for batching; debounce markdown render to 100ms. |
-| 12  | **Plugin versions must match Tauri version**. All `tauri-plugin-*` crates must exactly match the `tauri` crate version. Mismatches → runtime panics.                     | Pin all `tauri-*` deps to `=2.x.x` in Cargo.toml (not `^2.x.x`).                 |
-| 13  | **Tauri v2 uses `AppHandle` not `App`**. The v2 API passes `AppHandle` for most commands instead of the full `App`. Old v1 examples won't compile.                           | Always use `AppHandle` in Tauri command functions.                                |
-| 14  | **macOS code signing required for plugins**: `tauri-plugin-updater` and `global-shortcut` may fail at runtime without code signing. Tauri auto-self-signs in dev only. | Test signed builds early in the dev cycle on macOS.                                |
-| 15  | **`tauri.conf.json` `identifier` must match bundle ID**. Must be reverse-domain format (e.g., `com.clutch.app`). Wrong format → build error on macOS.                     | Set `identifier: "com.clutch.app"` in `tauri.conf.json`.                           |
-| 16  | **Global shortcuts can fail on macOS**. System-owned shortcuts (e.g., Cmd+Shift+P for Page Setup) cause `with_shortcut()` to return `Err` and panic.                | Use `.and_then().unwrap_or_else()` chain with fallback shortcuts (e.g., Cmd+Alt+Shift+O). Never `.expect()` on shortcut registration. |
-| 17  | **`tauri::async_runtime::block_on()` needed in setup**. `tokio::runtime::Handle::current()` panics because no Tokio runtime exists when the setup closure runs.       | Use `tauri::async_runtime::block_on(db::init_pool(...))` instead of `handle.block_on(...)`. |
-| 18  | **Updater plugin requires `pubkey` field**. The `UpdaterConfig` struct has `pubkey` as non-optional; missing it causes a deserialization error on startup.             | Always include a `pubkey` (dummy for dev) and `endpoints: []` in `plugins.updater` config. |
-| 19  | **typesafe-i18n `setLocale()` must be called explicitly**. `initI18nSvelte()` creates the `LL` store with `getFallbackProxy()` — an empty-string proxy. The `translations` parameter is only consumed inside `setLocale(locale)`. Without calling `setLocale('en')` after `initI18nSvelte()`, every `{$LL.xxx()}` returns `""`. No errors, no warnings — just silently blank text everywhere. | Call `setLocale('en')` immediately after `initI18nSvelte()` in `i18n-svelte.ts`. Assign locale data directly (`loadedLocales.en = en`) before `setLocale()` to avoid ESM caching issues. |
-| 20  | **Generated i18n files are overwritten**. `typesafe-i18n` generator overwrites `i18n-svelte.ts`, removing manual `import en from './en/index'` (default import), `loadedLocales.en = en`, and `setLocale('en')`. The Generator also rewrites `i18n-types.ts` from locale files — any keys added directly to types without corresponding locale entries will be lost. | Use `pnpm i18n` (not bare `typesafe-i18n`) — it chains `typesafe-i18n && bash scripts/fix-i18n.sh`. Never edit i18n-svelte.ts or i18n-types.ts by hand. Always add new keys to locale files FIRST, then regenerate. Run `npx vitest run src/__tests__/i18n.test.ts` after regeneration to verify nothing broke. The fix script applies: (1) `import en from './en/index'` — default import, NOT `import * as en` (namespace import wraps data in {default:...} breaking all lookups); (2) `loadedLocales.en = en as unknown as Translations`; (3) `setLocale('en')`. Idempotent — safe to run repeatedly. |
-| 21  | **Stale DB data overrides new code defaults**. When you change a `$state(...)` default value in Svelte (e.g., shortcut key), any existing value in the `settings` SQLite table takes precedence because `onMount` loads from DB. Users never see the new default. | After changing a code default, DELETE stale rows from DB: `DELETE FROM settings WHERE key = 'old_key';`. Apply to both dev and production DBs. Always verify DB state after default changes. |
+| #   | Gotcha                                                                                                                                                                                                                                                                                                                                                                                        | Mitigation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 11  | **Streaming events can drop**. Tauri events aren't a reliable message bus under heavy load. For LLM streaming, batch tokens in Rust and debounce frontend renders.                                                                                                                                                                                                                            | Use `tokio::sync::mpsc` channel for batching; debounce markdown render to 100ms.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 12  | **Plugin versions must match Tauri version**. All `tauri-plugin-*` crates must exactly match the `tauri` crate version. Mismatches → runtime panics.                                                                                                                                                                                                                                          | Pin all `tauri-*` deps to `=2.x.x` in Cargo.toml (not `^2.x.x`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 13  | **Tauri v2 uses `AppHandle` not `App`**. The v2 API passes `AppHandle` for most commands instead of the full `App`. Old v1 examples won't compile.                                                                                                                                                                                                                                            | Always use `AppHandle` in Tauri command functions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| 14  | **macOS code signing required for plugins**: `tauri-plugin-updater` and `global-shortcut` may fail at runtime without code signing. Tauri auto-self-signs in dev only.                                                                                                                                                                                                                        | Test signed builds early in the dev cycle on macOS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| 15  | **`tauri.conf.json` `identifier` must match bundle ID**. Must be reverse-domain format (e.g., `com.clutch.app`). Wrong format → build error on macOS.                                                                                                                                                                                                                                         | Set `identifier: "com.clutch.app"` in `tauri.conf.json`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 16  | **Global shortcuts can fail on macOS**. System-owned shortcuts (e.g., Cmd+Shift+P for Page Setup) cause `with_shortcut()` to return `Err` and panic.                                                                                                                                                                                                                                          | Use `.and_then().unwrap_or_else()` chain with fallback shortcuts (e.g., Cmd+Alt+Shift+O). Never `.expect()` on shortcut registration.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| 17  | **`tauri::async_runtime::block_on()` needed in setup**. `tokio::runtime::Handle::current()` panics because no Tokio runtime exists when the setup closure runs.                                                                                                                                                                                                                               | Use `tauri::async_runtime::block_on(db::init_pool(...))` instead of `handle.block_on(...)`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 18  | **Updater plugin requires `pubkey` field**. The `UpdaterConfig` struct has `pubkey` as non-optional; missing it causes a deserialization error on startup.                                                                                                                                                                                                                                    | Always include a `pubkey` (dummy for dev) and `endpoints: []` in `plugins.updater` config.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 19  | **typesafe-i18n `setLocale()` must be called explicitly**. `initI18nSvelte()` creates the `LL` store with `getFallbackProxy()` — an empty-string proxy. The `translations` parameter is only consumed inside `setLocale(locale)`. Without calling `setLocale('en')` after `initI18nSvelte()`, every `{$LL.xxx()}` returns `""`. No errors, no warnings — just silently blank text everywhere. | Call `setLocale('en')` immediately after `initI18nSvelte()` in `i18n-svelte.ts`. Assign locale data directly (`loadedLocales.en = en`) before `setLocale()` to avoid ESM caching issues.                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 20  | **Generated i18n files are overwritten**. `typesafe-i18n` generator overwrites `i18n-svelte.ts`, removing manual `import en from './en/index'` (default import), `loadedLocales.en = en`, and `setLocale('en')`. The Generator also rewrites `i18n-types.ts` from locale files — any keys added directly to types without corresponding locale entries will be lost.                          | Use `pnpm i18n` (not bare `typesafe-i18n`) — it chains `typesafe-i18n && bash scripts/fix-i18n.sh`. Never edit i18n-svelte.ts or i18n-types.ts by hand. Always add new keys to locale files FIRST, then regenerate. Run `npx vitest run src/__tests__/i18n.test.ts` after regeneration to verify nothing broke. The fix script applies: (1) `import en from './en/index'` — default import, NOT `import * as en` (namespace import wraps data in {default:...} breaking all lookups); (2) `loadedLocales.en = en as unknown as Translations`; (3) `setLocale('en')`. Idempotent — safe to run repeatedly. |
+| 21  | **Stale DB data overrides new code defaults**. When you change a `$state(...)` default value in Svelte (e.g., shortcut key), any existing value in the `settings` SQLite table takes precedence because `onMount` loads from DB. Users never see the new default.                                                                                                                             | After changing a code default, DELETE stale rows from DB: `DELETE FROM settings WHERE key = 'old_key';`. Apply to both dev and production DBs. Always verify DB state after default changes.                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ### Maintenance
 
 The Gotchas section is a living document. When you or an agent hits a new pitfall:
+
 1. Add a row to the appropriate table
 2. Include the mitigation (what prevents or fixes it)
 3. Update this section before the next coding session
 
-------
+---
 
 ## 🌍 i18n Workflow
 
 ### Toolchain
 
-| Script                 | Purpose                                               |
-| ---------------------- | ----------------------------------------------------- |
-| `scripts/i18n-add-key.sh` | Add one key to all 5 locales at once                  |
-| `scripts/i18n-add-lang.sh` | Bootstrap a new locale from en structure              |
+| Script                     | Purpose                                                                  |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `scripts/i18n-add-key.sh`  | Add one key to all 5 locales at once                                     |
+| `scripts/i18n-add-lang.sh` | Bootstrap a new locale from en structure                                 |
 | `scripts/i18n-validate.sh` | Generate types + fix adapter + cross-locale diff + runtime smoke + audit |
-| `scripts/i18n-audit.sh`    | Scan code for untranslated strings                    |
-| `scripts/fix-i18n.sh`      | (Internal) Patch `i18n-svelte.ts` after generator runs  |
-| `pnpm i18n-validate`      | npm script: runs full validate pipeline               |
-| `pnpm i18n`               | npm script: regenerate types + fix adapter            |
+| `scripts/i18n-audit.sh`    | Scan code for untranslated strings                                       |
+| `scripts/fix-i18n.sh`      | (Internal) Patch `i18n-svelte.ts` after generator runs                   |
+| `pnpm i18n-validate`       | npm script: runs full validate pipeline                                  |
+| `pnpm i18n`                | npm script: regenerate types + fix adapter                               |
 
 ### Adding keys to all locales
 
@@ -1394,14 +1401,14 @@ This runs: `typesafe-i18n` → `fix-i18n.sh` → cross-locale key parity check �
 
 ### Common failure modes
 
-| Symptom               | Cause                                  | Fix                                           |
-| --------------------- | -------------------------------------- | --------------------------------------------- |
-| Blank text everywhere | `import * as en` (namespace import)    | Run `pnpm i18n-validate`                      |
-| Blank text on one tab | Key missing in other locales           | `i18n-add-key.sh` or check `i18n-validate` output |
-| LSP errors on `$LL.*` | `i18n-types.ts` stale after new keys   | Run `pnpm i18n-validate` to regenerate        |
-| Types don't match     | Edited `i18n-types.ts` by hand         | Run `pnpm i18n` — generator overwrites hand edits |
+| Symptom               | Cause                                | Fix                                               |
+| --------------------- | ------------------------------------ | ------------------------------------------------- |
+| Blank text everywhere | `import * as en` (namespace import)  | Run `pnpm i18n-validate`                          |
+| Blank text on one tab | Key missing in other locales         | `i18n-add-key.sh` or check `i18n-validate` output |
+| LSP errors on `$LL.*` | `i18n-types.ts` stale after new keys | Run `pnpm i18n-validate` to regenerate            |
+| Types don't match     | Edited `i18n-types.ts` by hand       | Run `pnpm i18n` — generator overwrites hand edits |
 
-------
+---
 
 ## 📋 Code Review & Improvement Backlog (v0.2.0)
 
@@ -1409,74 +1416,74 @@ Generated 2026-06-29. Severity: 🔴 Critical → 🟡 High → 🟢 Medium
 
 ### 🔴 Critical Security Fixes (before distribution)
 
-| #   | File                               | Issue                                                      | Status |
-| --- | ---------------------------------- | ---------------------------------------------------------- | ------ |
-| 1   | `skills.rs:432-448`                  | RCE: execute_skill_action runs arbitrary sh -c commands    | ☑      |
-| 2   | `web_fetcher.rs:68-89 vs 131-167`    | DNS rebinding SSRF: IP check and HTTP use different DNS    | ☑      |
-| 3   | `capabilities/default.json:24-27`    | FS scope $HOME/** exposes SSH keys, credentials, passwords | ☑ (design — skills need full workspace access) |
-| 4   | `tauri.conf.json:36`                 | CSP allows script-src 'unsafe-inline'                      | ☑ (required — SvelteKit static adapter generates inline hydration scripts) |
-| 5   | `api.rs:70, settings.rs`             | API keys stored plaintext in SQLite                        | ☑      |
+| #   | File                              | Issue                                                      | Status                                                                     |
+| --- | --------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1   | `skills.rs:432-448`               | RCE: execute_skill_action runs arbitrary sh -c commands    | ☑                                                                          |
+| 2   | `web_fetcher.rs:68-89 vs 131-167` | DNS rebinding SSRF: IP check and HTTP use different DNS    | ☑                                                                          |
+| 3   | `capabilities/default.json:24-27` | FS scope $HOME/** exposes SSH keys, credentials, passwords | ☑ (design — skills need full workspace access)                             |
+| 4   | `tauri.conf.json:36`              | CSP allows script-src 'unsafe-inline'                      | ☑ (required — SvelteKit static adapter generates inline hydration scripts) |
+| 5   | `api.rs:70, settings.rs`          | API keys stored plaintext in SQLite                        | ☑                                                                          |
 
 ### 🔴 Critical Code Bugs (v0.2.0 stability)
 
-| #   | File                        | Issue                                                               | Status |
-| --- | --------------------------- | ------------------------------------------------------------------- | ------ |
-| 6   | `chat/+page.svelte:134`       | handleSend() has no error boundary — failures are silent             | ☑      |
-| 7   | `MarkdownRenderer.svelte:69`  | Full markdown re-parse on every streaming token — debounce to 100ms  | ☑      |
-| 8   | `ProviderSelector.svelte:32`  | Conflicting $effect resets selectedModel to hardcoded default         | ☑ (design — $effect correctly loads saved pref from DB; default is initial state before async resolve) |
-| 9   | `NetworkStatus.svelte:14`     | let status is not $state — network dot never updates                 | ☑      |
-| 10  | `ChatMessage.svelte:50,61`    | saveEdit() and deleteMessage() never persist to DB — data loss        | ☑      |
+| #   | File                         | Issue                                                               | Status                                                                                                 |
+| --- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| 6   | `chat/+page.svelte:134`      | handleSend() has no error boundary — failures are silent            | ☑                                                                                                      |
+| 7   | `MarkdownRenderer.svelte:69` | Full markdown re-parse on every streaming token — debounce to 100ms | ☑                                                                                                      |
+| 8   | `ProviderSelector.svelte:32` | Conflicting $effect resets selectedModel to hardcoded default       | ☑ (design — $effect correctly loads saved pref from DB; default is initial state before async resolve) |
+| 9   | `NetworkStatus.svelte:14`    | let status is not $state — network dot never updates                | ☑                                                                                                      |
+| 10  | `ChatMessage.svelte:50,61`   | saveEdit() and deleteMessage() never persist to DB — data loss      | ☑                                                                                                      |
 
 ### 🟡 High Priority
 
-| #   | File                       | Issue                                                                     | Status |
-| --- | -------------------------- | ------------------------------------------------------------------------- | ------ |
-| 11  | `api.rs:169`                 | Fake token counting: tokens_received += 1 per delta, not real tokens      | ☑      |
-| 12  | `api.rs:12`                  | .http2_prior_knowledge() fails against servers without H2 prior knowledge | ☑      |
-| 13  | `workspaces.rs:229,300`      | Path traversal bypass on canonicalize failure                             | ☑      |
-| 14  | `model_cache.rs:328`         | refresh_models identical to get_models — returns stale cache              | ☑      |
-| 15  | `web_fetcher.rs:232`         | batch_fetch sequential — should be concurrent via join_all                | ☑      |
-| 16  | `search.rs` + migration 009  | FTS5 virtual table created but never populated/queried                    | ☑      |
-| 17  | `context.rs:54,59`           | Token count failures silently return 0 — incorrect trimming               | ☑      |
-| 19  | `skills.rs:391-410`          | write_file skips path check when file doesn't exist                       | ☑      |
+| #   | File                        | Issue                                                                     | Status |
+| --- | --------------------------- | ------------------------------------------------------------------------- | ------ |
+| 11  | `api.rs:169`                | Fake token counting: tokens_received += 1 per delta, not real tokens      | ☑      |
+| 12  | `api.rs:12`                 | .http2_prior_knowledge() fails against servers without H2 prior knowledge | ☑      |
+| 13  | `workspaces.rs:229,300`     | Path traversal bypass on canonicalize failure                             | ☑      |
+| 14  | `model_cache.rs:328`        | refresh_models identical to get_models — returns stale cache              | ☑      |
+| 15  | `web_fetcher.rs:232`        | batch_fetch sequential — should be concurrent via join_all                | ☑      |
+| 16  | `search.rs` + migration 009 | FTS5 virtual table created but never populated/queried                    | ☑      |
+| 17  | `context.rs:54,59`          | Token count failures silently return 0 — incorrect trimming               | ☑      |
+| 19  | `skills.rs:391-410`         | write_file skips path check when file doesn't exist                       | ☑      |
 
 ### 🟢 Medium Priority
 
-| #   | Area                   | Issue                                                                          | Status |
-| --- | ---------------------- | ------------------------------------------------------------------------------ | ------ |
-| 20  | All async modules      | Replace std::fs blocking calls with tokio::fs (22 locations)                   | ☑      |
-| 21  | AIAvatar/ChatMessage   | Extract duplicate provider color map to shared constant                        | ☑      |
-| 22  | `chat.ts:256`            | Remove dead code: activeSession derived store                                  | ☑      |
-| 23  | All .rs files          | Add Rustdoc comments to all public functions (62 fns, 13 files)                | ☑      |
-| 24  | `export.rs:91-93`        | Remove or implement format_timestamp no-op function                            | ☑      |
-| 25  | settings/+page.svelte  | Add aria-label to provider/model select elements                               | ☑      |
-| 26  | WorkspaceSelector      | Add onkeydown handler to role="button" elements                                | ☑      |
-| 27  | `settings.rs:42-58`      | Mask API keys in get_all_settings response                                     | ☑      |
-| 28  | `web_fetcher.rs:44-46`   | Block IPv6 unique local addresses (fc00::/7)                                   | ☑      |
-| 29  | All Tauri commands     | Add rate limiting to prevent DB exhaustion and API cost abuse                  | ☑ (Dropped — single-user desktop app; existing queue cap + provider 429 handling sufficient) |
+| #   | Area                   | Issue                                                           | Status                                                                                       |
+| --- | ---------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 20  | All async modules      | Replace std::fs blocking calls with tokio::fs (22 locations)    | ☑                                                                                            |
+| 21  | AIAvatar/ChatMessage   | Extract duplicate provider color map to shared constant         | ☑                                                                                            |
+| 22  | `chat.ts:256`          | Remove dead code: activeSession derived store                   | ☑                                                                                            |
+| 23  | All .rs files          | Add Rustdoc comments to all public functions (62 fns, 13 files) | ☑                                                                                            |
+| 24  | `export.rs:91-93`      | Remove or implement format_timestamp no-op function             | ☑                                                                                            |
+| 25  | settings/+page.svelte  | Add aria-label to provider/model select elements                | ☑                                                                                            |
+| 26  | WorkspaceSelector      | Add onkeydown handler to role="button" elements                 | ☑                                                                                            |
+| 27  | `settings.rs:42-58`    | Mask API keys in get_all_settings response                      | ☑                                                                                            |
+| 28  | `web_fetcher.rs:44-46` | Block IPv6 unique local addresses (fc00::/7)                    | ☑                                                                                            |
+| 29  | All Tauri commands     | Add rate limiting to prevent DB exhaustion and API cost abuse   | ☑ (Dropped — single-user desktop app; existing queue cap + provider 429 handling sufficient) |
 
 ### Quick Wins (low effort, high impact)
 
-| #   | Feature                                  | Effort   | Status |
-| --- | ---------------------------------------- | -------- | ------ |
-| 30  | Fix 5 critical frontend bugs (#6-10)     | ~2 hours | ☑      |
-| 31  | Add console.debug to silent catch blocks | 15 min   | ☑      |
-| 32  | Debounce markdown rendering to 100ms     | 1 line   | ☑      |
-| 33  | Remove 'unsafe-inline' from CSP          | 1 line   | ☑ (Won't fix — required by SvelteKit static adapter for inline hydration scripts)      |
-| 34  | Replace window.eval() with navigate()    | 1 line   | ☑ (Won't fix — standard Tauri v2 SPA routing pattern)      |
-| 35  | Fix refresh_models to force-refresh      | ~5 lines | ☑      |
-| 36  | Add at least 5 unit tests (vitest)       | ~2 hours | ☑ (170 tests, 14 files) |
-| 37  | Add 1 E2E test for send message flow     | ~1 hour  | ☑      |
+| #   | Feature                                  | Effort   | Status                                                                            |
+| --- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------- |
+| 30  | Fix 5 critical frontend bugs (#6-10)     | ~2 hours | ☑                                                                                 |
+| 31  | Add console.debug to silent catch blocks | 15 min   | ☑                                                                                 |
+| 32  | Debounce markdown rendering to 100ms     | 1 line   | ☑                                                                                 |
+| 33  | Remove 'unsafe-inline' from CSP          | 1 line   | ☑ (Won't fix — required by SvelteKit static adapter for inline hydration scripts) |
+| 34  | Replace window.eval() with navigate()    | 1 line   | ☑ (Won't fix — standard Tauri v2 SPA routing pattern)                             |
+| 35  | Fix refresh_models to force-refresh      | ~5 lines | ☑                                                                                 |
+| 36  | Add at least 5 unit tests (vitest)       | ~2 hours | ☑ (170 tests, 14 files)                                                           |
+| 37  | Add 1 E2E test for send message flow     | ~1 hour  | ☑                                                                                 |
 
 ### 🔮 Deferred (blocked by Rust borrow checker — needs dedicated pass)
 
-| #   | Feature              | Issue                                                                                                | Status |
-| --- | -------------------- | ---------------------------------------------------------------------------------------------------- | ------ |
-| 38  | Shortcuts from DB    | `app.global_shortcut()` + `sqlx::SqlitePool` borrow conflicts in setup closure. Needs `AppHandle` cloning refactor. | ☑      |
-| 39  | Start minimized      | `app.get_webview_window()` borrow conflicts with `app.state::<SqlitePool>()`. Needs reorder or lazy init.         | ☑ (Already implemented via tauri.conf.json `visible: false` + conditional show) |
-| 40  | Close to tray        | `window.on_window_event` callback requires `'static` lifetimes + thread-safe DB access. Needs `app_handle` clone.   | ☑ (Already implemented via CloseRequested handler) |
+| #   | Feature           | Issue                                                                                                               | Status                                                                          |
+| --- | ----------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 38  | Shortcuts from DB | `app.global_shortcut()` + `sqlx::SqlitePool` borrow conflicts in setup closure. Needs `AppHandle` cloning refactor. | ☑                                                                               |
+| 39  | Start minimized   | `app.get_webview_window()` borrow conflicts with `app.state::<SqlitePool>()`. Needs reorder or lazy init.           | ☑ (Already implemented via tauri.conf.json `visible: false` + conditional show) |
+| 40  | Close to tray     | `window.on_window_event` callback requires `'static` lifetimes + thread-safe DB access. Needs `app_handle` clone.   | ☑ (Already implemented via CloseRequested handler)                              |
 
-------
+---
 
 ## 📋 Code Review & Improvement Backlog (v0.2.4)
 
@@ -1486,74 +1493,75 @@ Decisions locked: (2) Search — remove dead Cmd+K, do NOT rebuild FTS5. (3) Ski
 
 ### 🔴 Critical Security (re-opened holes — bypassable despite prior "fixes")
 
-| #   | File                        | Issue                                                                                                                                | Status |
-| --- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| 41  | `skills.rs:457-513`           | RCE bypass: allowlist checks only first token, then runs full string via `sh -c`. `ls; rm -rf ~` bypasses all gates. Reject shell metachars `;&\|` `` ` `` `$><()` and/or drop `sh -c`, run program+args directly. Also blocking `std::process` in async → `tokio::process`. | ☑ (metacharacter guard + tokio::process + 11 tests) |
-| 42  | `web_fetcher.rs:135-176`      | SSRF bypass: private-IP check only on original URL. `302 → 169.254.169.254` (cloud metadata) followed unchecked. Use `Policy::none()`, re-validate each redirect hop. | ☑ (manual redirect loop + per-hop is_private_ip validation) |
+| #   | File                     | Issue                                                                                                                                                                                                                                                                        | Status                                                      |
+| --- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| 41  | `skills.rs:457-513`      | RCE bypass: allowlist checks only first token, then runs full string via `sh -c`. `ls; rm -rf ~` bypasses all gates. Reject shell metachars `;&\|` `` ` `` `$><()` and/or drop `sh -c`, run program+args directly. Also blocking `std::process` in async → `tokio::process`. | ☑ (metacharacter guard + tokio::process + 11 tests)         |
+| 42  | `web_fetcher.rs:135-176` | SSRF bypass: private-IP check only on original URL. `302 → 169.254.169.254` (cloud metadata) followed unchecked. Use `Policy::none()`, re-validate each redirect hop.                                                                                                        | ☑ (manual redirect loop + per-hop is_private_ip validation) |
 
 ### 🟡 High — Backend Bugs
 
-| #   | File               | Issue                                                                                                                                                            | Status |
-| --- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| 43  | `lib.rs:94`           | Startup panic: `.with_shortcut(...).unwrap()` violates Gotcha #16. Redundant (registration done safely at line 199). Remove it.                                    | ☑      |
+| #   | File                 | Issue                                                                                                                                                              | Status |
+| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ |
+| 43  | `lib.rs:94`          | Startup panic: `.with_shortcut(...).unwrap()` violates Gotcha #16. Redundant (registration done safely at line 199). Remove it.                                    | ☑      |
 | 44  | `api.rs:148`         | UTF-8 corruption: per-chunk `from_utf8_lossy` garbles multibyte chars (ø/ü/emoji/CJK) split across stream chunks. Buffer raw bytes, decode to last valid boundary. | ☑      |
-| 45  | `web_fetcher.rs:187` | DoS: `resp.bytes()` buffers entire body before 10MB check. Check `content_length` early + stream with abort.                                                         | ☑      |
-| 46  | `logs.rs:47-61`      | Arbitrary file read: non-empty `file` param used verbatim as path (reads `/etc/passwd`, `~/.ssh/id_rsa`). Whitelist against enumerated log files.                      | ☑      |
+| 45  | `web_fetcher.rs:187` | DoS: `resp.bytes()` buffers entire body before 10MB check. Check `content_length` early + stream with abort.                                                       | ☑      |
+| 46  | `logs.rs:47-61`      | Arbitrary file read: non-empty `file` param used verbatim as path (reads `/etc/passwd`, `~/.ssh/id_rsa`). Whitelist against enumerated log files.                  | ☑      |
 
 ### 🔴 High — Frontend Bugs (user-facing breakage)
 
-| #   | File                       | Issue                                                                                                                                                     | Status |
-| --- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| 47  | `MarkdownRenderer.svelte:56` | Copy-code button renders but no listener attached — feature entirely dead. Add onclick delegation on `.markdown` reading `data-block-id` from `codeBlockCache`. | ☑      |
-| 48  | `api.ts:65`                  | Interrupted stream overwritten: unconditionally sets `complete` after invoke resolves, racing over `interrupted`. Guard with `wasInterrupted` flag.             | ☑      |
-| 49  | `api.ts:22`                  | Assistant message stored with `sessionId: ''` — breaks store filters (e.g. retry). Pass `params.sessionId`.                                                   | ☑      |
-| 50  | `routes/+page.svelte:6`      | Stray artifact tag renders junk element on redirect page. Remove; move `goto('/chat')` into `onMount`.                                                        | ☑      |
-| 51  | `chat/+page.svelte:288`      | Stop button cosmetic: sets status idle but backend stream keeps running + writes DB. Wire abort (Channel close/cancellation token). Updated to `tokio::sync::watch` + `StreamCancelState`.                       | ☑      |
-| 52  | `chat/+page.svelte:216`      | `f.text()` called on binary/image attachments → garbage in prompt. Guard with `f.type.startsWith('text/')` / text-extension check.                            | ☑      |
+| #   | File                         | Issue                                                                                                                                                                                      | Status |
+| --- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ |
+| 47  | `MarkdownRenderer.svelte:56` | Copy-code button renders but no listener attached — feature entirely dead. Add onclick delegation on `.markdown` reading `data-block-id` from `codeBlockCache`.                            | ☑      |
+| 48  | `api.ts:65`                  | Interrupted stream overwritten: unconditionally sets `complete` after invoke resolves, racing over `interrupted`. Guard with `wasInterrupted` flag.                                        | ☑      |
+| 49  | `api.ts:22`                  | Assistant message stored with `sessionId: ''` — breaks store filters (e.g. retry). Pass `params.sessionId`.                                                                                | ☑      |
+| 50  | `routes/+page.svelte:6`      | Stray artifact tag renders junk element on redirect page. Remove; move `goto('/chat')` into `onMount`.                                                                                     | ☑      |
+| 51  | `chat/+page.svelte:288`      | Stop button cosmetic: sets status idle but backend stream keeps running + writes DB. Wire abort (Channel close/cancellation token). Updated to `tokio::sync::watch` + `StreamCancelState`. | ☑      |
+| 52  | `chat/+page.svelte:216`      | `f.text()` called on binary/image attachments → garbage in prompt. Guard with `f.type.startsWith('text/')` / text-extension check.                                                         | ☑      |
 
 ### ⚠️ Functionality Gaps (built but not wired, or missing)
 
-| #   | Feature                       | Status      | Action                                                                                                                                                                            | Done |
-| --- | ----------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| 53  | Search (Cmd+K)                | ❌ Broken   | **DECISION: Remove dead SearchBar + Cmd+K entirely.** `invoke('search')` unregistered, FTS5 dropped (mig 010). Remove `SearchBar.svelte`, Cmd+K handler, search i18n.                     | ☑    |
-| 54  | Skills                        | ❌ No UI    | **DECISION: Build UI.** Backend + `skills.ts` complete but no component imports it. Add skills page/modal: browse installed, search skills.sh, install/uninstall, execute w/ workspace. | ☑      |
-| 55  | Per-message edit/delete       | ⚠️ Reverted | Edit/delete buttons removed per user request — doesn't make sense on already-sent messages.                                                                                            | ☑      |
-| 56  | Regenerate response           | ❌ Missing  | **In scope.** Only i18n strings exist. Add RefreshCw button on assistant messages → re-run from prior user message.                                                                   | ☑      |
-| 57  | Context auto-trim             | ⚠️ Unwired  | `auto_trim_context` command never called from frontend. Wire into send path when context exceeds 90%.                                                                               | ☑      |
-| 58  | Auto-update UI                | ⚠️ Plumbing | Plugin + `updater.ts` exist; `updateStore` unused. Add startup check, "Update ready" prompt, Settings→General check-now + channel/auto-check.                                         | ☑      |
-| 59  | Retry queue / offline         | ❌ Dead     | **DECISION: Wire up.** `enqueue` never called; `checkHealth` timer never started; "degraded" unreachable. Wire queue processor + periodic health check + offline message queueing.       | ☑      |
-| 60  | Custom shortcut from DB (#38) | ❌ Dead     | `ShortcutRecorder` saves `shortcut_main` to DB; Rust uses hardcoded const, never reads it. Read setting at startup + re-register. (Prior Deferred #38.)                               | ☑      |
-| 61  | Virtual scrolling >50 msgs    | ❌ Missing  | **In scope.** Plain `{#each}`. Add virtual scrolling per AGENTS.md perf spec (buffer 3 above/below).                                                                                    | ☑      |
+| #   | Feature                       | Status      | Action                                                                                                                                                                                  | Done |
+| --- | ----------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| 53  | Search (Cmd+K)                | ❌ Broken   | **DECISION: Remove dead SearchBar + Cmd+K entirely.** `invoke('search')` unregistered, FTS5 dropped (mig 010). Remove `SearchBar.svelte`, Cmd+K handler, search i18n.                   | ☑    |
+| 54  | Skills                        | ❌ No UI    | **DECISION: Build UI.** Backend + `skills.ts` complete but no component imports it. Add skills page/modal: browse installed, search skills.sh, install/uninstall, execute w/ workspace. | ☑    |
+| 55  | Per-message edit/delete       | ⚠️ Reverted | Edit/delete buttons removed per user request — doesn't make sense on already-sent messages.                                                                                             | ☑    |
+| 56  | Regenerate response           | ❌ Missing  | **In scope.** Only i18n strings exist. Add RefreshCw button on assistant messages → re-run from prior user message.                                                                     | ☑    |
+| 57  | Context auto-trim             | ⚠️ Unwired  | `auto_trim_context` command never called from frontend. Wire into send path when context exceeds 90%.                                                                                   | ☑    |
+| 58  | Auto-update UI                | ⚠️ Plumbing | Plugin + `updater.ts` exist; `updateStore` unused. Add startup check, "Update ready" prompt, Settings→General check-now + channel/auto-check.                                           | ☑    |
+| 59  | Retry queue / offline         | ❌ Dead     | **DECISION: Wire up.** `enqueue` never called; `checkHealth` timer never started; "degraded" unreachable. Wire queue processor + periodic health check + offline message queueing.      | ☑    |
+| 60  | Custom shortcut from DB (#38) | ❌ Dead     | `ShortcutRecorder` saves `shortcut_main` to DB; Rust uses hardcoded const, never reads it. Read setting at startup + re-register. (Prior Deferred #38.)                                 | ☑    |
+| 61  | Virtual scrolling >50 msgs    | ❌ Missing  | **In scope.** Plain `{#each}`. Add virtual scrolling per AGENTS.md perf spec (buffer 3 above/below).                                                                                    | ☑    |
 
 ### 🧪 Test Coverage (target 80% lines / 90% branches)
 
-| #   | Area                   | Issue                                                                                                                                                                                             | Status |
-| --- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| 62  | Rust backend           | **0% coverage** (~3,800 LOC, zero `#[test]`). No `src-tauri/tests/`. Security fixes have no regression tests.                                                                                             | ☑ (72 tests: context 24, export 15, workspace 10, web_fetcher 12, skills 11)      |
-| 63  | Rust security tests    | Priority pure-fn tests: `is_private_ip`/`validate_url` (SSRF), `auto_trim`/`get_model_limit` (context), workspace path sandbox (traversal), skills command allowlist (RCE), export formatters (snapshot). | ☑ (SSRF + RCE done: 12 web_fetcher tests + 11 skills tests) |
-| 64  | Frontend core services | `api.ts` (streamChat channel parsing), `chat.ts` (255 LOC store), `network.ts` all at 0%. Mock `@tauri-apps/api/core`.                                                                                    | ☑ (59 tests: api 11, chat-store 33, network 15)      |
-| 65  | Components             | 0 of 28 tested despite "every component" goal. Start with `ChatMessage` (edit/delete), `MarkdownRenderer` (DOMPurify XSS).                                                                            | ☑ (22 tests: ChatMessage 9, MarkdownRenderer 6, ProviderSelector 7)      |
-| 66  | E2E flows              | Only 2 (app loads, send message). Add: provider switch, edit/delete/pin, export, settings.                                                                                                        | ☑ (8 new: settings 3, providers 3, export 2; 10 total)      |
+| #   | Area                   | Issue                                                                                                                                                                                                     | Status                                                                       |
+| --- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 62  | Rust backend           | **0% coverage** (~3,800 LOC, zero `#[test]`). No `src-tauri/tests/`. Security fixes have no regression tests.                                                                                             | ☑ (72 tests: context 24, export 15, workspace 10, web_fetcher 12, skills 11) |
+| 63  | Rust security tests    | Priority pure-fn tests: `is_private_ip`/`validate_url` (SSRF), `auto_trim`/`get_model_limit` (context), workspace path sandbox (traversal), skills command allowlist (RCE), export formatters (snapshot). | ☑ (SSRF + RCE done: 12 web_fetcher tests + 11 skills tests)                  |
+| 64  | Frontend core services | `api.ts` (streamChat channel parsing), `chat.ts` (255 LOC store), `network.ts` all at 0%. Mock `@tauri-apps/api/core`.                                                                                    | ☑ (59 tests: api 11, chat-store 33, network 15)                              |
+| 65  | Components             | 0 of 28 tested despite "every component" goal. Start with `ChatMessage` (edit/delete), `MarkdownRenderer` (DOMPurify XSS).                                                                                | ☑ (22 tests: ChatMessage 9, MarkdownRenderer 6, ProviderSelector 7)          |
+| 66  | E2E flows              | Only 2 (app loads, send message). Add: provider switch, edit/delete/pin, export, settings.                                                                                                                | ☑ (8 new: settings 3, providers 3, export 2; 10 total)                       |
 
 ### 🟢 Medium / Quick Wins
 
-| #   | File                                                          | Issue                                                                                                                        | Status |
-| --- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------ |
-| 67  | `settings/+page.svelte:341`                                     | Build warning: `<label>` not associated with control. Convert to `<span>` heading.                                               | ☑      |
-| 68  | `chat/+page.svelte:374`                                         | Build warning: resize-handle `div` mouse-only. Add `role="separator"`, `tabindex`, keydown, aria-label.                            | ☑      |
-| 69  | `ProviderSelector.svelte:100`                                   | Build warning: toggle button no accessible name. Add `role="switch"` + `aria-checked` + `aria-label`.                              | ☑      |
-| 70  | `StreamingIndicator.svelte:22`                                  | Build warning: self-closing `<span/>`. Use `<span></span>`.                                                                      | ☑      |
-| 71  | Multiple (Avatar/AIAvatar/ProviderSelector/FilePreview)       | Unused CSS warnings: `.avatar__icon`/`.ai-avatar__icon`/`.spin`/`.spinner` style child-component class props. Use `:global()`.         | ☑      |
-| 72  | `settings:107`, `shortcuts.ts:15`                                 | Malformed default `CmdOrCtrl+Ctrl+K` (double modifier). Fixed to `CmdOrCtrl+Shift+M`. | ☑      |
-| 73  | ExportDialog/ThemeSelector/NetworkStatus                      | i18n labels computed once at init with `get(LL)` — won't re-translate on locale switch. Make `$derived` referencing `$LL.…()`.     | ☑      |
-| 74  | Toast/ErrorBanner/EmptyState/Icon                             | `<svelte:component>` deprecated in Svelte 5. Render capitalized variable directly.                                             | ☑ (Deferred — `@const` syntax not supported in this runtime)      |
-| 75  | `network.ts`, `skills.rs:519`, `directories.ts`, `cache-scheduler.ts` | Dead code: health-check, always-empty skill-id query, dangling `get_home_dir`/`get_cache_status` commands. Remove.               | ☑      |
-| 76  | new-chat logic ×3                                             | Duplicated in `chat/+page.svelte:350`, `SessionSidebar.svelte:146`, `routes/new/+page.svelte`. Extract `createNewSession()` service. | ☑      |
-| 77  | `model_cache.rs:357`                                            | `refresh_models` doesn't bump cache `version` (hardcodes '1'). Inconsistent with `get_or_refresh_models`.                          | ☑      |
-| 78  | settings.rs/skills.rs                                         | Fresh `reqwest::Client::new()` per call — no connection pooling. Share a `OnceLock` client like `api.rs:15`.                       | ☑      |
-| 79  | `SearchBar.svelte:151`                                          | Moot once #53 removes SearchBar. (`@html` of unsanitized snippet bypasses DOMPurify.)                                          | ☑      |
+| #   | File                                                                  | Issue                                                                                                                                | Status                                                       |
+| --- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| 67  | `settings/+page.svelte:341`                                           | Build warning: `<label>` not associated with control. Convert to `<span>` heading.                                                   | ☑                                                            |
+| 68  | `chat/+page.svelte:374`                                               | Build warning: resize-handle `div` mouse-only. Add `role="separator"`, `tabindex`, keydown, aria-label.                              | ☑                                                            |
+| 69  | `ProviderSelector.svelte:100`                                         | Build warning: toggle button no accessible name. Add `role="switch"` + `aria-checked` + `aria-label`.                                | ☑                                                            |
+| 70  | `StreamingIndicator.svelte:22`                                        | Build warning: self-closing `<span/>`. Use `<span></span>`.                                                                          | ☑                                                            |
+| 71  | Multiple (Avatar/AIAvatar/ProviderSelector/FilePreview)               | Unused CSS warnings: `.avatar__icon`/`.ai-avatar__icon`/`.spin`/`.spinner` style child-component class props. Use `:global()`.       | ☑                                                            |
+| 72  | `settings:107`, `shortcuts.ts:15`                                     | Malformed default `CmdOrCtrl+Ctrl+K` (double modifier). Fixed to `CmdOrCtrl+Shift+M`.                                                | ☑                                                            |
+| 73  | ExportDialog/ThemeSelector/NetworkStatus                              | i18n labels computed once at init with `get(LL)` — won't re-translate on locale switch. Make `$derived` referencing `$LL.…()`.       | ☑                                                            |
+| 74  | Toast/ErrorBanner/EmptyState/Icon                                     | `<svelte:component>` deprecated in Svelte 5. Render capitalized variable directly.                                                   | ☑ (Deferred — `@const` syntax not supported in this runtime) |
+| 75  | `network.ts`, `skills.rs:519`, `directories.ts`, `cache-scheduler.ts` | Dead code: health-check, always-empty skill-id query, dangling `get_home_dir`/`get_cache_status` commands. Remove.                   | ☑                                                            |
+| 76  | new-chat logic ×3                                                     | Duplicated in `chat/+page.svelte:350`, `SessionSidebar.svelte:146`, `routes/new/+page.svelte`. Extract `createNewSession()` service. | ☑                                                            |
+| 77  | `model_cache.rs:357`                                                  | `refresh_models` doesn't bump cache `version` (hardcodes '1'). Inconsistent with `get_or_refresh_models`.                            | ☑                                                            |
+| 78  | settings.rs/skills.rs                                                 | Fresh `reqwest::Client::new()` per call — no connection pooling. Share a `OnceLock` client like `api.rs:15`.                         | ☑                                                            |
+| 79  | `SearchBar.svelte:151`                                                | Moot once #53 removes SearchBar. (`@html` of unsanitized snippet bypasses DOMPurify.)                                                | ☑                                                            |
 
 ### Cross-references to prior backlog
+
 - #43 relates to Gotcha #16 (shortcut unwrap panic)
 - #60 = prior Deferred #38 (shortcuts from DB) — now in scope
 - #72 relates to Gotcha #21 (stale DB defaults)
@@ -1564,25 +1572,32 @@ Decisions locked: (2) Search — remove dead Cmd+K, do NOT rebuild FTS5. (3) Ski
 Sequenced by risk, dependency, and blast radius.
 
 **Wave 1 — Critical Security → v0.2.4** (ship fast)
-- #41 RCE, #42 SSRF, plus #63 (partial) — write regression tests *as* each is fixed so the fix is locked immediately.
+
+- #41 RCE, #42 SSRF, plus #63 (partial) — write regression tests _as_ each is fixed so the fix is locked immediately.
 
 **Wave 2 — High Backend Bugs → v0.2.5**
+
 - #43 shortcut panic (crash risk, one-line), #44 UTF-8 corruption (all non-EN locales), #45 fetch DoS, #46 log file read.
 - If wiring #51's abort, add the cancellation Channel/token plumbing here.
 
 **Wave 3 — High Frontend Bugs → v0.2.5**
+
 - #50 stray tag (trivial) → #48 interrupted race → #49 empty sessionId → #47 dead copy button → #52 binary attachment guard → #51 Stop-button abort (heaviest; consumes Wave 2 plumbing).
 
 **Wave 4 — Cleanup & Removals → v0.2.5**
+
 - #53 remove Search (also erases #79) → #75 remove dead code → #76 extract `createNewSession()`. Delete before building new.
 
 **Wave 5 — Functionality → v0.3.0** (feature release)
+
 - Easy-wire first: #55 edit/delete → #56 regenerate (reuses #55 button row) → #57 auto-trim → #60 custom shortcut → #58 auto-update UI → #59 retry queue → then net-new: #54 Skills UI (biggest build), #61 virtual scrolling (self-contained).
 
 **Wave 6 — Tests + Quick Wins → v0.3.1** (hardening)
+
 - #62/#64/#65/#66 coverage (establish `src-tauri/tests/` harness first) + #63 remainder → #67–#74, #77, #78 polish.
 
 **Cross-wave dependencies:**
+
 - #51 (Stop) needs backend cancellation token — add in Wave 2, consume in Wave 3.
 - #53 (remove Search) must precede Wave 6 so no tests are written for deleted code.
 - #55 → #56 (regenerate reuses edit/delete action row).
@@ -1590,7 +1605,7 @@ Sequenced by risk, dependency, and blast radius.
 
 **Version cadence:** Wave 1 → v0.2.4 · Waves 2–4 → v0.2.5 · Wave 5 → v0.3.0 · Wave 6 → v0.3.1
 
-------
+---
 
 ## 🖼️ Brand Guidelines
 
@@ -1605,7 +1620,7 @@ Sequenced by risk, dependency, and blast radius.
 | **Icon**            | Asteroid (Lucide)     |
 | **Tray Icon**       | Simplified asteroid   |
 
-------
+---
 
 ## 🔮 Feature: File Reference Middleware (Option C)
 
@@ -1617,21 +1632,21 @@ Before the user's message hits the API, scan it for file path references. If fou
 
 ### Detection patterns
 
-| Pattern               | Example                | Match                             |
-| --------------------- | ---------------------- | --------------------------------- |
-| Tilde path            | `~/Downloads/report.md`  | Reads `$HOME/Downloads/report.md`   |
+| Pattern               | Example                  | Match                             |
+| --------------------- | ------------------------ | --------------------------------- |
+| Tilde path            | `~/Downloads/report.md`  | Reads `$HOME/Downloads/report.md` |
 | Absolute path         | `/Users/mojoaar/foo.txt` | Reads if within allowed dirs      |
 | Relative to workspace | `src/main.rs`            | Resolves against active workspace |
-| Natural language      | "read the file X"      | Fuzzy: extract apparent path      |
+| Natural language      | "read the file X"        | Fuzzy: extract apparent path      |
 
 ### Security sandbox — only read from these locations
 
-| Allowed                    | Blocked                     |
-| -------------------------- | --------------------------- |
+| Allowed                    | Blocked                           |
+| -------------------------- | --------------------------------- |
 | Active workspace directory | `~/.ssh/`, `~/.aws/`, `~/.gnupg/` |
-| `~/Downloads/`               | `/etc/`, `/var/`, system dirs   |
-| `~/Desktop/`                 | Hidden files (`~/.` prefix)   |
-| `~/Documents/`               | Path traversal (`../`)        |
+| `~/Downloads/`             | `/etc/`, `/var/`, system dirs     |
+| `~/Desktop/`               | Hidden files (`~/.` prefix)       |
+| `~/Documents/`             | Path traversal (`../`)            |
 
 ### Implementation
 
@@ -1651,6 +1666,7 @@ let enhanced_content = file_resolver::inject_file_contents(
 ```
 
 **Frontend** (`api.ts` / `chat/+page.svelte`):
+
 - Show "Reading file..." toast when file references detected
 - Pass active workspace path to `sendMessage`
 
@@ -1665,30 +1681,30 @@ User message: read the new chat file in my downloads folder?
 
 ### Edge cases
 
-| Case                          | Behavior                                                    |
-| ----------------------------- | ----------------------------------------------------------- |
+| Case                          | Behavior                                                      |
+| ----------------------------- | ------------------------------------------------------------- |
 | File not found                | `[File ~/Downloads/foo.txt not found]` appended               |
 | File too large (>1MB)         | First 500 lines + `[...truncated at 500 lines]`               |
 | Binary file                   | `[~/Downloads/img.png is a binary file — skipped]`            |
 | Path outside sandbox          | `[Path /etc/passwd is outside allowed directories — blocked]` |
 | Tilde with no HOME            | `[Could not resolve ~ — no home directory]`                   |
-| Multiple files in one message | All injected, separated                                     |
+| Multiple files in one message | All injected, separated                                       |
 
 ### Files to create/modify
 
-| File                           | What                                               |
-| ------------------------------ | -------------------------------------------------- |
-| `src-tauri/src/file_resolver.rs` | New — detection, resolution, security, injection   |
+| File                             | What                                                 |
+| -------------------------------- | ---------------------------------------------------- |
+| `src-tauri/src/file_resolver.rs` | New — detection, resolution, security, injection     |
 | `src-tauri/src/api.rs`           | Call `inject_file_contents` before building messages |
 | `src-tauri/src/lib.rs`           | Register `mod file_resolver`                         |
-| `src/lib/services/api.ts`        | Pass `activeWorkspace` to `sendMessage`                |
-| `src/routes/chat/+page.svelte`   | Read active workspace, pass to send                |
+| `src/lib/services/api.ts`        | Pass `activeWorkspace` to `sendMessage`              |
+| `src/routes/chat/+page.svelte`   | Read active workspace, pass to send                  |
 
 ### Effort
 
 ~2 hours. Pure Rust on the backend, minor frontend plumbing. Zero API changes — just file reading + string manipulation.
 
-------
+---
 
 ## 🔮 Feature: Slash Commands
 
@@ -1700,17 +1716,17 @@ Users type `/` in the chat input to trigger a command palette. Commands are proc
 
 ### Dual execution model
 
-| Type        | Processing                                                                          | Examples                                             |
-| ----------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| **Client-side** | Command is intercepted and executed before message hits API                         | `/theme dracula`, `/export`, `/model`, `/provider`           |
+| Type            | Processing                                                                          | Examples                                                   |
+| --------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **Client-side** | Command is intercepted and executed before message hits API                         | `/theme dracula`, `/export`, `/model`, `/provider`         |
 | **AI-aware**    | Command and its resolved data are injected into the message context sent to the LLM | `/read src/main.rs`, `/fetch https://...`, `/skill golang` |
 
 Commands that modify UI state (`/theme`, `/model`, `/provider`) are client-side only. Commands that gather data (`/read`, `/fetch`, `/skill`, `/ls`) modify the message content before it reaches the API.
 
 ### Command list
 
-| Command               | Type        | Action                                                                                                                                                                   |
-| --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Command                 | Type        | Action                                                                                                                                                                   |
+| ----------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `/model <name>`         | Client-side | Switch the active model for the current session                                                                                                                          |
 | `/provider <id>`        | Client-side | Switch the active provider for the current session                                                                                                                       |
 | `/workspace`            | Client-side | Show the active workspace path (banner or toast)                                                                                                                         |
@@ -1747,12 +1763,12 @@ User message: can you review this?
 
 ### Files to create/modify
 
-| File                                   | Change                                                          |
-| -------------------------------------- | --------------------------------------------------------------- |
-| `src/lib/components/SlashCommand.svelte` | New — command palette overlay with autocomplete                 |
+| File                                     | Change                                                            |
+| ---------------------------------------- | ----------------------------------------------------------------- |
+| `src/lib/components/SlashCommand.svelte` | New — command palette overlay with autocomplete                   |
 | `src/lib/components/ChatInput.svelte`    | Add `/` detection, command parsing, autocomplete integration      |
-| `src/lib/services/commands.ts`           | New — command registry, parser, executor                        |
-| `src/routes/chat/+page.svelte`           | Wire command actions to stores/settings                         |
+| `src/lib/services/commands.ts`           | New — command registry, parser, executor                          |
+| `src/routes/chat/+page.svelte`           | Wire command actions to stores/settings                           |
 | `src-tauri/src/`                         | Any new backend commands needed (e.g., `/ls` for multi-workspace) |
 
 ### Effort

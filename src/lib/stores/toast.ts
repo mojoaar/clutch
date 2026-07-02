@@ -1,5 +1,10 @@
-import { writable, get } from 'svelte/store';
-import type { Toast, Banner, ToastVariant, BannerVariant } from '$lib/services/errors';
+import { writable, get } from "svelte/store";
+import type {
+  Toast,
+  Banner,
+  ToastVariant,
+  BannerVariant,
+} from "$lib/services/errors";
 
 function createId(): string {
   return crypto.randomUUID();
@@ -12,12 +17,19 @@ let toastTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
 export function addToast(
   message: string,
-  variant: ToastVariant = 'info',
+  variant: ToastVariant = "info",
   durationMs = 8000,
-  action?: Toast['action'],
+  action?: Toast["action"],
 ): string {
   const id = createId();
-  const toast: Toast = { id, message, variant, dismissible: true, durationMs, action };
+  const toast: Toast = {
+    id,
+    message,
+    variant,
+    dismissible: true,
+    durationMs,
+    action,
+  };
   toasts.update((t) => [...t, toast]);
 
   if (durationMs > 0) {
@@ -39,8 +51,8 @@ export function dismissToast(id: string): void {
 
 export function addBanner(
   message: string,
-  variant: BannerVariant = 'info',
-  action?: Banner['action'],
+  variant: BannerVariant = "info",
+  action?: Banner["action"],
 ): string {
   const id = createId();
   banners.update((b) => [...b, { id, message, variant, action }]);

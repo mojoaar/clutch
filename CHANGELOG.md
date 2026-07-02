@@ -8,18 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.2] - 2026-07-02
 
 ### Added
+
 - 15 Anthropic skills curated into catalog (DOCX, PDF, PPTX, XLSX, Internal Comms, Doc Coauthoring, Frontend Design, Canvas Design, Brand Guidelines, Theme Factory, MCP Builder, Webapp Testing, Web Artifacts Builder, Skill Creator, Algorithmic Art)
 - Skills update mechanism — check GitHub for newer SKILL.md versions (per-source commit SHA / release tag comparison)
 - Per-skill update badges and "Update" button on Skills page
 - 6 new i18n keys across all 5 locales for update UI
 
 ### Changed
+
 - Skills catalog restructured: 25 curated skills (10 Superpowers + 15 Anthropic), grouped in 6 categories
 - Skills page redesigned with Installed/Browse tabs and client-side curated catalog search
 - Site landing page skills section updated from skills.sh to curated catalog
 - Docs skills page rewritten for bundled, offline-first model
 
 ### Removed
+
 - Dead skills.sh API code (~200 lines Rust: search_skills, trending_skills)
 - Dead frontend searchSkills and trendingSkills services
 - Dead SkillInfo struct (Rust + TypeScript)
@@ -27,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - skills.sh references from site, docs, and README
 
 ### Fixed
+
 - Empty-branch 404 in skill update (empty-string guard on branch fallback)
 - has_update logic — skills without stored version now correctly flag as needing update
 - update_skill persists branch setting to database
@@ -35,29 +39,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.1] - 2026-07-02
 
 ### Added
+
 - 47 new Rust unit tests (72 total): context, export, workspace traversal
 - 59 new Vitest service tests (170 total): chat-store, api, network
 - 22 new Vitest component tests: ChatMessage, MarkdownRenderer, ProviderSelector
 - 8 new Playwright E2E tests (10 total): settings, providers, export
 
 ### Changed
+
 - Replaced `std::fs` with `tokio::fs` in 22 sites across 5 Rust files
 - Added Rustdoc comments to all 62 public functions in 13 files
 - Shared `reqwest::Client` via `OnceLock` instead of fresh per-call
 - Bump model cache version on refresh (was hardcoded to '1')
 
 ### Fixed
+
 - 7 hardcoded aria-label/title strings replaced with i18n references
 - Build warnings: label association, non-interactive element, unused CSS
 - Reactive i18n labels (ExportDialog, ThemeSelector, NetworkStatus)
 - `settingsTabs.skills` missing from da/de/pl/fr locales
 
 ### Security
+
 - 19 untranslated strings fixed — audit clean, zero hardcoded UI text
 
 ## [0.3.0] - 2026-07-01
 
 ### Added
+
 - Skills UI page with installed + browse tabs, client-side curated catalog
 - Regenerate response button on assistant messages
 - Auto-update settings tab with check-now, channel, auto-check toggles
@@ -68,11 +77,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Superpowers skills integration (14 skills from obra/superpowers)
 
 ### Changed
+
 - Fallback system prompt: anti-hallucination language (no tool calls)
 - Curated skills catalog: verified GitHub repos only, skills.sh API removed
 - Stop button now aborts backend stream via `tokio::sync::watch`
 
 ### Fixed
+
 - Dead copy-code button (click delegation on markdown container)
 - Interrupted stream status overwritten on invoke resolve
 - Empty sessionId on assistant message store entry
@@ -83,20 +94,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Settings tab link `CmdOrCtrl+Shift+M` → `CmdOrCtrl+Ctrl+K` (correct shortcut)
 
 ### Removed
+
 - Dead SearchBar component, directories.ts, cache-scheduler.ts
 - Search i18n keys from all 5 locales (Cmd+K search)
 - Duplicated new-chat logic (extracted to createNewSession service)
 
 ### Security
+
 - RCE fix: shell metacharacter rejection in skills execute_skill_action
 - SSRF fix: per-hop redirect IP validation in web fetcher
 
 ## [0.2.5] - 2026-07-01
 
 ### Security
+
 - Blocked arbitrary file read via log file path validation (basename lookup against enumerated files)
 
 ### Fixed
+
 - Removed redundant `.with_shortcut().unwrap()` that could panic on startup
 - UTF-8 stream corruption — multi-byte characters (ø, ü, emoji, CJK) no longer garbled when split across SSE chunks
 - DoS vulnerability — web fetcher now checks `Content-Length` before download and streams body with abort on size limit
@@ -111,33 +126,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.4] - 2026-07-01
 
 ### Security
+
 - RCE prevention — shell metacharacter guard (`$(`, `` ` ``, `;`, `|`, `&&`, `||`, `>`, `<`) in skill `run_command`
 - SSRF prevention — per-hop private-IP validation on HTTP redirects in web fetcher
 - Switched `std::process::Command` to `tokio::process::Command` (non-blocking)
 
 ### Added
+
 - 23 Rust regression tests (11 RCE metacharacter tests, 12 SSRF/validation tests)
 
 ## [0.2.3] - 2026-06-30
 
 ### Added
+
 - Default system prompt when no session-specific prompt is set (prevents models defaulting to Chinese)
 - 82 Vitest unit tests across 7 files (time-utils, file-utils, errors, models, providers, themes)
 - E2E test for send message chat flow (Playwright)
 - Gotcha #20 in AGENTS.md: never modify applied SQLite migrations
 
 ### Changed
+
 - All 22 blocking `std::fs` calls replaced with `tokio::fs` (db, logs, lib, workspaces, skills)
 
 ### Fixed
+
 - Startup crash when a previously-applied migration is modified (restored migration 009, added migration 010)
 
 ### Documentation
+
 - 62 public Rust functions now have Rustdoc comments across 13 files
 
 ## [0.2.2] - 2026-06-30
 
 ### Added
+
 - German (de), Polish (pl), French (fr) translations — 5 languages total, ~450 translation keys
 - Full i18n wiring — all 105+ hardcoded English strings now use translation system
 - Landing page (`site/`) — rewritten with hero gradient, stats bar, providers/skills/FAQ sections
@@ -145,12 +167,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Provider balance status now translated (available/unavailable)
 
 ### Changed
+
 - AI name unified to "Clutch" across all 5 languages (no more "Assistant"/"Assistent"/etc.)
 - Settings layout redesigned — 5% horizontal padding, save button right-aligned
 - Context menu "Rename" action uses dedicated i18n key instead of generic "Edit"
 - Version display in settings is now dynamic (reads from `tauri.conf.json` at runtime)
 
 ### Fixed
+
 - Rust streaming: removed `.http2_prior_knowledge()` for stable HTTP/2 ALPN negotiation
 - Rust streaming: drain remaining SSE buffer on stream end and chunk errors (mid-word truncation fix)
 - Rust streaming: per-chunk 30s read timeout added (stall detection)
@@ -161,6 +185,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Landing page download binary updated from `0.2.0` to `0.2.2`
 
 ### Removed
+
 - Quick Ask shortcut (dead — never registered by backend)
 - Show Popup shortcut (dead — popup window removed)
 - Popup-related shortcut references in docs/settings.html
@@ -169,6 +194,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.1] - 2026-06-30
 
 ### Added
+
 - Developer mode toggle (right-click → Inspect Element), works immediately via Tauri command
 - Start on boot via `tauri-plugin-autostart` — toggle in Settings → Startup
 - Close to tray instead of quitting — respects Settings → Startup toggle
@@ -178,6 +204,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `bump-version.sh` script for syncing version across tauri.conf.json, Cargo.toml, package.json
 
 ### Changed
+
 - Refresh models button now actually forces fresh API fetch (previously returned stale cache)
 - Session dates now compare calendar days instead of timestamps ("Today"/"Yesterday" correct after midnight)
 - Models tab reordered to follow Providers in settings sidebar
@@ -185,6 +212,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Developer mode toggle has explanatory description
 
 ### Fixed
+
 - API key masking reverted (was breaking DeepSeek auth by returning truncated keys)
 - skills `run_command` restored with command whitelist and permission-level enforcement
 - FS scope reverted to `$HOME/**` after over-restriction broke file reading
@@ -197,10 +225,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DNS rebinding SSRF fixed with `.resolve()` IP pinning in web fetcher
 
 ### Removed
+
 - Dead `countTokens` function in ContextBar.svelte
 - Dead `activeSession` derived store in chat.ts
 
 ### Security
+
 - Command whitelist for skills `run_command` (dangerous commands behind permission toggles)
 - Sensitive path blocklist (SSH keys, GPG keys, AWS credentials, Keychains) blocked from file reading
 - DNS rebinding protection via IP pinning in web fetcher
@@ -209,6 +239,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2026-06-29
 
 ### Added
+
 - Multi-provider chat support (DeepSeek, OpenCode Go, OpenCode Zen)
 - Web fetch injection into LLM context (URL detection → HTML→MD conversion)
 - Local file system read (directories and files) injected as LLM context
@@ -226,6 +257,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Windows and Linux drag support (resize handle)
 
 ### Changed
+
 - Welcome screen merged into chat page (dead-space replacement)
 - Default Provider moved to Providers tab in Settings
 - Network status now provider-aware (yellow "No API key" when unconfigured)
@@ -234,6 +266,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Settings persistence: all settings loaded from DB on mount
 
 ### Fixed
+
 - i18n: translations now load correctly via `setLocale('en')` in i18n-svelte.ts
 - Model persistence: default model respected across provider switches
 - 401 console noise replaced with `navigator.onLine` health check
@@ -243,6 +276,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tokio runtime in Tauri setup: use `tauri::async_runtime::block_on()`
 
 ### Architecture
+
 - Static reqwest HTTP/2 client with connection pooling for faster LLM responses
 - Dynamic context limits per model (1M DeepSeek, 200K Claude, etc.)
 - Model categorization via prefix inference (MiniMax, Kimi, GLM, Claude, GPT, etc.)
@@ -251,6 +285,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Message persistence to SQLite with FK validation
 
 ### Security
+
 - FS scope limited to `$HOME` + `$APPDATA`
 - Private IP blocking in web fetcher
 - API keys stored in SQLite, never logged
@@ -259,6 +294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-06-29
 
 ### Added
+
 - Initial project scaffold (Tauri v2 + SvelteKit + SQLite)
 - System tray icon with show/hide/quit menu
 - Global shortcuts (Cmd+Shift+P for popup, Cmd+Shift+M for main)

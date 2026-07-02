@@ -1,9 +1,9 @@
-import { writable, derived } from 'svelte/store';
+import { writable, derived } from "svelte/store";
 
 export interface Message {
   id: string;
   sessionId: string;
-  role: 'user' | 'assistant' | 'system';
+  role: "user" | "assistant" | "system";
   content: string;
   createdAt: string;
   tokensUsed?: number;
@@ -26,7 +26,7 @@ export interface Session {
   tokenCount?: number;
 }
 
-export type StreamingStatus = 'idle' | 'streaming' | 'interrupted' | 'complete';
+export type StreamingStatus = "idle" | "streaming" | "interrupted" | "complete";
 
 interface ChatState {
   sessions: Session[];
@@ -42,7 +42,7 @@ const initialState: ChatState = {
   sessions: [],
   activeSessionId: null,
   messages: [],
-  streamingStatus: 'idle',
+  streamingStatus: "idle",
   streamingTokens: 0,
   selectedSessionIds: new Set(),
   selectMode: false,
@@ -66,7 +66,8 @@ function createChatStore() {
       update((s) => ({
         ...s,
         sessions: s.sessions.filter((ses) => ses.id !== sessionId),
-        activeSessionId: s.activeSessionId === sessionId ? null : s.activeSessionId,
+        activeSessionId:
+          s.activeSessionId === sessionId ? null : s.activeSessionId,
         selectedSessionIds: new Set(
           [...s.selectedSessionIds].filter((id) => id !== sessionId),
         ),
@@ -90,9 +91,7 @@ function createChatStore() {
       update((s) => ({
         ...s,
         sessions: s.sessions.map((ses) =>
-          ses.id === sessionId
-            ? { ...ses, isPinned: true }
-            : ses,
+          ses.id === sessionId ? { ...ses, isPinned: true } : ses,
         ),
       }));
     },
@@ -101,9 +100,7 @@ function createChatStore() {
       update((s) => ({
         ...s,
         sessions: s.sessions.map((ses) =>
-          ses.id === sessionId
-            ? { ...ses, isPinned: false }
-            : ses,
+          ses.id === sessionId ? { ...ses, isPinned: false } : ses,
         ),
       }));
     },
@@ -114,7 +111,8 @@ function createChatStore() {
         sessions: s.sessions.map((ses) =>
           ses.id === sessionId ? { ...ses, isArchived: true } : ses,
         ),
-        activeSessionId: s.activeSessionId === sessionId ? null : s.activeSessionId,
+        activeSessionId:
+          s.activeSessionId === sessionId ? null : s.activeSessionId,
         selectedSessionIds: new Set(
           [...s.selectedSessionIds].filter((id) => id !== sessionId),
         ),
@@ -200,7 +198,9 @@ function createChatStore() {
     updateMessageContent(messageId: string, content: string) {
       update((s) => ({
         ...s,
-        messages: s.messages.map((m) => (m.id === messageId ? { ...m, content } : m)),
+        messages: s.messages.map((m) =>
+          m.id === messageId ? { ...m, content } : m,
+        ),
       }));
     },
 
@@ -252,4 +252,3 @@ function createChatStore() {
 }
 
 export const chatStore = createChatStore();
-

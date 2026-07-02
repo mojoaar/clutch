@@ -1,8 +1,10 @@
-import { invoke } from '@tauri-apps/api/core';
-import type { Session, Message } from '$lib/stores/chat';
+import { invoke } from "@tauri-apps/api/core";
+import type { Session, Message } from "$lib/stores/chat";
 
-export async function listSessions(includeArchived = false): Promise<Session[]> {
-  const sessions = await invoke<any[]>('list_sessions', { includeArchived });
+export async function listSessions(
+  includeArchived = false,
+): Promise<Session[]> {
+  const sessions = await invoke<any[]>("list_sessions", { includeArchived });
   return sessions.map((s) => ({
     id: s.id,
     title: s.title,
@@ -24,43 +26,50 @@ export async function createSession(
   model: string,
   systemPrompt?: string,
 ): Promise<void> {
-  return invoke('create_session', { id, title, provider, model, systemPrompt });
+  return invoke("create_session", { id, title, provider, model, systemPrompt });
 }
 
-export async function updateSessionTitle(id: string, title: string): Promise<void> {
-  return invoke('update_session_title', { id, title });
+export async function updateSessionTitle(
+  id: string,
+  title: string,
+): Promise<void> {
+  return invoke("update_session_title", { id, title });
 }
 
-export async function updateSessionProvider(id: string, provider: string, model: string): Promise<void> {
-  return invoke('update_session_provider', { id, provider, model });
+export async function updateSessionProvider(
+  id: string,
+  provider: string,
+  model: string,
+): Promise<void> {
+  return invoke("update_session_provider", { id, provider, model });
 }
 
 export async function pinSession(id: string): Promise<void> {
-  return invoke('pin_session', { id });
+  return invoke("pin_session", { id });
 }
 
 export async function unpinSession(id: string): Promise<void> {
-  return invoke('unpin_session', { id });
+  return invoke("unpin_session", { id });
 }
 
 export async function archiveSession(id: string): Promise<void> {
-  return invoke('archive_session', { id });
+  return invoke("archive_session", { id });
 }
 
 export async function unarchiveSession(id: string): Promise<void> {
-  return invoke('unarchive_session', { id });
+  return invoke("unarchive_session", { id });
 }
 
 export async function deleteSession(id: string): Promise<void> {
-  return invoke('delete_session', { id });
+  return invoke("delete_session", { id });
 }
 
 export async function listMessages(sessionId: string): Promise<Message[]> {
-  const msgs = await invoke<Message[]>('list_messages', { sessionId });
+  const msgs = await invoke<Message[]>("list_messages", { sessionId });
   return msgs.map((m) => ({
     id: m.id,
     sessionId: m.session_id ?? sessionId,
-    role: m.role as 'user' | 'assistant' | 'system',
+    role: m.role as "user" | "assistant" | "system",
     content: m.content,
     createdAt: m.created_at,
     tokensUsed: m.tokens_used,
@@ -76,15 +85,18 @@ export async function createMessage(
   content: string,
   tokensUsed?: number,
 ): Promise<void> {
-  return invoke('create_message', { id, sessionId, role, content, tokensUsed });
+  return invoke("create_message", { id, sessionId, role, content, tokensUsed });
 }
 
-export async function updateMessage(id: string, content: string): Promise<void> {
-  return invoke('update_message', { id, content });
+export async function updateMessage(
+  id: string,
+  content: string,
+): Promise<void> {
+  return invoke("update_message", { id, content });
 }
 
 export async function deleteMessage(id: string): Promise<void> {
-  return invoke('delete_message', { id });
+  return invoke("delete_message", { id });
 }
 
 export interface UserProfile {
@@ -100,7 +112,7 @@ export async function getUserProfile(): Promise<UserProfile | null> {
     avatar_type: string;
     avatar_data: string;
     avatar_color: string;
-  } | null>('get_user_profile');
+  } | null>("get_user_profile");
   if (!raw) return null;
   return {
     displayName: raw.display_name,
@@ -111,7 +123,7 @@ export async function getUserProfile(): Promise<UserProfile | null> {
 }
 
 export async function updateUserProfile(profile: UserProfile): Promise<void> {
-  await invoke('update_user_profile', {
+  await invoke("update_user_profile", {
     displayName: profile.displayName,
     avatarType: profile.avatarType,
     avatarData: profile.avatarData,

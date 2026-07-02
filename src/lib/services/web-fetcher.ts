@@ -1,9 +1,9 @@
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from "@tauri-apps/api/core";
 
 export interface FetchOptions {
   timeoutSecs?: number;
   maxSizeBytes?: number;
-  mode?: 'raw' | 'markdown' | 'info';
+  mode?: "raw" | "markdown" | "info";
   headers?: [string, string][];
   followRedirects?: number;
 }
@@ -32,18 +32,24 @@ export interface WebpageInfo {
   contentLength?: number;
 }
 
-export async function fetchUrl(url: string, options?: FetchOptions): Promise<FetchResult> {
-  return invoke<FetchResult>('fetch_url', { url, options });
+export async function fetchUrl(
+  url: string,
+  options?: FetchOptions,
+): Promise<FetchResult> {
+  return invoke<FetchResult>("fetch_url", { url, options });
 }
 
-export async function batchFetch(urls: string[], options?: FetchOptions): Promise<BatchFetchResult> {
-  return invoke<BatchFetchResult>('batch_fetch', { urls, options });
+export async function batchFetch(
+  urls: string[],
+  options?: FetchOptions,
+): Promise<BatchFetchResult> {
+  return invoke<BatchFetchResult>("batch_fetch", { urls, options });
 }
 
 export async function fetchGithubReadme(repoUrl: string): Promise<FetchResult> {
-  return invoke<FetchResult>('fetch_github_readme', { repoUrl });
+  return invoke<FetchResult>("fetch_github_readme", { repoUrl });
 }
 
 export async function fetchWebpageInfo(url: string): Promise<WebpageInfo> {
-  return invoke<WebpageInfo>('fetch_webpage_info', { url });
+  return invoke<WebpageInfo>("fetch_webpage_info", { url });
 }

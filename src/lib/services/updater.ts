@@ -1,8 +1,9 @@
-import { check } from '@tauri-apps/plugin-updater';
-import { relaunch } from '@tauri-apps/plugin-process';
-import { writable } from 'svelte/store';
+import { check } from "@tauri-apps/plugin-updater";
+import { relaunch } from "@tauri-apps/plugin-process";
+import { writable } from "svelte/store";
 
-export type UpdateStatus = 'idle' | 'checking' | 'available' | 'downloading' | 'ready' | 'error';
+export type UpdateStatus =
+  "idle" | "checking" | "available" | "downloading" | "ready" | "error";
 
 interface UpdateState {
   status: UpdateStatus;
@@ -14,7 +15,7 @@ interface UpdateState {
 
 function createUpdateStore() {
   const { subscribe, set, update } = writable<UpdateState>({
-    status: 'idle',
+    status: "idle",
   });
 
   return {
@@ -23,57 +24,57 @@ function createUpdateStore() {
     update,
 
     async checkForUpdates(): Promise<void> {
-      set({ status: 'checking' });
+      set({ status: "checking" });
 
       try {
         const update = await check();
 
         if (update) {
           set({
-            status: 'available',
+            status: "available",
             version: update.version,
             body: update.body,
             date: update.date,
           });
         } else {
-          set({ status: 'idle' });
+          set({ status: "idle" });
         }
       } catch (err) {
         set({
-          status: 'error',
+          status: "error",
           error: err instanceof Error ? err.message : String(err),
         });
       }
     },
 
     async downloadAndInstall(): Promise<void> {
-      set({ status: 'downloading' });
+      set({ status: "downloading" });
 
       try {
         const update = await check();
 
         if (!update) {
-          set({ status: 'idle' });
+          set({ status: "idle" });
           return;
         }
 
         let downloaded = 0;
         await update.downloadAndInstall((event) => {
           switch (event.event) {
-            case 'Started':
+            case "Started":
               set({
-                status: 'downloading',
+                status: "downloading",
                 version: update.version,
                 body: update.body,
                 date: update.date,
               });
               break;
-            case 'Progress':
+            case "Progress":
               downloaded += event.data.chunkLength;
               break;
-            case 'Finished':
+            case "Finished":
               set({
-                status: 'ready',
+                status: "ready",
                 version: update.version,
                 body: update.body,
                 date: update.date,
@@ -83,7 +84,7 @@ function createUpdateStore() {
         });
       } catch (err) {
         set({
-          status: 'error',
+          status: "error",
           error: err instanceof Error ? err.message : String(err),
         });
       }
@@ -94,7 +95,7 @@ function createUpdateStore() {
     },
 
     reset() {
-      set({ status: 'idle' });
+      set({ status: "idle" });
     },
   };
 }

@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from "@tauri-apps/api/core";
 
 export interface WorkspaceEntry {
   path: string;
@@ -13,34 +13,34 @@ export interface DirEntry {
 }
 
 export async function listWorkspaces(): Promise<WorkspaceEntry[]> {
-  return invoke<WorkspaceEntry[]>('list_workspaces');
+  return invoke<WorkspaceEntry[]>("list_workspaces");
 }
 
 export async function addWorkspace(path: string): Promise<WorkspaceEntry[]> {
-  return invoke<WorkspaceEntry[]>('add_workspace', { path });
+  return invoke<WorkspaceEntry[]>("add_workspace", { path });
 }
 
 export async function removeWorkspace(path: string): Promise<WorkspaceEntry[]> {
-  return invoke<WorkspaceEntry[]>('remove_workspace', { path });
+  return invoke<WorkspaceEntry[]>("remove_workspace", { path });
 }
 
 export async function setActiveWorkspace(path: string | null): Promise<void> {
-  return invoke('set_active_workspace', { path });
+  return invoke("set_active_workspace", { path });
 }
 
 export async function getActiveWorkspace(): Promise<string | null> {
-  return invoke<string | null>('get_active_workspace');
+  return invoke<string | null>("get_active_workspace");
 }
 
 export async function detectWorkspaces(): Promise<WorkspaceEntry[]> {
-  return invoke<WorkspaceEntry[]>('detect_workspaces');
+  return invoke<WorkspaceEntry[]>("detect_workspaces");
 }
 
 export async function readWorkspaceFile(
   workspacePath: string,
   filePath: string,
 ): Promise<string> {
-  return invoke<string>('read_workspace_file', { workspacePath, filePath });
+  return invoke<string>("read_workspace_file", { workspacePath, filePath });
 }
 
 export async function writeWorkspaceFile(
@@ -48,26 +48,26 @@ export async function writeWorkspaceFile(
   filePath: string,
   content: string,
 ): Promise<void> {
-  return invoke('write_workspace_file', { workspacePath, filePath, content });
+  return invoke("write_workspace_file", { workspacePath, filePath, content });
 }
 
 export async function listWorkspaceDir(
   workspacePath: string,
   dirPath: string,
 ): Promise<DirEntry[]> {
-  return invoke<DirEntry[]>('list_workspace_dir', { workspacePath, dirPath });
+  return invoke<DirEntry[]>("list_workspace_dir", { workspacePath, dirPath });
 }
 
 export async function createWorkspaceDir(
   workspacePath: string,
   dirPath: string,
 ): Promise<void> {
-  return invoke('create_workspace_dir', { workspacePath, dirPath });
+  return invoke("create_workspace_dir", { workspacePath, dirPath });
 }
 
 export async function deleteWorkspaceDir(
   workspacePath: string,
   dirPath: string,
 ): Promise<void> {
-  return invoke('delete_workspace_dir', { workspacePath, dirPath });
+  return invoke("delete_workspace_dir", { workspacePath, dirPath });
 }

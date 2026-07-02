@@ -1,8 +1,8 @@
-import { writable, derived, get } from 'svelte/store';
-import { addToast } from '$lib/stores/toast';
-import LL from '$lib/i18n/i18n-svelte';
+import { writable, derived, get } from "svelte/store";
+import { addToast } from "$lib/stores/toast";
+import LL from "$lib/i18n/i18n-svelte";
 
-export type NetworkStatus = 'online' | 'degraded' | 'offline';
+export type NetworkStatus = "online" | "degraded" | "offline";
 
 export interface RetryItem {
   id: string;
@@ -24,7 +24,7 @@ export function registerQueueProcessor(fn: QueueProcessor) {
 }
 
 function createNetworkStore() {
-  const status = writable<NetworkStatus>('online');
+  const status = writable<NetworkStatus>("online");
   const queue = writable<RetryItem[]>([]);
   const queueSize = derived(queue, ($queue) => $queue.length);
 
@@ -33,25 +33,25 @@ function createNetworkStore() {
   }
 
   function handleOnline() {
-    setStatus('online');
+    setStatus("online");
     if (get(queue).length > 0) {
       processQueue();
     }
   }
 
   function handleOffline() {
-    setStatus('offline');
+    setStatus("offline");
   }
 
   function startPeriodicCheck() {
     stopPeriodicCheck();
     _periodicTimer = setInterval(() => {
       if (navigator.onLine) {
-        if (get(status) !== 'online') {
-          setStatus('online');
+        if (get(status) !== "online") {
+          setStatus("online");
         }
       } else {
-        setStatus('offline');
+        setStatus("offline");
       }
     }, 30_000);
   }
@@ -64,12 +64,12 @@ function createNetworkStore() {
   }
 
   function startMonitoring() {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('online', handleOnline);
-      window.addEventListener('offline', handleOffline);
+    if (typeof window !== "undefined") {
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
 
       if (!navigator.onLine) {
-        setStatus('offline');
+        setStatus("offline");
       }
 
       startPeriodicCheck();
@@ -77,9 +77,9 @@ function createNetworkStore() {
   }
 
   function stopMonitoring() {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+    if (typeof window !== "undefined") {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     }
     stopPeriodicCheck();
   }
@@ -106,8 +106,15 @@ function createNetworkStore() {
           await new Promise((resolve) => setTimeout(resolve, delay));
         } else {
           dequeue(item.id);
-          addToast(get(LL).networkStatus.sendFailedAfterRetries(), 'error', 8000);
-          console.debug('Queue item exhausted retries:', { id: item.id, operation: item.operation });
+          addToast(
+            get(LL).networkStatus.sendFailedAfterRetries(),
+            "error",
+            8000,
+          );
+          console.debug("Queue item exhausted retries:", {
+            id: item.id,
+            operation: item.operation,
+          });
         }
       }
     }
