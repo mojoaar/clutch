@@ -60,13 +60,15 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/download-artifact@v4
 
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            clutch-macos-aarch64/*
-            clutch-linux-x86_64/*
-            clutch-windows-x86_64/*
+            clutch-macos-aarch64/**
+            clutch-linux-x86_64/**
+            clutch-windows-x86_64/**
           generate_release_notes: true
