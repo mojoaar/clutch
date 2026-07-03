@@ -5,6 +5,23 @@ All notable changes to Clutch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2026-07-03
+
+### Added
+
+- 101 new backend integration and unit tests across all 16 Rust files (P1 and P2 full coverage)
+- Concurrency-safe Mockito mock HTTP server test harnesses for Model Cache and Skills APIs
+- Integration tests for workspaces sandboxed filesystem, logs rotation, and session exports
+
+### Changed
+
+- Refactored settings, model cache, and api commands to be generic over tauri::Runtime, enabling MockRuntime testing
+
+### Fixed
+
+- Skills parser: Fixed pre-existing bug in parse_skill_md where frontmatter closed prematurely on the opening '---' delimiter
+- Security sandbox: Allowed MacOS /var/ tempdirs and .tmp folders only during local test executions
+
 ## [0.5.0] - 2026-07-03
 
 ### Added
