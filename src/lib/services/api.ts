@@ -38,12 +38,20 @@ export async function streamChat(params: StreamChatParams): Promise<void> {
   const channel = new Channel<string>();
   let streamedContent = "";
   let wasInterrupted = false;
+  let finalTokens = 0;
 
   channel.onmessage = (data: string) => {
-    if (data.startsWith("__TOKENS__:")) {
+    if (data.startsWith("__TOKENS_LIVE__:")) {
       const tokens = parseInt(data.split(":")[1], 10);
       if (!isNaN(tokens)) {
         chatStore.setStreamingTokens(tokens);
+        finalTokens = tokens;
+      }
+    } else if (data.startsWith("__TOKENS__:")) {
+      const tokens = parseInt(data.split(":")[1], 10);
+      if (!isNaN(tokens)) {
+        chatStore.setStreamingTokens(tokens);
+        finalTokens = tokens;
       }
       if (!wasInterrupted) chatStore.setStreamingStatus("complete");
     } else if (data === "__STREAM_INTERRUPTED__") {
@@ -72,8 +80,9 @@ export async function streamChat(params: StreamChatParams): Promise<void> {
       params.sessionId,
       "assistant",
       streamedContent,
-      0,
+      finalTokens,
     );
+    chatStore.setMessageTokens(assistantId, finalTokens);
     if (!wasInterrupted) chatStore.setStreamingStatus("complete");
   } catch (error) {
     const errMsg =
@@ -104,7 +113,7 @@ export async function streamChat(params: StreamChatParams): Promise<void> {
     }
 
     chatStore.appendToMessage(assistantId, "\n\n" + errMsg);
-    db.createMessage(assistantId, params.sessionId, "assistant", errMsg, 0);
+    db.createMessage(assistantId, params.sessionId, "assistant", errMsg, finalTokens);
     chatStore.setStreamingStatus("complete");
     console.debug("streamChat failed:", error);
   }
@@ -146,7 +155,7 @@ export async function sendMessage(
   };
 
   chatStore.addMessage(userMessage);
-  db.createMessage(userMessage.id, sessionId, "user", content, 0);
+  db.createMessage(userMessage.id, sessionId, "user", content, Math.ceil(content.length / 4));
 
   const apiMessages = [...previousMessages, userMessage].map((m) => ({
     role: m.role,

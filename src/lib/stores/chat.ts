@@ -213,6 +213,15 @@ function createChatStore() {
       }));
     },
 
+    setMessageTokens(messageId: string, tokens: number) {
+      update((s) => ({
+        ...s,
+        messages: s.messages.map((m) =>
+          m.id === messageId ? { ...m, tokensUsed: tokens } : m,
+        ),
+      }));
+    },
+
     markMessageDeleted(messageId: string) {
       update((s) => ({
         ...s,

@@ -193,6 +193,8 @@ pub async fn stream_chat(
                                 tokens_received += count;
                                 channel.send(content.clone())
                                     .map_err(|e| format!("Channel send error: {}", e))?;
+                                channel.send(format!("__TOKENS_LIVE__:{}", tokens_received))
+                                    .map_err(|e| format!("Channel send error: {}", e))?;
                             }
                         }
 

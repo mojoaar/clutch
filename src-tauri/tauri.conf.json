@@ -25,7 +25,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' ipc://localhost https://api.deepseek.com https://opencode.ai https://skills.sh https://raw.githubusercontent.com; font-src 'self' data:;"
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' ipc://localhost https://api.deepseek.com https://opencode.ai https://raw.githubusercontent.com; font-src 'self' data:;"
     }
   },
   "bundle": {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { chatStore } from '$lib/stores/chat';
   import LL from '$lib/i18n/i18n-svelte';
 
   interface Props {
@@ -6,22 +7,14 @@
   }
 
   let { message = 'AI is thinking…' }: Props = $props();
-
-  let tokens = $state(0);
-  let interval: ReturnType<typeof setInterval>;
-
-  $effect(() => {
-    interval = setInterval(() => {
-      tokens += Math.floor(Math.random() * 8) + 1;
-    }, 400);
-    return () => clearInterval(interval);
-  });
 </script>
 
 <div class="streaming-indicator" role="status" aria-live="polite" aria-label={message}>
   <span class="streaming-indicator__cursor"></span>
   <span class="streaming-indicator__label">{message}</span>
-  <span class="streaming-indicator__tokens">{tokens} {$LL.streamingTokens()}</span>
+  {#if $chatStore.streamingTokens > 0}
+    <span class="streaming-indicator__tokens">{$chatStore.streamingTokens.toLocaleString()} {$LL.streamingTokens()}</span>
+  {/if}
 </div>
 
 <style>

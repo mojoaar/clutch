@@ -60,6 +60,13 @@ import { createNewSession } from '$lib/services/sessions';
       : null,
   );
 
+  const contextTokens = $derived(
+    $chatStore.messages
+      .filter((m) => m.sessionId === $chatStore.activeSessionId && !m.isDeleted)
+      .reduce((sum, m) => sum + (m.tokensUsed || 0), 0) +
+      ($chatStore.streamingStatus === 'streaming' ? $chatStore.streamingTokens : 0),
+  );
+
 
   let availableModels = $state<string[]>([]);
   let configured = $state(false);
@@ -275,6 +282,7 @@ import { createNewSession } from '$lib/services/sessions';
         const trimmed = await invoke<[string, string][]>('auto_trim_context', {
           messages: msgTuples,
           systemPrompt: session?.systemPrompt ?? null,
+          contextContent: contextContent || null,
           model,
           keepLast: 4,
         });
@@ -463,7 +471,7 @@ import { createNewSession } from '$lib/services/sessions';
       />
 
       <div class="chat__input-area">
-        <ContextBar model={currentModel} maxTokens={contextLimit} currentTokens={$chatStore.streamingTokens} />
+        <ContextBar model={currentModel} maxTokens={contextLimit} currentTokens={contextTokens} />
         <ChatInput
           sessionId={$chatStore.activeSessionId}
           provider={currentProvider}

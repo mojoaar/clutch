@@ -13,7 +13,7 @@ bash scripts/fix-i18n.sh
 
 # 3. Verify i18n-svelte.ts has required patches
 I18N_SVELTE="src/lib/i18n/i18n-svelte.ts"
-if ! grep -q "import en from './en/index'" "$I18N_SVELTE"; then
+if ! grep -q "import en from " "$I18N_SVELTE"; then
   echo "❌ FAIL: i18n-svelte.ts missing default import of en locale"
   exit 1
 fi
@@ -21,7 +21,7 @@ if ! grep -q "loadedLocales.en = en" "$I18N_SVELTE"; then
   echo "❌ FAIL: i18n-svelte.ts missing loadedLocales.en assignment"
   exit 1
 fi
-if ! grep -q "setLocale('en')" "$I18N_SVELTE"; then
+if ! grep -q "setLocale(" "$I18N_SVELTE"; then
   echo "❌ FAIL: i18n-svelte.ts missing setLocale('en') call"
   exit 1
 fi

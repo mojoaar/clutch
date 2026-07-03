@@ -47,6 +47,7 @@ pub fn count_tokens(text: &str, model: &str) -> Result<usize, String> {
 pub fn auto_trim(
     messages: &[(String, String)],
     system_prompt: Option<&str>,
+    context_content: Option<&str>,
     model_limit: u32,
     keep_last: usize,
 ) -> Vec<(String, String)> {
@@ -60,6 +61,14 @@ pub fn auto_trim(
             sp.len() / 4
         });
         token_total += sp_tokens;
+    }
+
+    if let Some(cc) = context_content {
+        let cc_tokens = count_tokens(cc, "default").unwrap_or_else(|e| {
+            tracing::warn!("Token count failed for context content: {}", e);
+            cc.len() / 4
+        });
+        token_total += cc_tokens;
     }
 
     for (role, content) in messages.iter().rev().take(keep_last) {
@@ -97,6 +106,7 @@ pub fn get_context_limit(model: String) -> u32 {
 pub fn auto_trim_context(
     messages: Vec<(String, String)>,
     system_prompt: Option<String>,
+    context_content: Option<String>,
     model: String,
     keep_last: Option<usize>,
 ) -> Vec<(String, String)> {
@@ -105,6 +115,7 @@ pub fn auto_trim_context(
     auto_trim(
         &messages,
         system_prompt.as_deref(),
+        context_content.as_deref(),
         limit,
         keep,
     )
@@ -210,7 +221,7 @@ mod tests {
             ("assistant".into(), "Hello".into()),
             ("user".into(), "How are you?".into()),
         ];
-        let result = auto_trim(&msgs, None, 100000, 10);
+        let result = auto_trim(&msgs, None, None, 100000, 10);
         assert_eq!(result.len(), 3);
         assert_eq!(result[0].0, "user");
         assert_eq!(result[2].0, "user");
@@ -221,7 +232,7 @@ mod tests {
         let msgs: Vec<(String, String)> = (0..10)
             .map(|i| ("user".into(), format!("msg {}", i)))
             .collect();
-        let result = auto_trim(&msgs, None, 100000, 3);
+        let result = auto_trim(&msgs, None, None, 100000, 3);
         assert_eq!(result.len(), 3);
         assert_eq!(result[0].1, "msg 7");
         assert_eq!(result[2].1, "msg 9");
@@ -233,7 +244,7 @@ mod tests {
             ("user".into(), "Hello".into()),
             ("assistant".into(), "Hi".into()),
         ];
-        let result = auto_trim(&msgs, None, 100000, 0);
+        let result = auto_trim(&msgs, None, None, 100000, 0);
         assert!(result.is_empty());
     }
 
@@ -243,8 +254,8 @@ mod tests {
             ("user".into(), "Hello".into()),
             ("assistant".into(), "Hi".into()),
         ];
-        let no_system = auto_trim(&msgs, None, 100, 10);
-        let with_system = auto_trim(&msgs, Some(&"X".repeat(2000)), 100, 10);
+        let no_system = auto_trim(&msgs, None, None, 100, 10);
+        let with_system = auto_trim(&msgs, Some(&"X".repeat(2000)), None, 100, 10);
         assert!(with_system.len() <= no_system.len());
     }
 
@@ -254,7 +265,7 @@ mod tests {
             ("user".into(), "Hello".into()),
             ("assistant".into(), "Hi there!".into()),
         ];
-        let result = auto_trim(&msgs, None, 100000, 10);
+        let result = auto_trim(&msgs, None, None, 100000, 10);
         assert_eq!(result.len(), 2);
     }
 
@@ -267,14 +278,14 @@ mod tests {
             ("assistant".into(), "X".repeat(2000)),
             ("user".into(), "X".repeat(2000)),
         ];
-        let result = auto_trim(&msgs, None, 1000, 5);
+        let result = auto_trim(&msgs, None, None, 1000, 5);
         assert!(result.len() < 5);
     }
 
     #[test]
     fn auto_trim_empty_messages() {
         let msgs: Vec<(String, String)> = vec![];
-        let result = auto_trim(&msgs, None, 100000, 5);
+        let result = auto_trim(&msgs, None, None, 100000, 5);
         assert!(result.is_empty());
     }
 
@@ -283,7 +294,7 @@ mod tests {
         let msgs: Vec<(String, String)> = vec![
             ("user".into(), "Hello world".into()),
         ];
-        let result = auto_trim(&msgs, None, 1, 5);
+        let result = auto_trim(&msgs, None, None, 1, 5);
         assert!(result.is_empty());
     }
 
@@ -292,7 +303,7 @@ mod tests {
         let msgs: Vec<(String, String)> = vec![
             ("user".into(), "Hello world".into()),
         ];
-        let result = auto_trim(&msgs, Some("You are helpful"), 1, 5);
+        let result = auto_trim(&msgs, Some("You are helpful"), None, 1, 5);
         assert!(result.is_empty());
     }
 
@@ -304,7 +315,7 @@ mod tests {
             ("user".into(), "recent msg 1".into()),
             ("assistant".into(), "recent msg 2".into()),
         ];
-        let result = auto_trim(&msgs, None, 50, 4);
+        let result = auto_trim(&msgs, None, None, 50, 4);
         assert_eq!(result.len(), 2);
         assert!(result[0].1.contains("recent"));
         assert!(result[1].1.contains("recent"));
