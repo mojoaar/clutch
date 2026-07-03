@@ -31,7 +31,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
 
       - if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+        run: sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf rpm
 
       - run: pnpm install
 
@@ -50,6 +50,7 @@ jobs:
           path: |
             src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
             src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
+            src-tauri/target/${{ matrix.target }}/release/bundle/rpm/*.rpm
 
       - if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
