@@ -17,9 +17,11 @@ Cross-platform desktop AI chat application featuring multi-provider support, mar
 - **Internationalization** — English, Danish, German, Polish, French (typesafe-i18n)
 - **Conversation management** — Pin, archive, delete, bulk actions
 - **Export** — Markdown, JSON, HTML, or Plain Text with metadata options
-- **System tray** — Minimize to tray, close to tray, start minimized, global shortcut (CmdOrCtrl+Shift+M) to toggle window
+- **System tray** — Minimize to tray, close to tray, start minimized, global shortcut (CmdOrCtrl+Ctrl+K / CmdOrCtrl+Alt+K) to toggle window
 - **Persistence** — SQLite backend with WAL, connection pooling, auto-save settings
 - **Skills system** — 25 curated skills from Anthropic and Superpowers (code review, debugging, docs, diagrams, TDD, brainstorming)
+- **Slash commands** — Type `/` for a command palette with 12 commands: switch themes, models, and providers, read files, fetch URLs, load skills — directly from chat input
+- **File reference middleware** — Type a file path directly in chat (`~/Documents/report.md`) and Clutch auto-detects and injects its contents into context
 - **Context window management** — Per-model token limits with auto-trim at 90%
 - **Resizable sidebar** — Drag handle, width persisted across launches
 - **Theme toggle** — Sun/Moon button in topbar, instantly switches light/dark
