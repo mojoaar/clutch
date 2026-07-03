@@ -192,16 +192,19 @@ const es: Translation = {
     defaultExport: "Configuración de exportación predeterminada",
     showTimestamps: "Mostrar marcas de tiempo en los mensajes",
     developerMode: "Modo desarrollador",
-    developerHint: "Activa clic derecho → Inspeccionar elemento para depuración",
+    developerHint:
+      "Activa clic derecho → Inspeccionar elemento para depuración",
     updates: "Actualizaciones",
   },
   permissions: {
     allowFileWrite:
       "Permitir comandos de escritura · mkdir, touch, cp, mv, rm, ln, chmod, chown",
-    allowFileWriteDesc: "⚠ Omite la acción de habilidad write_file en el entorno aislado",
+    allowFileWriteDesc:
+      "⚠ Omite la acción de habilidad write_file en el entorno aislado",
     allowNetwork: "Permitir comandos de red · curl, wget, nc, telnet, ssh",
     allowNetworkDesc: "⚠ Omite las protecciones SSRF del buscador web",
-    allowProcess: "Permitir control de procesos · kill, killall, ps, top, systemctl",
+    allowProcess:
+      "Permitir control de procesos · kill, killall, ps, top, systemctl",
     allowProcessDesc: "⚠ Puede afectar los procesos del sistema",
   },
   shortcutActions: {

@@ -199,9 +199,11 @@ const sv: Translation = {
     allowFileWrite:
       "Tillåt filskrivningskommandon &middot; mkdir, touch, cp, mv, rm, ln, chmod, chown",
     allowFileWriteDesc: "⚠ Förbigår sandboxad write_file-färdighetsåtgärd",
-    allowNetwork: "Tillåt nätverkskommandon &middot; curl, wget, nc, telnet, ssh",
+    allowNetwork:
+      "Tillåt nätverkskommandon &middot; curl, wget, nc, telnet, ssh",
     allowNetworkDesc: "⚠ Förbigår SSRF-skydd i webbläsaren",
-    allowProcess: "Tillåt processkontroll &middot; kill, killall, ps, top, systemctl",
+    allowProcess:
+      "Tillåt processkontroll &middot; kill, killall, ps, top, systemctl",
     allowProcessDesc: "⚠ Kan påverka systemprocesser",
   },
   shortcutActions: {

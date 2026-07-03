@@ -125,7 +125,7 @@ const pt: Translation = {
     uninstallFailed: "Falha ao desinstalar competência",
     installedSuccess: "Competência instalada com sucesso",
     uninstalledSuccess: "Competência desinstalada",
-    uninstallConfirm: "Desinstalar \"{name}\"?",
+    uninstallConfirm: 'Desinstalar "{name}"?',
     instructions: "Instruções",
     noTrendingResults: "Nenhuma competência em destaque encontrada",
     addSkillsCTA: "Adiciona uma competência para começar",
@@ -198,10 +198,12 @@ const pt: Translation = {
   permissions: {
     allowFileWrite:
       "Permitir comandos de escrita de ficheiros · mkdir, touch, cp, mv, rm, ln, chmod, chown",
-    allowFileWriteDesc: "⚠ Contorna a ação write_file da competência em sandbox",
+    allowFileWriteDesc:
+      "⚠ Contorna a ação write_file da competência em sandbox",
     allowNetwork: "Permitir comandos de rede · curl, wget, nc, telnet, ssh",
     allowNetworkDesc: "⚠ Contorna as proteções SSRF no web fetcher",
-    allowProcess: "Permitir controlo de processos · kill, killall, ps, top, systemctl",
+    allowProcess:
+      "Permitir controlo de processos · kill, killall, ps, top, systemctl",
     allowProcessDesc: "⚠ Pode afetar processos do sistema",
   },
   shortcutActions: {
@@ -247,7 +249,8 @@ const pt: Translation = {
   },
   contextBar: {
     label: "Contexto:",
-    warning: "A aproximar-se do limite — mensagens mais antigas podem ser removidas",
+    warning:
+      "A aproximar-se do limite — mensagens mais antigas podem ser removidas",
     tokensUsed: "tokens usados",
   },
   exportFormats: {

@@ -200,10 +200,8 @@ const it: Translation = {
       "Consenti comandi scrittura file · mkdir, touch, cp, mv, rm, ln, chmod, chown",
     allowFileWriteDesc:
       "⚠ Aggira l'azione sandboxed write_file delle competenze",
-    allowNetwork:
-      "Consenti comandi di rete · curl, wget, nc, telnet, ssh",
-    allowNetworkDesc:
-      "⚠ Aggira le protezioni SSRF nel web fetcher",
+    allowNetwork: "Consenti comandi di rete · curl, wget, nc, telnet, ssh",
+    allowNetworkDesc: "⚠ Aggira le protezioni SSRF nel web fetcher",
     allowProcess:
       "Consenti controllo processi · kill, killall, ps, top, systemctl",
     allowProcessDesc: "⚠ Può influenzare i processi di sistema",
@@ -225,8 +223,7 @@ const it: Translation = {
   },
   networkStatus: {
     messageQueued: "Messaggio in coda — sarà inviato quando online",
-    sendFailedAfterRetries:
-      "Invio messaggio fallito dopo vari tentativi",
+    sendFailedAfterRetries: "Invio messaggio fallito dopo vari tentativi",
     connected: "Connesso",
     noApiKey: "Nessuna chiave API",
     slowConnection: "Connessione lenta",
@@ -252,8 +249,7 @@ const it: Translation = {
   },
   contextBar: {
     label: "Contesto:",
-    warning:
-      "Limite vicino — i messaggi più vecchi potrebbero essere rimossi",
+    warning: "Limite vicino — i messaggi più vecchi potrebbero essere rimossi",
     tokensUsed: "token utilizzati",
   },
   exportFormats: {
@@ -304,11 +300,9 @@ const it: Translation = {
     newChat: "Nuova chat",
     skills: "Competenze",
   },
-  deleteConfirmChat:
-    "Sei sicuro di voler eliminare questa chat?",
+  deleteConfirmChat: "Sei sicuro di voler eliminare questa chat?",
   renameChatPrompt: "Rinomina chat",
-  enterWorkspacePath:
-    "Inserisci il percorso della cartella area di lavoro:",
+  enterWorkspacePath: "Inserisci il percorso della cartella area di lavoro:",
   viewLogs: "Visualizza Log",
   noArchivedChats: "Nessuna chat archiviata",
   showArchived: "Mostra archiviate",
@@ -351,18 +345,12 @@ const it: Translation = {
       showWorkspace: "Mostra il percorso dell'area di lavoro attiva",
       addWorkspace: "Aggiungi una directory area di lavoro",
       listSkills: "Elenca competenze installate",
-      readFile:
-        "Leggi un file e inietta il contenuto nel contesto",
-      listDir:
-        "Elenca file nella directory area di lavoro",
-      fetchUrl:
-        "Recupera contenuto pagina web come contesto",
-      github:
-        "Recupera il README di un repository GitHub",
-      loadSkill:
-        "Carica istruzioni competenza per questa richiesta",
-      searchSkills:
-        "Cerca nel catalogo competenze curato",
+      readFile: "Leggi un file e inietta il contenuto nel contesto",
+      listDir: "Elenca file nella directory area di lavoro",
+      fetchUrl: "Recupera contenuto pagina web come contesto",
+      github: "Recupera il README di un repository GitHub",
+      loadSkill: "Carica istruzioni competenza per questa richiesta",
+      searchSkills: "Cerca nel catalogo competenze curato",
     },
     feedback: {
       themeSwitched: "Tema cambiato in {name}",
@@ -371,10 +359,8 @@ const it: Translation = {
       workspaceAdded: "Area di lavoro aggiunta: {path}",
     },
     errors: {
-      couldNotReadWorkspace:
-        "Impossibile leggere l'area di lavoro",
-      addWorkspaceFailed:
-        "Aggiunta area di lavoro fallita: {error}",
+      couldNotReadWorkspace: "Impossibile leggere l'area di lavoro",
+      addWorkspaceFailed: "Aggiunta area di lavoro fallita: {error}",
       readFileFailed: "Lettura di {file} fallita: {error}",
       listDirFailed: "Elencazione di {dir} fallita: {error}",
     },

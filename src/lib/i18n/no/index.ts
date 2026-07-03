@@ -198,7 +198,8 @@ const no: Translation = {
   permissions: {
     allowFileWrite:
       "Tillat filskrivekommandoer &amp;middot; mkdir, touch, cp, mv, rm, ln, chmod, chown",
-    allowFileWriteDesc: "⚠ Omgår sandkassebeskyttet write_file-ferdighetshandling",
+    allowFileWriteDesc:
+      "⚠ Omgår sandkassebeskyttet write_file-ferdighetshandling",
     allowNetwork:
       "Tillat nettverkskommandoer &amp;middot; curl, wget, nc, telnet, ssh",
     allowNetworkDesc: "⚠ Omgår SSRF-beskyttelse i nettleser",
