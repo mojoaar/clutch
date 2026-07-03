@@ -11,6 +11,10 @@ pnpm typesafe-i18n --no-watch 2>/dev/null || npx typesafe-i18n 2>/dev/null
 echo "   → Patching i18n-svelte.ts..."
 bash scripts/fix-i18n.sh
 
+# Formatting generated i18n files
+echo "   → Formatting i18n directory..."
+npx prettier --write src/lib/i18n/i18n-types.ts src/lib/i18n/i18n-util.async.ts src/lib/i18n/i18n-util.sync.ts src/lib/i18n/i18n-util.ts src/lib/i18n/i18n-svelte.ts 2>/dev/null || true
+
 # 3. Verify i18n-svelte.ts has required patches
 I18N_SVELTE="src/lib/i18n/i18n-svelte.ts"
 if ! grep -q "import en from " "$I18N_SVELTE"; then
