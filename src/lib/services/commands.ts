@@ -4,7 +4,7 @@ export type CommandType = 'client' | 'ai-aware';
 export interface CommandDef {
   id: string;
   label: string;
-  description: string;
+  descriptionKey: string;
   category: CommandCategory;
   type: CommandType;
   args?: { name: string; placeholder: string }[];
@@ -14,7 +14,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'theme',
     label: '/theme',
-    description: 'Switch the active theme',
+    descriptionKey: 'switchTheme',
     category: 'app',
     type: 'client',
     args: [{ name: 'name', placeholder: 'clutch|nord|dracula|cyberpunk|catppuccin|github|tokyo-night|monokai' }],
@@ -22,7 +22,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'model',
     label: '/model',
-    description: 'Switch the active model',
+    descriptionKey: 'switchModel',
     category: 'chat',
     type: 'client',
     args: [{ name: 'name', placeholder: 'model-name' }],
@@ -30,7 +30,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'provider',
     label: '/provider',
-    description: 'Switch the active provider',
+    descriptionKey: 'switchProvider',
     category: 'chat',
     type: 'client',
     args: [{ name: 'id', placeholder: 'deepseek|opencode_go|opencode_zen' }],
@@ -38,14 +38,14 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'workspace',
     label: '/workspace',
-    description: 'Show the active workspace path',
+    descriptionKey: 'showWorkspace',
     category: 'workspace',
     type: 'client',
   },
   {
     id: 'add-workspace',
     label: '/add-workspace',
-    description: 'Add a workspace directory',
+    descriptionKey: 'addWorkspace',
     category: 'workspace',
     type: 'client',
     args: [{ name: 'path', placeholder: '/path/to/project' }],
@@ -53,14 +53,14 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'skills',
     label: '/skills',
-    description: 'List installed skills',
+    descriptionKey: 'listSkills',
     category: 'skills',
     type: 'client',
   },
   {
     id: 'read',
     label: '/read',
-    description: 'Read a file and inject contents into context',
+    descriptionKey: 'readFile',
     category: 'workspace',
     type: 'ai-aware',
     args: [{ name: 'file', placeholder: 'src/main.rs' }],
@@ -68,7 +68,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'ls',
     label: '/ls',
-    description: 'List files in workspace directory',
+    descriptionKey: 'listDir',
     category: 'workspace',
     type: 'ai-aware',
     args: [{ name: 'path', placeholder: 'src/' }],
@@ -76,7 +76,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'fetch',
     label: '/fetch',
-    description: 'Fetch webpage content as context',
+    descriptionKey: 'fetchUrl',
     category: 'web',
     type: 'ai-aware',
     args: [{ name: 'url', placeholder: 'https://example.com' }],
@@ -84,7 +84,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'github',
     label: '/github',
-    description: 'Fetch a GitHub repository README',
+    descriptionKey: 'github',
     category: 'web',
     type: 'ai-aware',
     args: [{ name: 'repo', placeholder: 'owner/repo' }],
@@ -92,7 +92,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'skill',
     label: '/skill',
-    description: 'Load skill instructions for this request',
+    descriptionKey: 'loadSkill',
     category: 'skills',
     type: 'ai-aware',
     args: [{ name: 'name', placeholder: 'golang' }],
@@ -100,7 +100,7 @@ export const COMMANDS: CommandDef[] = [
   {
     id: 'search-skills',
     label: '/search-skills',
-    description: 'Search curated skill catalog',
+    descriptionKey: 'searchSkills',
     category: 'skills',
     type: 'client',
     args: [{ name: 'query', placeholder: 'search terms' }],
@@ -128,7 +128,7 @@ export function filterCommands(query: string, limit?: number): CommandDef[] {
     (c) =>
       c.label.toLowerCase().includes(lower) ||
       c.id.toLowerCase().includes(lower) ||
-      c.description.toLowerCase().includes(lower),
+      c.descriptionKey.toLowerCase().includes(lower),
   );
   if (limit) return matches.slice(0, limit);
   return matches;

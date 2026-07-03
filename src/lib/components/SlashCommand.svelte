@@ -23,6 +23,11 @@
     return labels[cat]();
   }
 
+  function cmdDescription(cmd: CommandDef): string {
+    const descs = $LL.slashCommands.descriptions as Record<string, () => string>;
+    return descs[cmd.descriptionKey]?.() ?? cmd.descriptionKey;
+  }
+
   let grouped = $derived.by(() => {
     const groups: Record<string, CommandDef[]> = {};
     for (const cmd of commands) {
@@ -57,7 +62,7 @@
           {:else}
             <span class="slash-command-item__args"></span>
           {/if}
-          <span class="slash-command-item__desc">{cmd.description}</span>
+          <span class="slash-command-item__desc">{cmdDescription(cmd)}</span>
         </button>
       {/each}
     </div>
