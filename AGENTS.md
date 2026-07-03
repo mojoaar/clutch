@@ -1796,10 +1796,10 @@ User message: can you review this?
 | 1    | `cancel.rs`          | 6     | Done     | Pure logic: `StreamCancelState` ops                   |
 | 1    | `api.rs`             | 5     | Done     | Pure: `provider_endpoint` mappings                    |
 | 1    | `file_resolver.rs`   | 9     | Done     | Pure: `extract_path_token` + additional detection cases |
-| 2    | `user_profile.rs`    | 4     | Pending   | DB: profile CRUD                                      |
-| 2    | `model_cache.rs`     | ~25   | Pending   | Pure fns + DB commands (DeepSeek path)                |
-| 2    | `workspaces.rs`      | 12    | Pending   | DB: list/add/remove/active                             |
-| 2    | `skills.rs`          | 9     | Pending   | DB: list/install-status/uninstall                       |
+| 2    | `user_profile.rs`    | 4     | Done      | DB: profile CRUD                                      |
+| 2    | `model_cache.rs`     | 10    | Done      | Pure fns + DB commands (DeepSeek path)                |
+| 2    | `workspaces.rs`      | 8     | Done      | DB: list/add/remove/active                             |
+| 2    | `skills.rs`          | 6     | Done      | DB: list/install-status/uninstall                       |
 | 3    | `workspaces.rs`      | 10    | Pending   | FS: read/write/list/create/delete                       |
 | 3    | `file_resolver.rs`   | ~15   | Pending   | FS: resolve/read/inject                              |
 | 3    | `skills.rs`          | 12    | Pending   | FS + pure: instructions, parse_skill_md, actions     |

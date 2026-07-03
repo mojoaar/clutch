@@ -466,25 +466,26 @@ async fn get_skill_setting(
     row.ok_or_else(|| format!("Skill setting not found: {}", key))
 }
 
-fn parse_skill_md(content: &str) -> (String, String, String) {
+pub fn parse_skill_md(content: &str) -> (String, String, String) {
     let mut name = String::new();
     let mut description = String::new();
     let in_frontmatter = content.starts_with("---");
 
     let mut lines = content.lines();
     let mut in_fm = in_frontmatter;
-    let mut fm_closed = false;
+    let mut first_line = true;
 
     for line in &mut lines {
         if in_fm {
             if line.trim() == "---" {
-                if fm_closed {
+                if first_line {
+                    first_line = false;
                     continue;
                 }
-                fm_closed = true;
                 in_fm = false;
                 continue;
             }
+            first_line = false;
             if let Some(val) = line.strip_prefix("name:").or_else(|| line.strip_prefix("Name:")) {
                 name = val.trim().trim_matches('"').to_string();
             }

@@ -5,14 +5,14 @@ mod db;
 mod export;
 pub mod file_resolver;
 mod logs;
-mod model_cache;
+pub mod model_cache;
 
 pub mod sessions;
 pub mod settings;
-mod skills;
-mod user_profile;
+pub mod skills;
+pub mod user_profile;
 mod web_fetcher;
-mod workspaces;
+pub mod workspaces;
 
 use tauri::{
     menu::{MenuBuilder, MenuItemBuilder},
