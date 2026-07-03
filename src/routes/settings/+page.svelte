@@ -423,6 +423,11 @@
             <option value="de">{$LL.german()}</option>
             <option value="pl">{$LL.polish()}</option>
             <option value="fr">{$LL.french()}</option>
+          <option value="sv">{$LL.swedish()}</option>
+          <option value="no">{$LL.norwegian()}</option>
+          <option value="es">{$LL.spanish()}</option>
+          <option value="pt">{$LL.portuguese()}</option>
+          <option value="it">{$LL.italian()}</option>
           </select>
         </div>
 
