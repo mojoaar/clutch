@@ -3,6 +3,7 @@ mod cancel;
 mod context;
 mod db;
 mod export;
+mod file_resolver;
 mod logs;
 mod model_cache;
 
@@ -149,6 +150,7 @@ pub fn run() {
             web_fetcher::batch_fetch,
             web_fetcher::fetch_github_readme,
             web_fetcher::fetch_webpage_info,
+            file_resolver::resolve_and_read_file,
             export::export_session,
             logs::get_logs,
             settings::toggle_tray_icon,

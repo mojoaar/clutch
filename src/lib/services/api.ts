@@ -15,6 +15,7 @@ export interface StreamChatParams {
   messages: Array<{ role: string; content: string }>;
   sessionId: string;
   systemPrompt?: string;
+  activeWorkspace?: string;
   temperature?: number;
   maxTokens?: number;
 }
@@ -71,6 +72,7 @@ export async function streamChat(params: StreamChatParams): Promise<void> {
         model: params.model,
         messages: params.messages,
         systemPrompt: params.systemPrompt ?? null,
+        activeWorkspace: params.activeWorkspace ?? null,
         temperature: params.temperature ?? null,
         maxTokens: params.maxTokens ?? null,
       },
@@ -127,6 +129,7 @@ export async function sendMessage(
   previousMessages: Message[],
   systemPrompt?: string,
   contextContent?: string,
+  activeWorkspace?: string,
 ): Promise<void> {
   if (typeof navigator !== "undefined" && !navigator.onLine) {
     network.enqueue(
@@ -139,6 +142,7 @@ export async function sendMessage(
         previousMessages,
         systemPrompt,
         contextContent,
+        activeWorkspace,
       ],
       3,
     );
@@ -175,6 +179,7 @@ export async function sendMessage(
     messages: apiMessages,
     sessionId,
     systemPrompt,
+    activeWorkspace,
   });
 }
 
@@ -188,6 +193,7 @@ registerQueueProcessor(async (item) => {
       previousMessages,
       systemPrompt,
       contextContent,
+      activeWorkspace,
     ] = item.args;
     const apiMessages = previousMessages.map((m: Message) => ({
       role: m.role,
@@ -205,6 +211,7 @@ registerQueueProcessor(async (item) => {
       messages: apiMessages,
       sessionId,
       systemPrompt,
+      activeWorkspace,
     });
   } else if (item.operation === "retry_stream") {
     const [params] = item.args as [StreamChatParams];

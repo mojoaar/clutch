@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { chatStore, type StreamingStatus } from '$lib/stores/chat';
+  import { chatStore } from '$lib/stores/chat';
   import { filterFiles } from '$lib/utils/file-utils';
   import FilePreview from './FilePreview.svelte';
   import DropZone from './DropZone.svelte';
-  import { v4 as uuid } from 'uuid';
-  import { Send, Paperclip, Square } from '@lucide/svelte';
+  import SlashCommand from './SlashCommand.svelte';
+  import { COMMANDS, parseCommand, filterCommands, type CommandDef } from '$lib/services/commands';
+  import { Send, Paperclip, Square, Terminal } from '@lucide/svelte';
   import LL from '$lib/i18n/i18n-svelte';
 
   interface Props {
@@ -14,35 +15,117 @@
     disabled?: boolean;
     onSend?: (content: string, files: File[]) => void;
     onStop?: () => void;
+    onSlashSend?: (commandId: string, args: string[], feedbackText: string) => void;
   }
 
-  let { sessionId, provider, model, disabled = false, onSend, onStop }: Props = $props();
+  let { sessionId, provider, model, disabled = false, onSend, onStop, onSlashSend }: Props = $props();
 
   let inputValue = $state('');
   let attachedFiles = $state<File[]>([]);
   let isDragOver = $state(false);
   let dragCounter = $state(0);
   let textareaEl = $state<HTMLTextAreaElement | null>(null);
+  let showSlashPalette = $state(false);
+  let activeSlashIndex = $state(0);
 
   let isStreaming = $derived($chatStore.streamingStatus === 'streaming');
   let canSend = $derived((inputValue.trim().length > 0 || attachedFiles.length > 0) && !isStreaming && !disabled);
   let calculatedRows = $derived(Math.min(Math.max(inputValue.split('\n').length, 1), 8));
 
+  let slashQuery = $derived(inputValue.startsWith('/') ? inputValue.slice(1) : '');
+  let filteredSlashCommands = $derived.by(() => {
+    if (slashQuery.length === 0) return COMMANDS.slice(0, 10);
+    return filterCommands('/' + slashQuery, 12);
+  });
+  let selectedSlashCommand = $derived(filteredSlashCommands[activeSlashIndex] ?? null);
+
+  $effect(() => {
+    const becameSlash = inputValue.length === 1 && inputValue === '/';
+    if (becameSlash) {
+      showSlashPalette = true;
+      activeSlashIndex = 0;
+    } else if (!inputValue.startsWith('/')) {
+      showSlashPalette = false;
+    }
+  });
+
+  $effect(() => {
+    if (showSlashPalette && activeSlashIndex >= filteredSlashCommands.length) {
+      activeSlashIndex = Math.max(0, filteredSlashCommands.length - 1);
+    }
+  });
+
   function handleSend() {
-    if (!canSend) return;
+    if (isStreaming || disabled) return;
+
+    if (showSlashPalette && selectedSlashCommand) {
+      executeSlashCommand();
+      return;
+    }
+
     const content = inputValue.trim();
     if (content || attachedFiles.length > 0) {
       onSend?.(content, [...attachedFiles]);
+    } else {
+      return;
     }
     inputValue = '';
     attachedFiles = [];
+    showSlashPalette = false;
+    textareaEl?.focus();
+  }
+
+  function executeSlashCommand() {
+    if (!selectedSlashCommand) return;
+    const cmd = selectedSlashCommand;
+    const parts = inputValue.trim().split(/\s+/);
+    const args = parts.slice(1);
+    const feedbackText = args.length > 0
+      ? `${cmd.label} ${args.join(' ')}`
+      : cmd.label;
+
+    onSlashSend?.(cmd.id, args, feedbackText);
+    inputValue = '';
+    attachedFiles = [];
+    showSlashPalette = false;
     textareaEl?.focus();
   }
 
   function handleKeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
+    if (showSlashPalette) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeSlashIndex = Math.min(activeSlashIndex + 1, filteredSlashCommands.length - 1);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeSlashIndex = Math.max(activeSlashIndex - 1, 0);
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        showSlashPalette = false;
+        return;
+      }
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        executeSlashCommand();
+        return;
+      }
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        if (selectedSlashCommand) {
+          inputValue = selectedSlashCommand.label + ' ';
+          activeSlashIndex = 0;
+        }
+        return;
+      }
+    } else {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
     }
   }
 
@@ -50,6 +133,9 @@
     if (textareaEl) {
       textareaEl.style.height = 'auto';
       textareaEl.style.height = Math.min(textareaEl.scrollHeight, 200) + 'px';
+    }
+    if (!inputValue.startsWith('/')) {
+      showSlashPalette = false;
     }
   }
 
@@ -127,6 +213,14 @@
   ondrop={handleDrop}
 >
   <DropZone active={isDragOver} />
+
+  {#if showSlashPalette}
+    <SlashCommand
+      commands={filteredSlashCommands}
+      activeIndex={activeSlashIndex}
+      query={slashQuery}
+    />
+  {/if}
 
   {#if attachedFiles.length > 0}
     <div class="chat-input__files">

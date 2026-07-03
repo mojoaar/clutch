@@ -39,6 +39,7 @@ pub struct ChatRequest {
     pub model: String,
     pub messages: Vec<ChatMessage>,
     pub system_prompt: Option<String>,
+    pub active_workspace: Option<String>,
     pub temperature: Option<f64>,
     pub max_tokens: Option<u32>,
 }
@@ -100,6 +101,16 @@ pub async fn stream_chat(
     });
 
     messages.extend(request.messages.clone());
+
+    if let Some(ref msg) = messages.iter().rev().find(|m| m.role == "user") {
+        let enhanced = crate::file_resolver::inject_file_contents(
+            &msg.content,
+            request.active_workspace.as_deref(),
+        ).await;
+        if let Some(last_user) = messages.iter_mut().rev().find(|m| m.role == "user") {
+            last_user.content = enhanced;
+        }
+    }
 
     let body = serde_json::json!({
         "model": request.model,

@@ -8,14 +8,14 @@
   import { sendMessage } from '$lib/services/api';
   import { fetchUrl } from '$lib/services/web-fetcher';
   import { v4 as uuid } from 'uuid';
-  import { readTextFile, readDir } from '@tauri-apps/plugin-fs';
-  import { homeDir } from '@tauri-apps/api/path';
 import { PROVIDERS } from '$lib/services/providers';
 import { getCachedModels, type ModelInfo } from '$lib/services/models';
 import { getSetting, setSetting } from '$lib/services/settings';
 import { createNewSession } from '$lib/services/sessions';
   import { invoke } from '@tauri-apps/api/core';
   import { goto, afterNavigate } from '$app/navigation';
+  import { themeName } from '$lib/stores/theme';
+  import { addWorkspace } from '$lib/services/workspaces';
   import {
     Archive,
     Trash2,
@@ -243,29 +243,6 @@ import { createNewSession } from '$lib/services/sessions';
       }
     }
 
-    const pathRegex = /(~?\/[\w.\/\-]+|\.\/[\w.\/\-]+|\.\.\/[\w.\/\-]+)/g;
-    const filePaths = content.match(pathRegex);
-
-    if (filePaths) {
-      const hd = await homeDir();
-      for (const rawPath of filePaths) {
-        const path = rawPath.replace('~', hd);
-        const blockedPatterns = ['/.ssh/', '/.gnupg/', '/.aws/', '/Library/Keychains/', '/.local/share/keyrings/', '/.config/gh/'];
-        if (blockedPatterns.some((p) => path.includes(p))) continue;
-        try {
-          const fileContent = await readTextFile(path);
-          contextContent += `\n\n--- Content of ${rawPath} ---\n${fileContent}`;
-        } catch (e) {
-          console.debug('Failed to read file at path', rawPath, e);
-          try {
-            const entries = await readDir(path);
-            const listing = entries.map((f: any) => `${f.isDirectory ? '📁' : '📄'} ${f.name}`).join('\n');
-            contextContent += `\n\n--- Contents of ${rawPath} ---\n${listing}`;
-          } catch (e2) { console.debug('Failed to read directory at path', rawPath, e2); }
-        }
-      }
-    }
-
     const session = $chatStore.sessions.find((s) => s.id === $chatStore.activeSessionId);
 
       const model = session?.model ?? 'deepseek-chat';
@@ -289,6 +266,8 @@ import { createNewSession } from '$lib/services/sessions';
         trimmedMessages = trimmed.map(([role, content]) => ({ role, content }));
       } catch { /* trim failed — use untrimmed messages */ }
 
+      const workspace = await invoke<string | null>('get_active_workspace').catch(() => null);
+
       await sendMessage(
         $chatStore.activeSessionId ?? '',
         content,
@@ -297,6 +276,7 @@ import { createNewSession } from '$lib/services/sessions';
         trimmedMessages as Message[],
         session?.systemPrompt,
         contextContent || undefined,
+        workspace ?? undefined,
       );
     } catch (e) {
       const msg = typeof e === 'string' ? e : e instanceof Error ? e.message : 'Send failed';
@@ -394,6 +374,146 @@ import { createNewSession } from '$lib/services/sessions';
   async function handleNewChat() {
     await createNewSession($LL.chat.newChat());
   }
+
+  async function handleSlashSend(commandId: string, args: string[], feedbackText: string) {
+    const session = $chatStore.sessions.find((s) => s.id === $chatStore.activeSessionId);
+
+    switch (commandId) {
+      case 'theme': {
+        const name = args[0];
+        if (name) {
+          themeName.set(name as any);
+          chatStore.addMessage({
+            id: uuid(),
+            sessionId: $chatStore.activeSessionId ?? '',
+            role: 'system',
+            content: `Theme switched to ${name}`,
+            createdAt: new Date().toISOString(),
+          });
+        }
+        break;
+      }
+      case 'model': {
+        const name = args[0];
+        if (name) handleModelChange(name);
+        break;
+      }
+      case 'provider': {
+        const id = args[0];
+        if (id) handleProviderChange(id);
+        break;
+      }
+      case 'workspace': {
+        try {
+          const ws = await invoke<string | null>('get_active_workspace');
+          chatStore.addMessage({
+            id: uuid(),
+            sessionId: $chatStore.activeSessionId ?? '',
+            role: 'system',
+            content: ws ? `Active workspace: ${ws}` : 'No workspace active',
+            createdAt: new Date().toISOString(),
+          });
+        } catch {
+          chatStore.addMessage({
+            id: uuid(),
+            sessionId: $chatStore.activeSessionId ?? '',
+            role: 'system',
+            content: 'Could not read workspace',
+            createdAt: new Date().toISOString(),
+          });
+        }
+        break;
+      }
+      case 'add-workspace': {
+        const path = args[0];
+        if (path) {
+          try {
+            await addWorkspace(path);
+            chatStore.addMessage({
+              id: uuid(),
+              sessionId: $chatStore.activeSessionId ?? '',
+              role: 'system',
+              content: `Workspace added: ${path}`,
+              createdAt: new Date().toISOString(),
+            });
+          } catch (e: any) {
+            chatStore.addMessage({
+              id: uuid(),
+              sessionId: $chatStore.activeSessionId ?? '',
+              role: 'system',
+              content: `Failed to add workspace: ${e?.message ?? e}`,
+              createdAt: new Date().toISOString(),
+            });
+          }
+        }
+        break;
+      }
+      case 'skills': {
+        goto('/skills');
+        break;
+      }
+      case 'search-skills': {
+        const q = args.join(' ');
+        goto(q ? `/skills?search=${encodeURIComponent(q)}` : '/skills');
+        break;
+      }
+      case 'read': {
+        const file = args[0];
+        if (file) {
+          try {
+            const content = await invoke<string>('resolve_and_read_file', { path: file });
+            await handleSend(`/read ${file}\n\nFile contents:\n\`\`\`\n${content}\n\`\`\``, []);
+          } catch (e: any) {
+            chatStore.addMessage({
+              id: uuid(),
+              sessionId: $chatStore.activeSessionId ?? '',
+              role: 'system',
+              content: `Failed to read ${file}: ${e?.message ?? e}`,
+              createdAt: new Date().toISOString(),
+            });
+          }
+        }
+        break;
+      }
+      case 'ls': {
+        const dir = args[0] ?? '.';
+        try {
+          const entries = await invoke<string[]>('list_workspace_dir', { path: dir });
+          await handleSend(`/ls ${dir}\n\nDirectory listing:\n${entries.map((e) => `- ${e}`).join('\n')}`, []);
+        } catch (e: any) {
+          chatStore.addMessage({
+            id: uuid(),
+            sessionId: $chatStore.activeSessionId ?? '',
+            role: 'system',
+            content: `Failed to list ${dir}: ${e?.message ?? e}`,
+            createdAt: new Date().toISOString(),
+          });
+        }
+        break;
+      }
+      case 'fetch': {
+        const url = args[0];
+        if (url) {
+          await handleSend(`/fetch ${url}`, []);
+        }
+        break;
+      }
+      case 'github': {
+        const repo = args[0];
+        if (repo) {
+          await handleSend(`/github ${repo}`, []);
+        }
+        break;
+      }
+      case 'skill': {
+        const skillName = args[0];
+        if (skillName) {
+          await handleSend(`/skill ${skillName}`, []);
+        }
+        break;
+      }
+    }
+  }
 </script>
 
 <div class="chat-layout" class:chat-layout--resizing={isResizing}>
@@ -479,6 +599,7 @@ import { createNewSession } from '$lib/services/sessions';
           disabled={$chatStore.streamingStatus === 'streaming'}
           onSend={handleSend}
           onStop={handleStop}
+          onSlashSend={handleSlashSend}
         />
       </div>
     {:else}
