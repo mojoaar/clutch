@@ -323,6 +323,44 @@ const en: BaseTranslation = {
     lastChecked: "Last checked",
     never: "Never",
   },
+  slashCommands: {
+    categories: {
+      chat: "Chat",
+      workspace: "Workspace",
+      web: "Web",
+      skills: "Skills",
+      app: "App",
+    },
+    descriptions: {
+      switchTheme: "Switch the active theme",
+      switchModel: "Switch the active model",
+      switchProvider: "Switch the active provider",
+      showWorkspace: "Show the active workspace path",
+      addWorkspace: "Add a workspace directory",
+      listSkills: "List installed skills",
+      readFile: "Read a file and inject contents into context",
+      listDir: "List files in workspace directory",
+      fetchUrl: "Fetch webpage content as context",
+      github: "Fetch a GitHub repository README",
+      loadSkill: "Load skill instructions for this request",
+      searchSkills: "Search curated skill catalog",
+    },
+    feedback: {
+      themeSwitched: "Theme switched to {name}",
+      activeWorkspace: "Active workspace: {path}",
+      noWorkspace: "No workspace active",
+      workspaceAdded: "Workspace added: {path}",
+    },
+    errors: {
+      couldNotReadWorkspace: "Could not read workspace",
+      addWorkspaceFailed: "Failed to add workspace: {error}",
+      readFileFailed: "Failed to read {file}: {error}",
+      listDirFailed: "Failed to list {dir}: {error}",
+    },
+    aria: {
+      commandPalette: "Command palette",
+    },
+  },
 };
 
 export default en;

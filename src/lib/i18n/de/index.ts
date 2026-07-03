@@ -327,6 +327,44 @@ const de: Translation = {
     lastChecked: "Zuletzt geprüft",
     never: "Nie",
   },
+  slashCommands: {
+    categories: {
+      chat: "Chat",
+      workspace: "Arbeitsbereich",
+      web: "Web",
+      skills: "Fähigkeiten",
+      app: "App",
+    },
+    descriptions: {
+      switchTheme: "Theme wechseln",
+      switchModel: "Modell wechseln",
+      switchProvider: "Anbieter wechseln",
+      showWorkspace: "Aktiven Arbeitsbereich anzeigen",
+      addWorkspace: "Arbeitsbereich hinzufügen",
+      listSkills: "Installierte Fähigkeiten anzeigen",
+      readFile: "Datei lesen und Inhalt in Kontext einfügen",
+      listDir: "Dateien im Arbeitsbereich auflisten",
+      fetchUrl: "Webseiteninhalt als Kontext abrufen",
+      github: "GitHub Repository README abrufen",
+      loadSkill: "Fähigkeitsanweisungen laden",
+      searchSkills: "Fähigkeitskatalog durchsuchen",
+    },
+    feedback: {
+      themeSwitched: "Theme gewechselt zu {name}",
+      activeWorkspace: "Aktiver Arbeitsbereich: {path}",
+      noWorkspace: "Kein aktiver Arbeitsbereich",
+      workspaceAdded: "Arbeitsbereich hinzugefügt: {path}",
+    },
+    errors: {
+      couldNotReadWorkspace: "Arbeitsbereich konnte nicht gelesen werden",
+      addWorkspaceFailed: "Arbeitsbereich konnte nicht hinzugefügt werden: {error}",
+      readFileFailed: "Datei {file} konnte nicht gelesen werden: {error}",
+      listDirFailed: "Verzeichnis {dir} konnte nicht aufgelistet werden: {error}",
+    },
+    aria: {
+      commandPalette: "Befehlspalette",
+    },
+  },
 };
 
 export default de;

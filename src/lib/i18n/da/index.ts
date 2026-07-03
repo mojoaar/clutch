@@ -323,6 +323,44 @@ const da: Translation = {
     lastChecked: "Sidst tjekket",
     never: "Aldrig",
   },
+  slashCommands: {
+    categories: {
+      chat: "Chat",
+      workspace: "Arbejdsområde",
+      web: "Web",
+      skills: "Færdigheder",
+      app: "App",
+    },
+    descriptions: {
+      switchTheme: "Skift tema",
+      switchModel: "Skift model",
+      switchProvider: "Skift udbyder",
+      showWorkspace: "Vis aktivt arbejdsområde",
+      addWorkspace: "Tilføj arbejdsområde",
+      listSkills: "Vis installerede færdigheder",
+      readFile: "Læs fil og indsæt indhold i kontekst",
+      listDir: "Vis filer i arbejdsområde",
+      fetchUrl: "Hent websideindhold som kontekst",
+      github: "Hent GitHub repository README",
+      loadSkill: "Indlæs færdighedsinstruktioner",
+      searchSkills: "Søg i færdighedskatalog",
+    },
+    feedback: {
+      themeSwitched: "Tema skiftet til {name}",
+      activeWorkspace: "Aktivt arbejdsområde: {path}",
+      noWorkspace: "Intet aktivt arbejdsområde",
+      workspaceAdded: "Arbejdsområde tilføjet: {path}",
+    },
+    errors: {
+      couldNotReadWorkspace: "Kunne ikke læse arbejdsområde",
+      addWorkspaceFailed: "Kunne ikke tilføje arbejdsområde: {error}",
+      readFileFailed: "Kunne ikke læse {file}: {error}",
+      listDirFailed: "Kunne ikke vise {dir}: {error}",
+    },
+    aria: {
+      commandPalette: "Kommandopalet",
+    },
+  },
 };
 
 export default da;

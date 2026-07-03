@@ -327,6 +327,44 @@ const fr: Translation = {
     lastChecked: "Dernière vérification",
     never: "Jamais",
   },
+  slashCommands: {
+    categories: {
+      chat: "Chat",
+      workspace: "Espace de travail",
+      web: "Web",
+      skills: "Compétences",
+      app: "App",
+    },
+    descriptions: {
+      switchTheme: "Changer le thème",
+      switchModel: "Changer le modèle",
+      switchProvider: "Changer le fournisseur",
+      showWorkspace: "Afficher l'espace de travail actif",
+      addWorkspace: "Ajouter un espace de travail",
+      listSkills: "Lister les compétences installées",
+      readFile: "Lire un fichier et injecter le contenu dans le contexte",
+      listDir: "Lister les fichiers de l'espace de travail",
+      fetchUrl: "Récupérer le contenu d'une page web comme contexte",
+      github: "Récupérer le README d'un dépôt GitHub",
+      loadSkill: "Charger les instructions de la compétence",
+      searchSkills: "Rechercher dans le catalogue de compétences",
+    },
+    feedback: {
+      themeSwitched: "Thème changé pour {name}",
+      activeWorkspace: "Espace de travail actif : {path}",
+      noWorkspace: "Aucun espace de travail actif",
+      workspaceAdded: "Espace de travail ajouté : {path}",
+    },
+    errors: {
+      couldNotReadWorkspace: "Impossible de lire l'espace de travail",
+      addWorkspaceFailed: "Échec de l'ajout de l'espace de travail : {error}",
+      readFileFailed: "Échec de lecture de {file} : {error}",
+      listDirFailed: "Échec du listage de {dir} : {error}",
+    },
+    aria: {
+      commandPalette: "Palette de commandes",
+    },
+  },
 };
 
 export default fr;

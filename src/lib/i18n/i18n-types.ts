@@ -1149,6 +1149,130 @@ type RootTranslation = {
 		 */
 		never: string
 	}
+	slashCommands: {
+		categories: {
+			/**
+			 * C​h​a​t
+			 */
+			chat: string
+			/**
+			 * W​o​r​k​s​p​a​c​e
+			 */
+			workspace: string
+			/**
+			 * W​e​b
+			 */
+			web: string
+			/**
+			 * S​k​i​l​l​s
+			 */
+			skills: string
+			/**
+			 * A​p​p
+			 */
+			app: string
+		}
+		descriptions: {
+			/**
+			 * S​w​i​t​c​h​ ​t​h​e​ ​a​c​t​i​v​e​ ​t​h​e​m​e
+			 */
+			switchTheme: string
+			/**
+			 * S​w​i​t​c​h​ ​t​h​e​ ​a​c​t​i​v​e​ ​m​o​d​e​l
+			 */
+			switchModel: string
+			/**
+			 * S​w​i​t​c​h​ ​t​h​e​ ​a​c​t​i​v​e​ ​p​r​o​v​i​d​e​r
+			 */
+			switchProvider: string
+			/**
+			 * S​h​o​w​ ​t​h​e​ ​a​c​t​i​v​e​ ​w​o​r​k​s​p​a​c​e​ ​p​a​t​h
+			 */
+			showWorkspace: string
+			/**
+			 * A​d​d​ ​a​ ​w​o​r​k​s​p​a​c​e​ ​d​i​r​e​c​t​o​r​y
+			 */
+			addWorkspace: string
+			/**
+			 * L​i​s​t​ ​i​n​s​t​a​l​l​e​d​ ​s​k​i​l​l​s
+			 */
+			listSkills: string
+			/**
+			 * R​e​a​d​ ​a​ ​f​i​l​e​ ​a​n​d​ ​i​n​j​e​c​t​ ​c​o​n​t​e​n​t​s​ ​i​n​t​o​ ​c​o​n​t​e​x​t
+			 */
+			readFile: string
+			/**
+			 * L​i​s​t​ ​f​i​l​e​s​ ​i​n​ ​w​o​r​k​s​p​a​c​e​ ​d​i​r​e​c​t​o​r​y
+			 */
+			listDir: string
+			/**
+			 * F​e​t​c​h​ ​w​e​b​p​a​g​e​ ​c​o​n​t​e​n​t​ ​a​s​ ​c​o​n​t​e​x​t
+			 */
+			fetchUrl: string
+			/**
+			 * F​e​t​c​h​ ​a​ ​G​i​t​H​u​b​ ​r​e​p​o​s​i​t​o​r​y​ ​R​E​A​D​M​E
+			 */
+			github: string
+			/**
+			 * L​o​a​d​ ​s​k​i​l​l​ ​i​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​t​h​i​s​ ​r​e​q​u​e​s​t
+			 */
+			loadSkill: string
+			/**
+			 * S​e​a​r​c​h​ ​c​u​r​a​t​e​d​ ​s​k​i​l​l​ ​c​a​t​a​l​o​g
+			 */
+			searchSkills: string
+		}
+		feedback: {
+			/**
+			 * T​h​e​m​e​ ​s​w​i​t​c​h​e​d​ ​t​o​ ​{​n​a​m​e​}
+			 * @param {unknown} name
+			 */
+			themeSwitched: RequiredParams<'name'>
+			/**
+			 * A​c​t​i​v​e​ ​w​o​r​k​s​p​a​c​e​:​ ​{​p​a​t​h​}
+			 * @param {unknown} path
+			 */
+			activeWorkspace: RequiredParams<'path'>
+			/**
+			 * N​o​ ​w​o​r​k​s​p​a​c​e​ ​a​c​t​i​v​e
+			 */
+			noWorkspace: string
+			/**
+			 * W​o​r​k​s​p​a​c​e​ ​a​d​d​e​d​:​ ​{​p​a​t​h​}
+			 * @param {unknown} path
+			 */
+			workspaceAdded: RequiredParams<'path'>
+		}
+		errors: {
+			/**
+			 * C​o​u​l​d​ ​n​o​t​ ​r​e​a​d​ ​w​o​r​k​s​p​a​c​e
+			 */
+			couldNotReadWorkspace: string
+			/**
+			 * F​a​i​l​e​d​ ​t​o​ ​a​d​d​ ​w​o​r​k​s​p​a​c​e​:​ ​{​e​r​r​o​r​}
+			 * @param {unknown} error
+			 */
+			addWorkspaceFailed: RequiredParams<'error'>
+			/**
+			 * F​a​i​l​e​d​ ​t​o​ ​r​e​a​d​ ​{​f​i​l​e​}​:​ ​{​e​r​r​o​r​}
+			 * @param {unknown} error
+			 * @param {unknown} file
+			 */
+			readFileFailed: RequiredParams<'error' | 'file'>
+			/**
+			 * F​a​i​l​e​d​ ​t​o​ ​l​i​s​t​ ​{​d​i​r​}​:​ ​{​e​r​r​o​r​}
+			 * @param {unknown} dir
+			 * @param {unknown} error
+			 */
+			listDirFailed: RequiredParams<'dir' | 'error'>
+		}
+		aria: {
+			/**
+			 * C​o​m​m​a​n​d​ ​p​a​l​e​t​t​e
+			 */
+			commandPalette: string
+		}
+	}
 }
 
 export type TranslationFunctions = {
@@ -2273,6 +2397,122 @@ export type TranslationFunctions = {
 		 * Never
 		 */
 		never: () => LocalizedString
+	}
+	slashCommands: {
+		categories: {
+			/**
+			 * Chat
+			 */
+			chat: () => LocalizedString
+			/**
+			 * Workspace
+			 */
+			workspace: () => LocalizedString
+			/**
+			 * Web
+			 */
+			web: () => LocalizedString
+			/**
+			 * Skills
+			 */
+			skills: () => LocalizedString
+			/**
+			 * App
+			 */
+			app: () => LocalizedString
+		}
+		descriptions: {
+			/**
+			 * Switch the active theme
+			 */
+			switchTheme: () => LocalizedString
+			/**
+			 * Switch the active model
+			 */
+			switchModel: () => LocalizedString
+			/**
+			 * Switch the active provider
+			 */
+			switchProvider: () => LocalizedString
+			/**
+			 * Show the active workspace path
+			 */
+			showWorkspace: () => LocalizedString
+			/**
+			 * Add a workspace directory
+			 */
+			addWorkspace: () => LocalizedString
+			/**
+			 * List installed skills
+			 */
+			listSkills: () => LocalizedString
+			/**
+			 * Read a file and inject contents into context
+			 */
+			readFile: () => LocalizedString
+			/**
+			 * List files in workspace directory
+			 */
+			listDir: () => LocalizedString
+			/**
+			 * Fetch webpage content as context
+			 */
+			fetchUrl: () => LocalizedString
+			/**
+			 * Fetch a GitHub repository README
+			 */
+			github: () => LocalizedString
+			/**
+			 * Load skill instructions for this request
+			 */
+			loadSkill: () => LocalizedString
+			/**
+			 * Search curated skill catalog
+			 */
+			searchSkills: () => LocalizedString
+		}
+		feedback: {
+			/**
+			 * Theme switched to {name}
+			 */
+			themeSwitched: (arg: { name: unknown }) => LocalizedString
+			/**
+			 * Active workspace: {path}
+			 */
+			activeWorkspace: (arg: { path: unknown }) => LocalizedString
+			/**
+			 * No workspace active
+			 */
+			noWorkspace: () => LocalizedString
+			/**
+			 * Workspace added: {path}
+			 */
+			workspaceAdded: (arg: { path: unknown }) => LocalizedString
+		}
+		errors: {
+			/**
+			 * Could not read workspace
+			 */
+			couldNotReadWorkspace: () => LocalizedString
+			/**
+			 * Failed to add workspace: {error}
+			 */
+			addWorkspaceFailed: (arg: { error: unknown }) => LocalizedString
+			/**
+			 * Failed to read {file}: {error}
+			 */
+			readFileFailed: (arg: { error: unknown, file: unknown }) => LocalizedString
+			/**
+			 * Failed to list {dir}: {error}
+			 */
+			listDirFailed: (arg: { dir: unknown, error: unknown }) => LocalizedString
+		}
+		aria: {
+			/**
+			 * Command palette
+			 */
+			commandPalette: () => LocalizedString
+		}
 	}
 }
 

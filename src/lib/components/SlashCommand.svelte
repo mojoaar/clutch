@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { CommandDef, CommandCategory } from '$lib/services/commands';
+  import LL from '$lib/i18n/i18n-svelte';
 
   interface Props {
     commands: CommandDef[];
@@ -10,13 +11,17 @@
   let { commands, activeIndex, query }: Props = $props();
 
   const categoryOrder: CommandCategory[] = ['chat', 'workspace', 'web', 'skills', 'app'];
-  const categoryLabels: Record<CommandCategory, string> = {
-    chat: 'Chat',
-    workspace: 'Workspace',
-    web: 'Web',
-    skills: 'Skills',
-    app: 'App',
-  };
+
+  function categoryLabel(cat: CommandCategory): string {
+    const labels: Record<CommandCategory, () => string> = {
+      chat: $LL.slashCommands.categories.chat,
+      workspace: $LL.slashCommands.categories.workspace,
+      web: $LL.slashCommands.categories.web,
+      skills: $LL.slashCommands.categories.skills,
+      app: $LL.slashCommands.categories.app,
+    };
+    return labels[cat]();
+  }
 
   let grouped = $derived.by(() => {
     const groups: Record<string, CommandDef[]> = {};
@@ -27,11 +32,11 @@
     }
     return categoryOrder
       .filter((cat) => groups[cat] && groups[cat].length > 0)
-      .map((cat) => ({ category: cat, label: categoryLabels[cat], commands: groups[cat] }));
+      .map((cat) => ({ category: cat, label: categoryLabel(cat), commands: groups[cat] }));
   });
 </script>
 
-<div class="slash-command-overlay" role="listbox" aria-label="Command palette">
+<div class="slash-command-overlay" role="listbox" aria-label={$LL.slashCommands.aria.commandPalette()}>
   {#each grouped as group}
     <div class="slash-command-group">
       <div class="slash-command-group__header">{group.label}</div>

@@ -387,7 +387,7 @@ import { createNewSession } from '$lib/services/sessions';
             id: uuid(),
             sessionId: $chatStore.activeSessionId ?? '',
             role: 'system',
-            content: `Theme switched to ${name}`,
+            content: $LL.slashCommands.feedback.themeSwitched({ name }),
             createdAt: new Date().toISOString(),
           });
         }
@@ -410,7 +410,7 @@ import { createNewSession } from '$lib/services/sessions';
             id: uuid(),
             sessionId: $chatStore.activeSessionId ?? '',
             role: 'system',
-            content: ws ? `Active workspace: ${ws}` : 'No workspace active',
+            content: ws ? $LL.slashCommands.feedback.activeWorkspace({ path: ws }) : $LL.slashCommands.feedback.noWorkspace(),
             createdAt: new Date().toISOString(),
           });
         } catch {
@@ -418,7 +418,7 @@ import { createNewSession } from '$lib/services/sessions';
             id: uuid(),
             sessionId: $chatStore.activeSessionId ?? '',
             role: 'system',
-            content: 'Could not read workspace',
+            content: $LL.slashCommands.errors.couldNotReadWorkspace(),
             createdAt: new Date().toISOString(),
           });
         }
@@ -433,7 +433,7 @@ import { createNewSession } from '$lib/services/sessions';
               id: uuid(),
               sessionId: $chatStore.activeSessionId ?? '',
               role: 'system',
-              content: `Workspace added: ${path}`,
+              content: $LL.slashCommands.feedback.workspaceAdded({ path }),
               createdAt: new Date().toISOString(),
             });
           } catch (e: any) {
@@ -441,7 +441,7 @@ import { createNewSession } from '$lib/services/sessions';
               id: uuid(),
               sessionId: $chatStore.activeSessionId ?? '',
               role: 'system',
-              content: `Failed to add workspace: ${e?.message ?? e}`,
+              content: $LL.slashCommands.errors.addWorkspaceFailed({ error: e?.message ?? String(e) }),
               createdAt: new Date().toISOString(),
             });
           }
@@ -468,7 +468,7 @@ import { createNewSession } from '$lib/services/sessions';
               id: uuid(),
               sessionId: $chatStore.activeSessionId ?? '',
               role: 'system',
-              content: `Failed to read ${file}: ${e?.message ?? e}`,
+              content: $LL.slashCommands.errors.readFileFailed({ file, error: e?.message ?? String(e) }),
               createdAt: new Date().toISOString(),
             });
           }
@@ -485,7 +485,7 @@ import { createNewSession } from '$lib/services/sessions';
             id: uuid(),
             sessionId: $chatStore.activeSessionId ?? '',
             role: 'system',
-            content: `Failed to list ${dir}: ${e?.message ?? e}`,
+              content: $LL.slashCommands.errors.listDirFailed({ dir, error: e?.message ?? String(e) }),
             createdAt: new Date().toISOString(),
           });
         }

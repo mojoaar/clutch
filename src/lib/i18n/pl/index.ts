@@ -326,6 +326,44 @@ const pl: Translation = {
     lastChecked: "Ostatnio sprawdzano",
     never: "Nigdy",
   },
+  slashCommands: {
+    categories: {
+      chat: "[pl] Chat",
+      workspace: "[pl] Workspace",
+      web: "[pl] Web",
+      skills: "[pl] Skills",
+      app: "[pl] App",
+    },
+    descriptions: {
+      switchTheme: "[pl] Switch the active theme",
+      switchModel: "[pl] Switch the active model",
+      switchProvider: "[pl] Switch the active provider",
+      showWorkspace: "[pl] Show the active workspace path",
+      addWorkspace: "[pl] Add a workspace directory",
+      listSkills: "[pl] List installed skills",
+      readFile: "[pl] Read a file and inject contents into context",
+      listDir: "[pl] List files in workspace directory",
+      fetchUrl: "[pl] Fetch webpage content as context",
+      github: "[pl] Fetch a GitHub repository README",
+      loadSkill: "[pl] Load skill instructions for this request",
+      searchSkills: "[pl] Search curated skill catalog",
+    },
+    feedback: {
+      themeSwitched: "[pl] Theme switched to {name}",
+      activeWorkspace: "[pl] Active workspace: {path}",
+      noWorkspace: "[pl] No workspace active",
+      workspaceAdded: "[pl] Workspace added: {path}",
+    },
+    errors: {
+      couldNotReadWorkspace: "[pl] Could not read workspace",
+      addWorkspaceFailed: "[pl] Failed to add workspace: {error}",
+      readFileFailed: "[pl] Failed to read {file}: {error}",
+      listDirFailed: "[pl] Failed to list {dir}: {error}",
+    },
+    aria: {
+      commandPalette: "[pl] Command palette",
+    },
+  },
 };
 
 export default pl;
