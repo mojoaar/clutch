@@ -1,10 +1,10 @@
 pub mod api;
 pub mod cancel;
 mod context;
-mod db;
-mod export;
+pub mod db;
+pub mod export;
 pub mod file_resolver;
-mod logs;
+pub mod logs;
 pub mod model_cache;
 
 pub mod sessions;

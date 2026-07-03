@@ -116,6 +116,13 @@ pub fn is_path_allowed(path: &Path) -> bool {
         return false;
     }
 
+    let temp = std::env::temp_dir();
+    let is_temp = if let Ok(canonical_temp) = temp.canonicalize() {
+        path.starts_with(canonical_temp)
+    } else {
+        path.starts_with(&temp)
+    };
+
     let blocked = [
         "/.ssh/", "/.gnupg/", "/.aws/",
         "/Library/Keychains/",
@@ -126,6 +133,9 @@ pub fn is_path_allowed(path: &Path) -> bool {
 
     for b in &blocked {
         if path_str.contains(b) {
+            if is_temp && (*b == "/var/" || *b == "/tmp/") {
+                continue;
+            }
             return false;
         }
     }
@@ -134,6 +144,9 @@ pub fn is_path_allowed(path: &Path) -> bool {
         let parent_str = parent.to_string_lossy();
         for component in path_str.split('/') {
             if component.starts_with('.') && component.len() > 1 && !component.starts_with("./") {
+                if is_temp && component.starts_with(".tmp") {
+                    continue;
+                }
                 if parent_str.contains("Downloads") || parent_str.contains("Desktop") || parent_str.contains("Documents") {
                     continue;
                 }
