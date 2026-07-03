@@ -5,18 +5,6 @@ All notable changes to Clutch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.4.0] - 2026-07-03
-
-### Added
-
-- File Reference Middleware: detect file paths in messages (~/path, /abs/path, ./relative) and inject contents into API context automatically
-- Security sandbox for file reading: blocks .ssh/, .gnupg/, .aws/, /etc/, /var/, path traversal
-- Slash Commands: type `/` to trigger command palette with 12 commands (theme, model, provider, workspace, add-workspace, skills, search-skills, read, ls, fetch, github, skill)
-- Slash command autocomplete overlay with keyboard navigation (Arrow keys, Tab, Enter, Escape)
-- Client-side commands execute instantly (/theme, /model, /provider, /workspace, /add-workspace)
-- AI-aware commands inject resolved content into message context (/read, /ls, /fetch, /github, /skill)
-- resolve_and_read_file Tauri command for slash command file reading
-
 ## [0.4.1] - 2026-07-03
 
 ### Added
@@ -32,6 +20,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Scroll-into-view: slash command palette now follows keyboard navigation
+
+## [0.4.0] - 2026-07-03
+
+### Added
+
+- File Reference Middleware: detect file paths in messages (~/path, /abs/path, ./relative) and inject contents into API context automatically
+- Security sandbox for file reading: blocks .ssh/, .gnupg/, .aws/, /etc/, /var/, path traversal
+- Slash Commands: type `/` to trigger command palette with 12 commands (theme, model, provider, workspace, add-workspace, skills, search-skills, read, ls, fetch, github, skill)
+- Slash command autocomplete overlay with keyboard navigation (Arrow keys, Tab, Enter, Escape)
+- Client-side commands execute instantly (/theme, /model, /provider, /workspace, /add-workspace)
+- AI-aware commands inject resolved content into message context (/read, /ls, /fetch, /github, /skill)
+- resolve_and_read_file Tauri command for slash command file reading
 
 ## [0.3.3] - 2026-07-03
 
