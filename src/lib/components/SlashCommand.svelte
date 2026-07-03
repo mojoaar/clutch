@@ -1,14 +1,30 @@
 <script lang="ts">
+  import { tick } from 'svelte';
   import type { CommandDef, CommandCategory } from '$lib/services/commands';
   import LL from '$lib/i18n/i18n-svelte';
+
+  interface SlashOption {
+    label: string;
+    value: string;
+  }
 
   interface Props {
     commands: CommandDef[];
     activeIndex: number;
     query: string;
+    showOptions?: boolean;
+    options?: SlashOption[];
+    optionsTitle?: string;
   }
 
-  let { commands, activeIndex, query }: Props = $props();
+  let {
+    commands,
+    activeIndex,
+    query,
+    showOptions = false,
+    options = [],
+    optionsTitle = '',
+  }: Props = $props();
 
   const categoryOrder: CommandCategory[] = ['chat', 'workspace', 'web', 'skills', 'app'];
 
@@ -39,34 +55,61 @@
       .filter((cat) => groups[cat] && groups[cat].length > 0)
       .map((cat) => ({ category: cat, label: categoryLabel(cat), commands: groups[cat] }));
   });
+
+  $effect(() => {
+    const idx = activeIndex;
+    if (idx >= 0) {
+      tick().then(() => {
+        const el = document.querySelector('.slash-command-item--active');
+        el?.scrollIntoView({ block: 'nearest' });
+      });
+    }
+  });
 </script>
 
 <div class="slash-command-overlay" role="listbox" aria-label={$LL.slashCommands.aria.commandPalette()}>
-  {#each grouped as group}
+  {#if showOptions}
     <div class="slash-command-group">
-      <div class="slash-command-group__header">{group.label}</div>
-      {#each group.commands as cmd, idx}
-        {@const globalIdx = commands.indexOf(cmd)}
+      <div class="slash-command-group__header">{optionsTitle}</div>
+      {#each options as opt, i}
         <button
           class="slash-command-item"
-          class:slash-command-item--active={globalIdx === activeIndex}
+          class:slash-command-item--active={i === activeIndex}
           role="option"
-          aria-selected={globalIdx === activeIndex}
+          aria-selected={i === activeIndex}
           tabindex={-1}
         >
-          <span class="slash-command-item__label">{cmd.label}</span>
-          {#if cmd.args && cmd.args.length > 0}
-            <span class="slash-command-item__args">
-              {cmd.args.map((a) => `<${a.placeholder}>`).join(' ')}
-            </span>
-          {:else}
-            <span class="slash-command-item__args"></span>
-          {/if}
-          <span class="slash-command-item__desc">{cmdDescription(cmd)}</span>
+          <span class="slash-command-item__label">{opt.label}</span>
         </button>
       {/each}
     </div>
-  {/each}
+  {:else}
+    {#each grouped as group}
+      <div class="slash-command-group">
+        <div class="slash-command-group__header">{group.label}</div>
+        {#each group.commands as cmd, idx}
+          {@const globalIdx = commands.indexOf(cmd)}
+          <button
+            class="slash-command-item"
+            class:slash-command-item--active={globalIdx === activeIndex}
+            role="option"
+            aria-selected={globalIdx === activeIndex}
+            tabindex={-1}
+          >
+            <span class="slash-command-item__label">{cmd.label}</span>
+            {#if cmd.args && cmd.args.length > 0}
+              <span class="slash-command-item__args">
+                {cmd.args.map((a) => `<${a.placeholder}>`).join(' ')}
+              </span>
+            {:else}
+              <span class="slash-command-item__args"></span>
+            {/if}
+            <span class="slash-command-item__desc">{cmdDescription(cmd)}</span>
+          </button>
+        {/each}
+      </div>
+    {/each}
+  {/if}
 </div>
 
 <style>

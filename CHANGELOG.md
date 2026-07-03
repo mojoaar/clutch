@@ -17,6 +17,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AI-aware commands inject resolved content into message context (/read, /ls, /fetch, /github, /skill)
 - resolve_and_read_file Tauri command for slash command file reading
 
+## [0.4.1] - 2026-07-03
+
+### Added
+
+- Dynamic option menus for `/model`, `/provider`, and `/theme` — select from available choices instead of typing manually
+- Slash command palette now scrolls into view when navigating with arrow keys
+- Full i18n coverage for slash commands: 20 keys across 5 locales (descriptions, categories, feedback, errors, aria)
+
+### Changed
+
+- Slash command descriptions use `descriptionKey` field with i18n lookup (not hardcoded strings)
+
+### Fixed
+
+- Scroll-into-view: slash command palette now follows keyboard navigation
+
 ## [0.3.3] - 2026-07-03
 
 ### Fixed

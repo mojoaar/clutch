@@ -8,6 +8,11 @@
   import { Send, Paperclip, Square, Terminal } from '@lucide/svelte';
   import LL from '$lib/i18n/i18n-svelte';
 
+  interface SlashOption {
+    label: string;
+    value: string;
+  }
+
   interface Props {
     sessionId: string;
     provider?: string;
@@ -16,9 +21,19 @@
     onSend?: (content: string, files: File[]) => void;
     onStop?: () => void;
     onSlashSend?: (commandId: string, args: string[], feedbackText: string) => void;
+    getSlashOptions?: (commandId: string) => SlashOption[] | null;
   }
 
-  let { sessionId, provider, model, disabled = false, onSend, onStop, onSlashSend }: Props = $props();
+  let {
+    sessionId,
+    provider,
+    model,
+    disabled = false,
+    onSend,
+    onStop,
+    onSlashSend,
+    getSlashOptions,
+  }: Props = $props();
 
   let inputValue = $state('');
   let attachedFiles = $state<File[]>([]);
@@ -27,6 +42,11 @@
   let textareaEl = $state<HTMLTextAreaElement | null>(null);
   let showSlashPalette = $state(false);
   let activeSlashIndex = $state(0);
+  let slashOptionMode = $state(false);
+  let slashOptionCommand = $state<CommandDef | null>(null);
+  let slashOptions = $state<SlashOption[]>([]);
+  let slashOptionsTitle = $state('');
+  let slashOptionIndex = $state(0);
 
   let isStreaming = $derived($chatStore.streamingStatus === 'streaming');
   let canSend = $derived((inputValue.trim().length > 0 || attachedFiles.length > 0) && !isStreaming && !disabled);
@@ -58,11 +78,6 @@
   function handleSend() {
     if (isStreaming || disabled) return;
 
-    if (showSlashPalette && selectedSlashCommand) {
-      executeSlashCommand();
-      return;
-    }
-
     const content = inputValue.trim();
     if (content || attachedFiles.length > 0) {
       onSend?.(content, [...attachedFiles]);
@@ -71,13 +86,39 @@
     }
     inputValue = '';
     attachedFiles = [];
-    showSlashPalette = false;
+    resetSlash();
     textareaEl?.focus();
+  }
+
+  function resetSlash() {
+    showSlashPalette = false;
+    slashOptionMode = false;
+    slashOptionCommand = null;
+    slashOptions = [];
+    activeSlashIndex = 0;
+    slashOptionIndex = 0;
   }
 
   function executeSlashCommand() {
     if (!selectedSlashCommand) return;
     const cmd = selectedSlashCommand;
+
+    if (getSlashOptions) {
+      try {
+        const opts = getSlashOptions(cmd.id);
+        if (opts && opts.length > 0) {
+          slashOptionMode = true;
+          slashOptionCommand = cmd;
+          slashOptions = opts;
+          slashOptionsTitle = cmd.label;
+          slashOptionIndex = 0;
+          return;
+        }
+      } catch {
+        // fall through to normal execution
+      }
+    }
+
     const parts = inputValue.trim().split(/\s+/);
     const args = parts.slice(1);
     const feedbackText = args.length > 0
@@ -87,12 +128,44 @@
     onSlashSend?.(cmd.id, args, feedbackText);
     inputValue = '';
     attachedFiles = [];
-    showSlashPalette = false;
+    resetSlash();
+    textareaEl?.focus();
+  }
+
+  function executeSlashOption() {
+    const option = slashOptions[slashOptionIndex];
+    if (!option || !slashOptionCommand) return;
+
+    onSlashSend?.(slashOptionCommand.id, [option.value], `${slashOptionCommand.label} ${option.label}`);
+    inputValue = '';
+    attachedFiles = [];
+    resetSlash();
     textareaEl?.focus();
   }
 
   function handleKeydown(e: KeyboardEvent) {
-    if (showSlashPalette) {
+    if (slashOptionMode) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        slashOptionIndex = Math.min(slashOptionIndex + 1, slashOptions.length - 1);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        slashOptionIndex = Math.max(slashOptionIndex - 1, 0);
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        slashOptionMode = false;
+        return;
+      }
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        executeSlashOption();
+        return;
+      }
+    } else if (showSlashPalette) {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         activeSlashIndex = Math.min(activeSlashIndex + 1, filteredSlashCommands.length - 1);
@@ -217,8 +290,11 @@
   {#if showSlashPalette}
     <SlashCommand
       commands={filteredSlashCommands}
-      activeIndex={activeSlashIndex}
+      activeIndex={slashOptionMode ? slashOptionIndex : activeSlashIndex}
       query={slashQuery}
+      showOptions={slashOptionMode}
+      options={slashOptions}
+      optionsTitle={slashOptionMode ? slashOptionsTitle : ''}
     />
   {/if}
 

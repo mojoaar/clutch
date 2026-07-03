@@ -15,6 +15,7 @@ import { createNewSession } from '$lib/services/sessions';
   import { invoke } from '@tauri-apps/api/core';
   import { goto, afterNavigate } from '$app/navigation';
   import { themeName } from '$lib/stores/theme';
+  import { themes } from '$lib/themes';
   import { addWorkspace } from '$lib/services/workspaces';
   import {
     Archive,
@@ -375,6 +376,23 @@ import { createNewSession } from '$lib/services/sessions';
     await createNewSession($LL.chat.newChat());
   }
 
+  function getSlashOptions(commandId: string): { label: string; value: string }[] | null {
+    if (commandId === 'model') {
+      if (availableModels.length === 0) return null;
+      return availableModels.map((m) => ({ label: m, value: m }));
+    }
+    if (commandId === 'provider') {
+      return Object.entries(PROVIDERS).map(([id, p]) => ({ label: p.name, value: id }));
+    }
+    if (commandId === 'theme') {
+      return Object.keys(themes).map((name) => ({
+        label: name.charAt(0).toUpperCase() + name.slice(1),
+        value: name,
+      }));
+    }
+    return null;
+  }
+
   async function handleSlashSend(commandId: string, args: string[], feedbackText: string) {
     const session = $chatStore.sessions.find((s) => s.id === $chatStore.activeSessionId);
 
@@ -600,6 +618,7 @@ import { createNewSession } from '$lib/services/sessions';
           onSend={handleSend}
           onStop={handleStop}
           onSlashSend={handleSlashSend}
+          getSlashOptions={getSlashOptions}
         />
       </div>
     {:else}
