@@ -62,7 +62,7 @@ struct StreamResponse {
     choices: Vec<StreamChoice>,
 }
 
-fn provider_endpoint(provider: &str) -> &'static str {
+pub fn provider_endpoint(provider: &str) -> &'static str {
     match provider {
         "deepseek" => "https://api.deepseek.com/v1/chat/completions",
         "opencode_go" => "https://opencode.ai/zen/go/v1/chat/completions",

@@ -84,7 +84,7 @@ pub fn detect_file_references(text: &str) -> Vec<String> {
 /// Extracts a path-like token starting at position `i`. Consumes
 /// alphanumeric chars, dots, hyphens, slashes, underscores, and backslashes.
 /// Advances `i` past the token.
-fn extract_path_token(chars: &[char], i: &mut usize) -> String {
+pub fn extract_path_token(chars: &[char], i: &mut usize) -> String {
     let start = *i;
     while *i < chars.len() {
         let c = chars[*i];

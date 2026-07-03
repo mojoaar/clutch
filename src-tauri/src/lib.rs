@@ -1,5 +1,5 @@
-mod api;
-mod cancel;
+pub mod api;
+pub mod cancel;
 mod context;
 mod db;
 mod export;
