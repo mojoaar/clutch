@@ -357,9 +357,11 @@ const de: Translation = {
     },
     errors: {
       couldNotReadWorkspace: "Arbeitsbereich konnte nicht gelesen werden",
-      addWorkspaceFailed: "Arbeitsbereich konnte nicht hinzugefügt werden: {error}",
+      addWorkspaceFailed:
+        "Arbeitsbereich konnte nicht hinzugefügt werden: {error}",
       readFileFailed: "Datei {file} konnte nicht gelesen werden: {error}",
-      listDirFailed: "Verzeichnis {dir} konnte nicht aufgelistet werden: {error}",
+      listDirFailed:
+        "Verzeichnis {dir} konnte nicht aufgelistet werden: {error}",
     },
     aria: {
       commandPalette: "Befehlspalette",

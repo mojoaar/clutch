@@ -115,7 +115,13 @@ export async function streamChat(params: StreamChatParams): Promise<void> {
     }
 
     chatStore.appendToMessage(assistantId, "\n\n" + errMsg);
-    db.createMessage(assistantId, params.sessionId, "assistant", errMsg, finalTokens);
+    db.createMessage(
+      assistantId,
+      params.sessionId,
+      "assistant",
+      errMsg,
+      finalTokens,
+    );
     chatStore.setStreamingStatus("complete");
     console.debug("streamChat failed:", error);
   }
@@ -159,7 +165,13 @@ export async function sendMessage(
   };
 
   chatStore.addMessage(userMessage);
-  db.createMessage(userMessage.id, sessionId, "user", content, Math.ceil(content.length / 4));
+  db.createMessage(
+    userMessage.id,
+    sessionId,
+    "user",
+    content,
+    Math.ceil(content.length / 4),
+  );
 
   const apiMessages = [...previousMessages, userMessage].map((m) => ({
     role: m.role,

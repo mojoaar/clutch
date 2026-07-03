@@ -23,6 +23,7 @@ vi.mock("$lib/stores/chat", () => ({
     addMessage: vi.fn(),
     setStreamingStatus: vi.fn(),
     setStreamingTokens: vi.fn(),
+    setMessageTokens: vi.fn(),
     appendToMessage: vi.fn(),
   },
 }));
@@ -103,6 +104,7 @@ describe("sendMessage", () => {
         "deepseek",
         "deepseek-chat",
         [],
+        undefined,
         undefined,
         undefined,
       ],
