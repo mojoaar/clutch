@@ -1791,25 +1791,25 @@ User message: can you review this?
 
 ### P2 — Comprehensive Coverage (In Progress)
 
-| Wave | File               | Tests | Status   | Notes                                                   |
-| ---- | ------------------ | ----- | -------- | ------------------------------------------------------- |
-| 1    | `cancel.rs`        | 6     | Done     | Pure logic: `StreamCancelState` ops                     |
-| 1    | `api.rs`           | 5     | Done     | Pure: `provider_endpoint` mappings                      |
-| 1    | `file_resolver.rs` | 9     | Done     | Pure: `extract_path_token` + additional detection cases |
-| 2    | `user_profile.rs`  | 4     | Done     | DB: profile CRUD                                        |
-| 2    | `model_cache.rs`   | 10    | Done     | Pure fns + DB commands (DeepSeek path)                  |
-| 2    | `workspaces.rs`    | 8     | Done     | DB: list/add/remove/active                              |
-| 2    | `skills.rs`        | 6     | Done     | DB: list/install-status/uninstall                       |
-| 3    | `workspaces.rs`    | 7     | Done     | FS: read/write/list/create/delete                       |
-| 3    | `file_resolver.rs` | 10    | Done     | FS: resolve/read/inject                                 |
-| 3    | `skills.rs`        | 6     | Done     | FS + pure: instructions, parse_skill_md, actions        |
-| 3    | `export.rs`        | 6     | Done     | DB: `export_session` integration                        |
-| 3    | `logs.rs`          | 4     | Done     | FS: `get_logs` with tempdirs                            |
-| 3    | `db.rs`            | 2     | Done     | DB: `init_pool` with tempdb                             |
-| 4    | `skills.rs`        | ~10   | Deferred | HTTP mocking needed (GitHub API)                        |
-| 4    | `model_cache.rs`   | ~5    | Deferred | HTTP mocking needed (API fetches)                       |
-| 4    | `api.rs`           | ~2    | Deferred | `AppHandle<Wry>` + `Channel` needed                     |
+| Wave | File               | Tests | Status | Notes                                                        |
+| ---- | ------------------ | ----- | ------ | ------------------------------------------------------------ |
+| 1    | `cancel.rs`        | 6     | Done   | Pure logic: `StreamCancelState` ops                          |
+| 1    | `api.rs`           | 5     | Done   | Pure: `provider_endpoint` mappings                           |
+| 1    | `file_resolver.rs` | 9     | Done   | Pure: `extract_path_token` + additional detection cases      |
+| 2    | `user_profile.rs`  | 4     | Done   | DB: profile CRUD                                             |
+| 2    | `model_cache.rs`   | 10    | Done   | Pure fns + DB commands (DeepSeek path)                       |
+| 2    | `workspaces.rs`    | 8     | Done   | DB: list/add/remove/active                                   |
+| 2    | `skills.rs`        | 6     | Done   | DB: list/install-status/uninstall                            |
+| 3    | `workspaces.rs`    | 7     | Done   | FS: read/write/list/create/delete                            |
+| 3    | `file_resolver.rs` | 10    | Done   | FS: resolve/read/inject                                      |
+| 3    | `skills.rs`        | 6     | Done   | FS + pure: instructions, parse_skill_md, actions             |
+| 3    | `export.rs`        | 6     | Done   | DB: `export_session` integration                             |
+| 3    | `logs.rs`          | 4     | Done   | FS: `get_logs` with tempdirs                                 |
+| 3    | `db.rs`            | 2     | Done   | DB: `init_pool` with tempdb                                  |
+| 4    | `skills.rs`        | 14    | Done   | HTTP mocking: get_skill_detail, install_skill, check_updates |
+| 4    | `model_cache.rs`   | 1     | Done   | HTTP mocking: refresh_models with mockito                    |
+| 4    | `api.rs`           | 3     | Done   | Decoupled `get_api_key_for_test` via AppHandle<MockRuntime>  |
 
-**Target**: ~190 tests across all 16 files (~40-50% coverage). Waves 1-3 add ~123 new tests. Wave 4 deferred (~17 tests, needs `wiremock`).
+**Target**: ~190 tests across all 16 files (~40-50% coverage). Waves 1-4 add ~101 new tests.
 
-**Waves 1-3 completed** (73 new integration/unit tests added in P2, plus 24 in P1). Total: 181 Rust tests, all passing green!
+**Waves 1-4 completed** (101 new integration/unit tests added in P2, plus 24 in P1). Total: 185 Rust tests, all passing green!

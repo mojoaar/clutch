@@ -42,11 +42,15 @@ impl Provider {
     }
 
     /// Returns the base API URL for fetching the model list from this provider.
-    pub fn api_url(&self) -> &str {
-        match self {
-            Provider::DeepSeek => "https://api.deepseek.com/v1/models",
-            Provider::OpenCodeGo => "https://opencode.ai/zen/go/v1/models",
-            Provider::OpenCodeZen => "https://opencode.ai/zen/v1/models",
+    pub fn api_url(&self) -> String {
+        if let Ok(base) = std::env::var("CLUTCH_API_BASE_OVERRIDE") {
+            format!("{}/{}", base, self.as_str())
+        } else {
+            match self {
+                Provider::DeepSeek => "https://api.deepseek.com/v1/models".to_string(),
+                Provider::OpenCodeGo => "https://opencode.ai/zen/go/v1/models".to_string(),
+                Provider::OpenCodeZen => "https://opencode.ai/zen/v1/models".to_string(),
+            }
         }
     }
 }

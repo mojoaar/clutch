@@ -48,3 +48,10 @@ async fn get_all_settings_overwritten_value_persists() {
     let all = app_lib::settings::get_all_settings(app.state()).await.unwrap();
     assert_eq!(all.get("theme").map(|s| s.as_str()), Some("dracula"));
 }
+
+#[tokio::test]
+async fn get_app_version_returns_non_empty() {
+    let app = tauri::test::mock_app();
+    let version = app_lib::settings::get_app_version(app.handle().clone());
+    assert!(!version.is_empty());
+}

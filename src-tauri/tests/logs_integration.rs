@@ -1,5 +1,3 @@
-use std::path::PathBuf;
-
 #[tokio::test]
 async fn get_logs_returns_list_of_log_files() {
     let dir = tempfile::tempdir().unwrap();

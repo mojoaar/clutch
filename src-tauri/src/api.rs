@@ -283,8 +283,16 @@ fn drain_remaining_buffer(
     Ok(())
 }
 
-async fn get_api_key(
-    app_handle: &tauri::AppHandle,
+pub async fn get_api_key_for_test<R: tauri::Runtime>(
+    app_handle: &tauri::AppHandle<R>,
+    pool: &sqlx::SqlitePool,
+    provider: &str,
+) -> Result<String, String> {
+    get_api_key(app_handle, pool, provider).await
+}
+
+async fn get_api_key<R: tauri::Runtime>(
+    app_handle: &tauri::AppHandle<R>,
     pool: &sqlx::SqlitePool,
     provider: &str,
 ) -> Result<String, String> {

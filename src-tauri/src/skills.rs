@@ -50,7 +50,8 @@ pub async fn get_skill_detail(
 ) -> Result<SkillDetail, String> {
     let skill_name = id.strip_prefix(&format!("{}/", source)).unwrap_or(&id);
     let url = format!(
-        "https://raw.githubusercontent.com/{}/{}/{}/SKILL.md",
+        "{}/{}/{}/{}/SKILL.md",
+        github_raw_base(),
         source, branch, skill_name
     );
 
@@ -106,7 +107,8 @@ pub async fn install_skill(
 ) -> Result<(), String> {
     let skill_name = id.strip_prefix(&format!("{}/", source)).unwrap_or(&id);
     let url = format!(
-        "https://raw.githubusercontent.com/{}/{}/{}/SKILL.md",
+        "{}/{}/{}/{}/SKILL.md",
+        github_raw_base(),
         source, branch, skill_name
     );
 
@@ -451,6 +453,16 @@ async fn list_installed_skill_ids(pool: &SqlitePool) -> Result<Vec<String>, Stri
         .collect())
 }
 
+fn github_raw_base() -> String {
+    std::env::var("CLUTCH_GITHUB_RAW_OVERRIDE")
+        .unwrap_or_else(|_| "https://raw.githubusercontent.com".to_string())
+}
+
+fn github_api_base() -> String {
+    std::env::var("CLUTCH_GITHUB_API_OVERRIDE")
+        .unwrap_or_else(|_| "https://api.github.com".to_string())
+}
+
 async fn get_skill_setting(
     pool: &SqlitePool,
     id: &str,
@@ -516,7 +528,7 @@ async fn get_latest_version(source: &str) -> Result<String, String> {
     match source {
         "anthropics/skills" => {
             let resp = client
-                .get("https://api.github.com/repos/anthropics/skills/commits/main")
+                .get(format!("{}/repos/anthropics/skills/commits/main", github_api_base()))
                 .header("User-Agent", "clutch-app")
                 .header("Accept", "application/vnd.github+json")
                 .send()
@@ -536,7 +548,7 @@ async fn get_latest_version(source: &str) -> Result<String, String> {
         }
         "obra/superpowers" => {
             let resp = client
-                .get("https://api.github.com/repos/obra/superpowers/releases/latest")
+                .get(format!("{}/repos/obra/superpowers/releases/latest", github_api_base()))
                 .header("User-Agent", "clutch-app")
                 .header("Accept", "application/vnd.github+json")
                 .send()
@@ -616,7 +628,8 @@ pub async fn update_skill(
 
     let skill_name = id.strip_prefix(&format!("{}/", source)).unwrap_or(&id);
     let url = format!(
-        "https://raw.githubusercontent.com/{}/{}/{}/SKILL.md",
+        "{}/{}/{}/{}/SKILL.md",
+        github_raw_base(),
         source, branch, skill_name
     );
 

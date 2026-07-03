@@ -10,7 +10,7 @@ use std::collections::HashMap;
 use tauri::Manager;
 use tauri::State;
 
-fn derive_encryption_key(app_handle: &tauri::AppHandle) -> Result<[u8; 32], String> {
+fn derive_encryption_key<R: tauri::Runtime>(app_handle: &tauri::AppHandle<R>) -> Result<[u8; 32], String> {
     let data_dir = app_handle
         .path()
         .app_data_dir()
@@ -63,8 +63,8 @@ fn is_api_key_setting(key: &str) -> bool {
 /// Tauri command to retrieve a single setting value by key.
 /// Automatically decrypts API key values before returning them.
 #[tauri::command]
-pub async fn get_setting(
-    app_handle: tauri::AppHandle,
+pub async fn get_setting<R: tauri::Runtime>(
+    app_handle: tauri::AppHandle<R>,
     pool: State<'_, SqlitePool>,
     key: String,
 ) -> Result<Option<String>, String> {
@@ -94,8 +94,8 @@ pub async fn get_setting(
 /// Tauri command to set a single setting value.
 /// Automatically encrypts API key values before storing them in the database.
 #[tauri::command]
-pub async fn set_setting(
-    app_handle: tauri::AppHandle,
+pub async fn set_setting<R: tauri::Runtime>(
+    app_handle: tauri::AppHandle<R>,
     pool: State<'_, SqlitePool>,
     key: String,
     value: String,
@@ -224,8 +224,8 @@ pub struct BalanceInfo {
 /// Tauri command to fetch the account balance from a provider (currently DeepSeek only).
 /// Returns balance information if available, or None if the provider does not support it.
 #[tauri::command]
-pub async fn get_balance(
-    app_handle: tauri::AppHandle,
+pub async fn get_balance<R: tauri::Runtime>(
+    app_handle: tauri::AppHandle<R>,
     pool: State<'_, SqlitePool>,
     provider: String,
 ) -> Result<Option<BalanceInfo>, String> {
@@ -285,14 +285,14 @@ pub async fn get_balance(
 
 /// Tauri command to return the current application version from the package manifest.
 #[tauri::command]
-pub fn get_app_version(app: tauri::AppHandle) -> String {
+pub fn get_app_version<R: tauri::Runtime>(app: tauri::AppHandle<R>) -> String {
     app.package_info().version.to_string()
 }
 
 /// Toggles the visibility of the system tray icon.
 #[tauri::command]
-pub async fn toggle_tray_icon(
-    app_handle: tauri::AppHandle,
+pub async fn toggle_tray_icon<R: tauri::Runtime>(
+    app_handle: tauri::AppHandle<R>,
     pool: tauri::State<'_, SqlitePool>,
     visible: bool,
 ) -> Result<(), String> {
