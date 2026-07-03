@@ -35,7 +35,7 @@ async fn reset_clears_flag() {
     state.cancel();
     let _ = rx.changed().await;
     assert!(*rx.borrow());
-    let mut rx2 = state.reset_and_subscribe();
+    let rx2 = state.reset_and_subscribe();
     assert!(!*rx2.borrow());
 }
 
