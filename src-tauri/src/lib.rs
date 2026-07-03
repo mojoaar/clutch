@@ -3,12 +3,12 @@ mod cancel;
 mod context;
 mod db;
 mod export;
-mod file_resolver;
+pub mod file_resolver;
 mod logs;
 mod model_cache;
 
-mod sessions;
-mod settings;
+pub mod sessions;
+pub mod settings;
 mod skills;
 mod user_profile;
 mod web_fetcher;
