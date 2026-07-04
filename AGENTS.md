@@ -1624,7 +1624,7 @@ Sequenced by risk, dependency, and blast radius.
 
 ## 🔮 Feature: File Reference Middleware (Option C)
 
-**Status**: Planned — not yet implemented
+**Status**: **Done (v0.4.0)**
 
 ### Concept
 
@@ -1708,7 +1708,7 @@ User message: read the new chat file in my downloads folder?
 
 ## 🔮 Feature: Slash Commands
 
-**Status**: Planned — not yet implemented
+**Status**: **Done (v0.4.0)**
 
 ### Concept
 
@@ -1774,6 +1774,60 @@ User message: can you review this?
 ### Effort
 
 ~4-6 hours. New Svelte component + command service + ChatInput integration + wiring.
+
+---
+
+## 🔮 Feature: Mistral AI Provider
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+Add Mistral AI as a fourth provider alongside DeepSeek, OpenCode Go, and OpenCode Zen. Mistral's API is OpenAI-compatible, making integration straightforward — the existing `stream_chat` function and `ChatRequest` struct need no changes.
+
+### API endpoint
+
+- `https://api.mistral.ai/v1/chat/completions`
+
+### Models
+
+| Model                   | Context | Notes                                      |
+| ----------------------- | ------- | ------------------------------------------ |
+| `mistral-large-latest`  | 128K    | Flagship, best for complex tasks           |
+| `mistral-medium-latest` | 32K     | Balanced cost/performance                  |
+| `mistral-small-latest`  | 32K     | Fast, lightweight                          |
+| `codestral-latest`      | 256K    | Code-optimized, fill-in-the-middle support |
+| `pixtral-large-latest`  | 128K    | Vision model, image understanding          |
+| `ministral-8b-latest`   | 128K    | On-device friendly, open-weight            |
+
+### Backend changes
+
+| File             | Change                                                                                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `api.rs`         | Add `"mistral" => "https://api.mistral.ai/v1/chat/completions"` to `provider_endpoint`                                                                 |
+| `model_cache.rs` | Add `Mistral` variant to `Provider` enum with `as_str()` → `"mistral"`, `api_url()` → `"https://api.mistral.ai/v1/models"`, `default_models()` entries |
+| `model_cache.rs` | Add `"mistral-"` → `"Mistral"` to `categorize_model`                                                                                                   |
+| `settings.rs`    | No changes — API key stored as `api_key_mistral`, encryption/decryption is generic                                                                     |
+
+### Frontend changes
+
+| File                    | Change                                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------ |
+| `providers.ts`          | Add Mistral entry: `id: "mistral"`, `name: "Mistral AI"`, `defaultModel: "mistral-large-latest"` |
+| `settings/+page.svelte` | Add Mistral API key input + test connection button                                               |
+| `i18n` (all 10 locales) | Add `mistral: "Mistral AI"` key to providers namespace                                           |
+
+### No changes needed
+
+- `api.rs::stream_chat` — uses `provider_endpoint()` dynamically, already API-compatible
+- `ChatInput.svelte`, `ProviderSelector.svelte` — render from `PROVIDERS` record automatically
+- `context.rs` — add `get_model_limit` entry for `mistral-*` (128K) and `codestral-*` (256K)
+
+### Effort
+
+~1.5 hours. Four source file edits + model list + 10 i18n keys.
+
+---
 
 ---
 
