@@ -1829,6 +1829,184 @@ Add Mistral AI as a fourth provider alongside DeepSeek, OpenCode Go, and OpenCod
 
 ---
 
+## 🔮 Feature: Custom OpenAI-Compatible Provider
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+Let users add any OpenAI-compatible endpoint (Ollama, LM Studio, Groq, Together AI, etc.) with a custom URL and API key. No backend changes to the streaming logic — reuse the existing OpenAI-compatible chat completions format.
+
+### Backend changes
+
+| File             | Change                                                                                                                                       |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `api.rs`         | Add `"custom"` entry to `provider_endpoint` — reads URL from DB setting `custom_api_endpoint`                                                |
+| `model_cache.rs` | Add `Custom` variant to `Provider` enum with `as_str()` → `"custom"`, `api_url()` → reads from DB, `default_models()` → single generic model |
+| `settings.rs`    | No changes — API key stored as `api_key_custom`, endpoint stored as `custom_api_endpoint`                                                    |
+
+### Frontend changes
+
+| File                    | Change                                                                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------ |
+| `providers.ts`          | Add Custom entry: `id: "custom"`, `name: "Custom (OpenAI-compatible)"`, editable URL field |
+| `settings/+page.svelte` | Custom provider section: API key + endpoint URL input fields                               |
+| `i18n` (all 10 locales) | Add `custom: "Custom"` key to providers namespace                                          |
+
+### No changes needed
+
+- `api.rs::stream_chat` — uses `provider_endpoint()` dynamically, OpenAI-compatible format
+- `ChatInput.svelte`, `ProviderSelector.svelte` — render from `PROVIDERS` record automatically
+
+### Effort
+
+~1 hour. Three source file edits + 10 i18n keys.
+
+---
+
+## 🔮 Feature: System Notification on Completion
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+When a streaming response completes while Clutch is in the background or minimized to the tray, fire a native OS notification with a preview of the response. Uses `tauri-plugin-notification`.
+
+### Changes
+
+| File                           | Change                                                                             |
+| ------------------------------ | ---------------------------------------------------------------------------------- |
+| `Cargo.toml`                   | Add `tauri-plugin-notification = "2"`                                              |
+| `lib.rs`                       | Register notification plugin + `send_completion_notification` command              |
+| `api.ts` / `chat/+page.svelte` | On stream complete, call `invoke('send_completion_notification', { title, body })` |
+| `capabilities/default.json`    | Add `"notification:default"` permission                                            |
+
+### Effort
+
+~30 minutes. Two Rust changes + two frontend lines + capability config.
+
+---
+
+## 🔮 Feature: Prompt Library
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+Save, name, and reuse system prompts and message templates. Browse and insert from a dropdown in the chat input or via `/prompt` slash command.
+
+### Changes
+
+| File                                     | Change                                                                                       |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Migration `010_prompt_library.sql`       | New table: `prompts (id TEXT PK, name TEXT, content TEXT, category TEXT, created_at TEXT)`   |
+| `src-tauri/src/prompts.rs`               | New — CRUD Tauri commands: `list_prompts`, `create_prompt`, `update_prompt`, `delete_prompt` |
+| `lib.rs`                                 | Register `mod prompts` + invoke handler                                                      |
+| `src/lib/services/prompts.ts`            | New — frontend service wrapping invoke calls                                                 |
+| `src/lib/components/PromptPicker.svelte` | New — modal/dropdown to browse, search, and insert saved prompts                             |
+| `ChatInput.svelte`                       | Add prompt picker button near the attach button                                              |
+| i18n (all 10 locales)                    | ~6 keys: savePrompt, deletePrompt, promptLibrary, etc.                                       |
+
+### Effort
+
+~3 hours. New migration + new Rust module + new Svelte component + ChatInput integration.
+
+---
+
+## 🔮 Feature: Chat Import
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+Import conversations from ChatGPT exports (JSON), Claude exports, or plain markdown files. Parsed messages are inserted as new sessions in the database.
+
+### Changes
+
+| File                                 | Change                                                                                                                                  |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `src-tauri/src/import.rs`            | New — `import_chatgpt_json`, `import_claude_json`, `import_markdown` commands. Parse external formats, create sessions + messages in DB |
+| `lib.rs`                             | Register `mod import`                                                                                                                   |
+| `src/lib/services/import.ts`         | New — invokes import commands, shows progress feedback                                                                                  |
+| `settings/+page.svelte` or new route | Import section: file picker (tauri dialog), format selector, import button                                                              |
+| i18n (all 10 locales)                | ~4 keys: importChat, importSuccess, importFailed, etc.                                                                                  |
+
+### Effort
+
+~4 hours. New Rust module + new frontend service + settings UI integration.
+
+---
+
+## 🔮 Feature: Image Paste/Drag
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+Paste or drag images into chat for vision-capable models (GPT-4V, Claude Vision, Pixtral). Images are base64-encoded and included in the API request as vision content blocks.
+
+### Changes
+
+| File                 | Change                                                                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ChatInput.svelte`   | Accept `image/*` in file drop handler. Show image preview thumbnails                                                                                                           |
+| `api.ts` / `api.rs`  | Extend `ChatMessage` with optional `images: Vec<String>` (base64). Format as `content: [{type: "image_url", image_url: {url: "data:image/png;base64,..."}}]` for vision models |
+| `DropZone.svelte`    | Add image preview rendering                                                                                                                                                    |
+| `ChatMessage.svelte` | Render user-uploaded images in chat bubbles                                                                                                                                    |
+
+### Effort
+
+~3 hours. Extend existing chat message model + ChatInput drag/drop + DropZone preview.
+
+---
+
+## 🔮 Feature: Conversation Branching
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+At any assistant message, click "Branch" to fork the conversation — continuing down a different path without losing the original thread. Each branch becomes its own session linked to the parent.
+
+### Changes
+
+| File                          | Change                                                                                                                      |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Migration `011_branching.sql` | Add `parent_message_id TEXT` column to `messages` table                                                                     |
+| `sessions.rs`                 | Add `fork_session(session_id, branch_point_message_id)` — clones session + messages up to branch point, creates new session |
+| `src/lib/stores/chat.ts`      | Add branch state: when viewing a branch, show diverged path indicator                                                       |
+| `ChatMessage.svelte`          | Add "Branch" (GitFork icon) button on assistant messages. On click → fork + navigate to new session                         |
+| `SessionSidebar.svelte`       | Show branched sessions with visual indicator (tree icon, slight indent)                                                     |
+
+### Effort
+
+~5 hours. New migration + sessions.rs extension + store + UI component changes.
+
+---
+
+## 🔮 Feature: Agent Mode / Tool Use
+
+**Status**: Planned — not yet implemented
+
+### Concept
+
+Let the AI run shell commands, read/write files, and execute multi-step tasks autonomously — with user confirmation gating for destructive actions. Uses OpenAI function-calling format to parse tool calls from the LLM, executes them locally, and feeds results back in an agent loop.
+
+### Changes
+
+| File                                  | Change                                                                                                                                                                            |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src-tauri/src/agent.rs`              | New — agent loop: receive prompt → send to LLM → parse tool calls → execute (read_file, write_file, list_dir, run_command via skills) → send results back → repeat until complete |
+| `api.rs`                              | Extend `stream_chat` to accept `tools` parameter (OpenAI function-calling format)                                                                                                 |
+| `skills.rs`                           | Reuse existing `execute_skill_action` for agent tool execution. Add `run_command` sandboxing with user confirmation gating                                                        |
+| `src/lib/components/AgentMode.svelte` | New — agent activity panel: shows tool calls in real-time, step-by-step progress, confirmation prompts for destructive actions                                                    |
+| `chat/+page.svelte`                   | Toggle button to enable agent mode. Agent messages render with expandable tool-call sections                                                                                      |
+| `context.rs`                          | Agent loops may benefit from a larger `keep_last` default for context trimming                                                                                                    |
+
+### Effort
+
+~10 hours. New Rust module (agent loop) + api.rs tools extension + new Svelte component + chat page toggle.
+
 ---
 
 ## 🧪 Backend Test Coverage Progress
