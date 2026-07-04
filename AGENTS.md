@@ -1789,7 +1789,7 @@ User message: can you review this?
 | `settings.rs` | 4         | `get_all_settings`, API key filtering, defaults, overwrites   |
 | **Subtotal**  | **24**    | Now 108 total tests                                           |
 
-### P2 — Comprehensive Coverage (In Progress)
+### P2 — Comprehensive Coverage (Done)
 
 | Wave | File               | Tests | Status | Notes                                                        |
 | ---- | ------------------ | ----- | ------ | ------------------------------------------------------------ |
