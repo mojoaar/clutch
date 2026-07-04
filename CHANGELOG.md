@@ -5,6 +5,13 @@ All notable changes to Clutch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.3] - 2026-07-03
+
+### Added
+
+- Dynamic option menus for `/skill` command — select from currently installed skills dynamically instead of typing manually
+- Fully updated documentation (website, README, slash commands docs page) to reflect the new dynamic option menu mappings
+
 ## [0.5.2] - 2026-07-03
 
 ### Added

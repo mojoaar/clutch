@@ -17,6 +17,7 @@ import { createNewSession } from '$lib/services/sessions';
   import { themeName } from '$lib/stores/theme';
   import { themes } from '$lib/themes';
   import { addWorkspace } from '$lib/services/workspaces';
+  import { listInstalledSkills } from '$lib/services/skills';
   import {
     Archive,
     Trash2,
@@ -70,11 +71,20 @@ import { createNewSession } from '$lib/services/sessions';
 
 
   let availableModels = $state<string[]>([]);
+  let installedSkills = $state<any[]>([]);
   let configured = $state(false);
   let loadedMessagesFor = $state('');
   let contextLimit = $state(8192);
   let sidebarWidth = $state(260);
   let isResizing = $state(false);
+
+  $effect(() => {
+    listInstalledSkills().then((skills) => {
+      installedSkills = skills;
+    }).catch((e) => {
+      console.error('Failed to load installed skills:', e);
+    });
+  });
 
   $effect(() => {
     const sid = $chatStore.activeSessionId;
@@ -389,6 +399,10 @@ import { createNewSession } from '$lib/services/sessions';
         label: name.charAt(0).toUpperCase() + name.slice(1),
         value: name,
       }));
+    }
+    if (commandId === 'skill') {
+      if (installedSkills.length === 0) return null;
+      return installedSkills.map((s) => ({ label: s.name, value: s.id }));
     }
     return null;
   }

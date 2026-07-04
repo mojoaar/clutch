@@ -1,6 +1,6 @@
 [package]
 name = "clutch"
-version = "0.5.2"
+version = "0.5.3"
 description = "Grab the conversation"
 authors = ["Clutch"]
 license = "AGPL-3.0"
