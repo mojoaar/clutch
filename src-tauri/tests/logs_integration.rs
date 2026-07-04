@@ -1,5 +1,8 @@
+static SERIAL_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
 #[tokio::test]
 async fn get_logs_returns_list_of_log_files() {
+    let _guard = SERIAL_LOCK.lock().unwrap();
     let dir = tempfile::tempdir().unwrap();
     let log_dir = dir.path().join(".clutch").join("logs");
     tokio::fs::create_dir_all(&log_dir).await.unwrap();
@@ -26,6 +29,7 @@ async fn get_logs_returns_list_of_log_files() {
 
 #[tokio::test]
 async fn get_logs_retrieves_specific_file() {
+    let _guard = SERIAL_LOCK.lock().unwrap();
     let dir = tempfile::tempdir().unwrap();
     let log_dir = dir.path().join(".clutch").join("logs");
     tokio::fs::create_dir_all(&log_dir).await.unwrap();
@@ -43,6 +47,7 @@ async fn get_logs_retrieves_specific_file() {
 
 #[tokio::test]
 async fn get_logs_empty_directory_graceful() {
+    let _guard = SERIAL_LOCK.lock().unwrap();
     let dir = tempfile::tempdir().unwrap();
     let log_dir = dir.path().join(".clutch").join("logs");
     tokio::fs::create_dir_all(&log_dir).await.unwrap();
@@ -57,6 +62,7 @@ async fn get_logs_empty_directory_graceful() {
 
 #[tokio::test]
 async fn get_logs_traversal_blocked_by_security() {
+    let _guard = SERIAL_LOCK.lock().unwrap();
     let dir = tempfile::tempdir().unwrap();
     let log_dir = dir.path().join(".clutch").join("logs");
     tokio::fs::create_dir_all(&log_dir).await.unwrap();

@@ -540,7 +540,19 @@ import { createNewSession } from '$lib/services/sessions';
       case 'skill': {
         const skillName = args[0];
         if (skillName) {
-          await handleSend(`/skill ${skillName}`, []);
+          try {
+            const instructions = await invoke<string>('get_skill_instructions', { id: skillName });
+            const prompt = `/skill ${skillName}\n\n[Skill Instructions: ${skillName}]\n${instructions}\n---\nLoaded skill: ${skillName}`;
+            await handleSend(prompt, []);
+          } catch (e: any) {
+            chatStore.addMessage({
+              id: uuid(),
+              sessionId: $chatStore.activeSessionId ?? '',
+              role: 'system',
+              content: `Failed to load skill instructions: ${e?.message ?? e}`,
+              createdAt: new Date().toISOString(),
+            });
+          }
         }
         break;
       }

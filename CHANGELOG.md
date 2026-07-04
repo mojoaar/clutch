@@ -5,6 +5,13 @@ All notable changes to Clutch will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.4] - 2026-07-04
+
+### Fixed
+
+- Intercepted `/skill` execution: Now fetches and injects `SKILL.md` instructions from local disk into the conversation context correctly.
+- Logs concurrency race: Added Mutex `SERIAL_LOCK` to `tests/logs_integration.rs` to run log tests sequentially, eliminating the CI race condition completely.
+
 ## [0.5.3] - 2026-07-03
 
 ### Added
